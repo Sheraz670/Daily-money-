@@ -1,36 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profit and Loss Calculator | US Daily Money Tools</title>
-<meta name="description" content="Calculate profit or loss amount and percentage from cost and selling price.">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/profit-loss-calculator/">
-<meta property="og:title" content="Profit and Loss Calculator | US Daily Money Tools">
-<meta property="og:description" content="Calculate profit or loss amount and percentage from cost and selling price.">
-<meta property="og:url" content="https://daily-money-taupe.vercel.app/profit-loss-calculator/">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#10213b">
-<meta name="google-adsense-account" content="ca-pub-9814801377853790">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Profit and Loss Calculator", "description": "Calculate profit or loss amount and percentage from cost and selling price.", "url": "https://daily-money-taupe.vercel.app/profit-loss-calculator/", "isPartOf": {"@type": "WebSite", "name": "US Daily Money Tools", "url": "https://daily-money-taupe.vercel.app/"}}</script>
-<link rel="stylesheet" href="/assets/styles.css">
-</head><body data-calc="profit-loss-calculator"><header><div class="nav">
-<a class="brand" href="/">US Daily Money Tools</a>
-<nav class="navlinks" aria-label="Main navigation">
-<a href="/">Home</a><a href="/money-calculators/">Money</a><a href="/salary-calculators/">Salary</a><a href="/tax-calculators/">Tax</a><a href="/math-calculators/">Math</a><a href="/date-calculators/">Date & Time</a>
-</nav></div></header><main class="wrap">
-<div class="breadcrumbs"><a href="/">Home</a> / Money / Profit and Loss Calculator</div>
-<section class="content"><span class="pill">Money calculator</span><h1>Profit and Loss Calculator</h1><p>Check whether a sale produces a profit or loss. Enter the total cost and selling price. The percentage is measured against cost, which is the common basis for profit and loss calculations.</p></section>
-<div class="tool-layout" style="margin-top:22px">
-<section class="panel"><h2>Enter your numbers</h2><form id="calc-form"><div class="fields"><div class="field"><label for="cost">Cost price ($)</label><input id="cost" type="number" inputmode="decimal" min="0" step="any" value="40" required></div>
-<div class="field"><label for="selling">Selling price ($)</label><input id="selling" type="number" inputmode="decimal" min="0" step="any" value="55" required></div></div><div style="margin-top:18px"><button class="btn" type="submit">Calculate result</button> <button class="btn" type="reset" style="background:#526174" onclick="setTimeout(calculate,0)">Reset</button></div></form><div id="result" class="result" aria-live="polite"><span>Result</span><strong>Enter values above</strong><p>Your estimate will appear here.</p></div><p class="note">Your calculations run in this browser. Do not enter sensitive personal or financial account information.</p></section>
-<aside class="panel"><h2>Formula</h2><p>Profit or loss = selling price − cost. Profit/loss percentage = (profit or loss ÷ cost) × 100.</p><h2>Worked example</h2><p>If an item costs $40 and sells for $55, the profit is $15 and the profit percentage is 37.5%.</p><h2>How to use this tool</h2><ol><li>Enter values that match your situation.</li><li>Select <strong>Calculate result</strong>.</li><li>Review the estimate and its limitations before making a decision.</li></ol></aside>
-</div>
-<section class="content panel" style="margin-top:22px"><h2>What this result means</h2><p>Check whether a sale produces a profit or loss. Enter the total cost and selling price. The percentage is measured against cost, which is the common basis for profit and loss calculations.</p><h2>Method and assumptions</h2><p>Profit or loss = selling price − cost. Profit/loss percentage = (profit or loss ÷ cost) × 100. The calculator uses the values you provide. It does not automatically verify current local rules, fees, or institution-specific requirements.</p><h2>Example you can check</h2><p>If an item costs $40 and sells for $55, the profit is $15 and the profit percentage is 37.5%.</p><h2>Frequently asked questions</h2><h3>Is this result guaranteed to be exact?</h3><p>The arithmetic follows the formula shown, but the result is only as accurate as your inputs and the assumptions. Some real-world costs and rules are not included.</p><h3>Does this tool save my information?</h3><p>This page calculates in your browser and does not submit the values to a calculator server. Hosting, analytics, or third-party services may have their own technical logs and policies; see our <a href="/privacy-policy/">Privacy Policy</a>.</p><h3>Can I use this for official decisions?</h3><p>Use it for general planning only. Confirm important tax, loan, payroll, medical, or academic decisions with the appropriate official source or qualified professional.</p>
-<p>Related tools: <a href="/percentage-calculator/">Percentage Calculator</a> · <a href="/discount-calculator/">Discount Calculator</a> · <a href="/loan-payment-calculator/">Loan Payment Calculator</a></p></section>
-</main><footer><div class="footer-inner"><div class="footer-grid">
-<div><h2>US Daily Money Tools</h2><p class="small">Free everyday calculators with clear formulas, worked examples, and practical limitations. Results are estimates for educational use.</p><p class="small">© 2026 US Daily Money Tools</p></div>
-<div><h3>Popular tools</h3><ul><li><a href="/tip-calculator/">Tip Calculator</a></li><li><a href="/loan-payment-calculator/">Loan Payment Calculator</a></li><li><a href="/percentage-calculator/">Percentage Calculator</a></li><li><a href="/age-calculator/">Age Calculator</a></li></ul></div>
-<div><h3>Information</h3><ul><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy-policy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Use</a></li><li><a href="/disclaimer/">Disclaimer</a></li></ul></div>
-</div><p class="small">Financial, tax, and health calculations are estimates and are not professional advice. Verify important decisions with a qualified professional or relevant official source.</p></div></footer><script src="/assets/calculator.js" defer></script></body></html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Daily Money Tools - Free Online Calculators</title>
+  <meta name="description" content="Use free online calculators for tips, discounts, salary, overtime, taxes, loans, age, dates, BMI, profit and loss, and GPA.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/">
+
+  <meta name="google-adsense-account" content="ca-pub-9814801377853790">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #202938;
+      line-height: 1.6;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      padding: 25px 16px;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 8px; }
+    nav {
+      background: white;
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    nav a {
+      display: inline-block;
+      margin: 5px 9px;
+      color: #123b70;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 22px 15px;
+    }
+    .intro, .category, .info {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px #00000008;
+    }
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .tool {
+      display: block;
+      background: white;
+      border: 1px solid #e1e6ef;
+      border-radius: 12px;
+      padding: 17px;
+      color: #202938;
+      text-decoration: none;
+    }
+    .tool:hover { border-color: #2468b4; }
+    .tool h3 { color: #15539a; margin: 0 0 8px; }
+    footer {
+      text-align: center;
+      background: #123b70;
+      color: white;
+      padding: 22px 12px;
+      margin-top: 25px;
+    }
+    footer a { color: white; margin: 5px 8px; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Daily Money Tools</h1>
+    <p>Simple, useful and free online calculators</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#money">Money</a>
+    <a href="#salary">Salary</a>
+    <a href="#math">Math</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <section class="intro">
+      <h2>Free Online Calculators for Everyday Life</h2>
+      <p>
+        Welcome to Daily Money Tools. Our website helps you make everyday
+        calculations quickly and easily. Explore calculators for personal
+        finance, salary estimates, discounts, dates, health measurements
+        and education.
+      </p>
+      <p>
+        Enter your information into a calculator to get an estimate.
+        Results may vary depending on your circumstances and local rules.
+      </p>
+    </section>
+
+    <section class="category" id="money">
+      <h2>Money Calculators</h2>
+      <div class="tools">
+        <a class="tool" href="tip-calculator.html">
+          <h3>Tip Calculator</h3>
+          <p>Estimate a tip and split a restaurant bill.</p>
+        </a>
+        <a class="tool" href="discount-calculator.html">
+          <h3>Discount Calculator</h3>
+          <p>Calculate sale prices and savings.</p>
+        </a>
+        <a class="tool" href="percentage-calculator.html">
+          <h3>Percentage Calculator</h3>
+          <p>Calculate percentages and percentage changes.</p>
+        </a>
+        <a class="tool" href="loan-payment-calculator.html">
+          <h3>Loan Payment Calculator</h3>
+          <p>Estimate monthly loan payments and total interest.</p>
+        </a>
+        <a class="tool" href="sales-tax-calculator.html">
+          <h3>Sales Tax Calculator</h3>
+          <p>Estimate tax and the total price.</p>
+        </a>
+        <a class="tool" href="profit-loss-calculator.html">
+          <h3>Profit and Loss Calculator</h3>
+          <p>Compare cost and selling prices.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="category" id="salary">
+      <h2>Salary and Work Calculators</h2>
+      <div class="tools">
+        <a class="tool" href="hourly-to-salary-calculator.html">
+          <h3>Hourly to Salary Calculator</h3>
+          <p>Estimate annual income from hourly pay.</p>
+        </a>
+        <a class="tool" href="salary-to-hourly-calculator.html">
+          <h3>Salary to Hourly Calculator</h3>
+          <p>Estimate hourly earnings from a salary.</p>
+        </a>
+        <a class="tool" href="overtime-calculator.html">
+          <h3>Overtime Calculator</h3>
+          <p>Estimate overtime earnings.</p>
+        </a>
+        <a class="tool" href="paycheck-calculator.html">
+          <h3>Paycheck Calculator</h3>
+          <p>Estimate take-home pay using your entered deductions.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="category" id="math">
+      <h2>Math, Date and Other Calculators</h2>
+      <div class="tools">
+        <a class="tool" href="age-calculator.html">
+          <h3>Age Calculator</h3>
+          <p>Calculate age from a date of birth.</p>
+        </a>
+        <a class="tool" href="date-calculator.html">
+          <h3>Date Calculator</h3>
+          <p>Calculate the days between dates.</p>
+        </a>
+        <a class="tool" href="bmi-calculator.html">
+          <h3>BMI Calculator</h3>
+          <p>Calculate body mass index using metric measurements.</p>
+        </a>
+        <a class="tool" href="gpa-calculator.html">
+          <h3>GPA Calculator</h3>
+          <p>Estimate a grade point average.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="info">
+      <h2>How to Use Our Calculators</h2>
+      <p>
+        Choose a calculator, enter the requested values and review the result.
+        Check your inputs before relying on an estimate. Financial calculations
+        are for general information and are not professional financial or tax advice.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Daily Money Tools</p>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </footer>
+</body>
+</html>
