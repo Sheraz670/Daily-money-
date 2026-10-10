@@ -1,148 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Loan Payment Calculator — Daily Money</title>
-<meta name="description" content="Estimate monthly loan payments, total interest, and total repayment with this free loan payment calculator.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/loan-payment-calculator.html">
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
-header{background:#123b70;color:white;text-align:center;padding:22px 15px}
-header h1{margin:0;font-size:28px}
-nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
-nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
-h2{font-size:21px;margin-top:0}
-label{display:block;font-weight:bold;margin:14px 0 5px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
-button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#10539c}
-.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
-.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
-.result-row:last-child{border:0}
-.note{font-size:14px;color:#596579}
-footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
-footer a{color:#174d8c;margin:5px;text-decoration:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loan Payment Calculator – Monthly Payments and Interest | Daily Money</title>
+  <meta name="description" content="Estimate monthly loan payments, total repayment, and total interest using your loan amount, annual interest rate, and repayment term.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/loan-payment-calculator.html">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f7fb; color: #263244; line-height: 1.7; }
+    header { background: #123b70; color: white; text-align: center; padding: 28px 16px; }
+    main { max-width: 850px; margin: 24px auto; padding: 0 15px; }
+    section { background: white; padding: 22px; margin-bottom: 20px; border: 1px solid #e0e6ef; border-radius: 12px; }
+    h2 { color: #123b70; margin-top: 0; }
+    label { display: block; font-weight: bold; margin: 12px 0 5px; }
+    input, select, button { width: 100%; padding: 12px; min-height: 44px; border: 1px solid #bdc9d8; border-radius: 7px; font-size: 16px; }
+    button { background: #1769c2; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 16px; }
+    button:hover { background: #10549d; }
+    #result { margin-top: 18px; padding: 16px; background: #eaf4ff; border-radius: 8px; overflow-wrap: anywhere; }
+    .note { color: #536174; font-size: 14px; }
+    a { color: #1769c2; }
+    footer { text-align: center; padding: 24px 15px; background: #e8edf4; }
+    footer a { display: inline-block; margin: 4px 7px; }
+  </style>
 </head>
-
 <body>
 <header>
-<h1>Loan Payment Calculator</h1>
-<p>Estimate monthly payments and total loan costs</p>
+  <h1>Loan Payment Calculator</h1>
+  <p>Estimate your monthly loan payment, total interest, and total repayment.</p>
 </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="percentage-calculator.html">Percentage</a>
-<a href="profit-loss-calculator.html">Profit &amp; Loss</a>
-<a href="about.html">About</a>
-</nav>
-
 <main>
-<section class="card">
-<h2>Calculate Your Loan Payment</h2>
+  <section>
+    <h2>Calculate Your Loan</h2>
+    <label for="amount">Loan Amount</label>
+    <input id="amount" type="number" min="0.01" step="any" value="10000">
 
-<form id="loanForm">
-<label for="loanAmount">Loan Amount ($)</label>
-<input id="loanAmount" type="number" min="0.01" step="any" placeholder="Example: 20000" required>
+    <label for="rate">Annual Interest Rate (%)</label>
+    <input id="rate" type="number" min="0" step="any" value="6">
 
-<label for="interestRate">Annual Interest Rate (%)</label>
-<input id="interestRate" type="number" min="0" max="100" step="any" value="6.5" required>
+    <label for="years">Loan Term (Years)</label>
+    <input id="years" type="number" min="0.01" max="100" step="any" value="5">
 
-<label for="loanTerm">Loan Term (Years)</label>
-<input id="loanTerm" type="number" min="1" max="100" step="1" value="5" required>
+    <label for="currency">Currency Symbol</label>
+    <select id="currency">
+      <option value="$">US Dollar ($)</option>
+      <option value="£">British Pound (£)</option>
+      <option value="€">Euro (€)</option>
+      <option value="Rs ">Pakistani Rupee (Rs)</option>
+      <option value="₹">Indian Rupee (₹)</option>
+      <option value="C$">Canadian Dollar (C$)</option>
+      <option value="A$">Australian Dollar (A$)</option>
+    </select>
 
-<button type="submit">Calculate Loan Payment</button>
-</form>
+    <button type="button" onclick="calculateLoan()">Calculate Payment</button>
+    <div id="result" aria-live="polite">Your loan estimate will appear here.</div>
+    <p class="note">This is an estimate for a fixed-rate loan with monthly payments. Fees, taxes, insurance, and lender-specific rules are not included.</p>
+  </section>
 
-<div id="results" class="results" aria-live="polite">
-<h2>Your Loan Estimate</h2>
-<div class="result-row"><span>Monthly payment</span><strong id="monthlyPayment">$0.00</strong></div>
-<div class="result-row"><span>Total payments</span><strong id="totalPayments">$0.00</strong></div>
-<div class="result-row"><span>Total interest</span><strong id="totalInterest">$0.00</strong></div>
-<div class="result-row"><span>Loan amount</span><strong id="principalResult">$0.00</strong></div>
-</div>
+  <section>
+    <h2>How Loan Payments Are Calculated</h2>
+    <p>A typical fixed-rate loan payment depends on the amount borrowed, monthly interest rate, and number of monthly payments.</p>
+    <p><strong>Formula:</strong> Payment = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1)</p>
+    <p>Here, P is the principal, r is the monthly interest rate expressed as a decimal, and n is the total number of monthly payments. If the interest rate is zero, the principal is divided equally across all payments.</p>
+  </section>
 
-<p id="error" class="note" role="alert"></p>
-</section>
+  <section>
+    <h2>Example Loan Estimate</h2>
+    <p>For a $10,000 loan at a 6% annual interest rate over five years, the estimated monthly payment is about $193.33. Actual amounts may differ slightly due to rounding and lender terms.</p>
+  </section>
 
-<section class="card">
-<h2>How Is a Loan Payment Calculated?</h2>
-<p>For a standard fixed-rate loan with monthly payments, the monthly payment depends on the amount borrowed, the monthly interest rate, and the number of payments.</p>
-<p>When the interest rate is greater than zero, the calculator uses the standard amortizing-loan payment formula. When the interest rate is zero, it divides the loan amount equally across all monthly payments.</p>
+  <section>
+    <h2>Frequently Asked Questions</h2>
+    <h3>Does the payment include every loan cost?</h3>
+    <p>No. The estimate covers principal and interest only. Origination fees, insurance, taxes, and other charges may increase the amount you pay.</p>
+    <h3>What happens if the interest rate is zero?</h3>
+    <p>The loan amount is divided by the total number of monthly payments, so no interest is added.</p>
+    <h3>Can my actual payment be different?</h3>
+    <p>Yes. Lenders may use different payment schedules, fees, compounding rules, or rounding methods. Check your loan agreement for the exact figures.</p>
+  </section>
 
-<h2>Example</h2>
-<p>For a $20,000 loan over five years at a fixed annual interest rate of 6.5%, the calculator estimates the monthly payment and the total interest paid over 60 payments.</p>
-
-<h2>What Is Not Included?</h2>
-<p>This estimate does not include lender fees, insurance, taxes, variable interest rates, or extra payments. Your lender's actual repayment schedule may differ.</p>
-
-<h2>Frequently Asked Question</h2>
-<p><strong>Does a longer loan term reduce the monthly payment?</strong><br>Usually, yes. However, a longer term can increase the total interest paid over the life of the loan.</p>
-</section>
+  <section>
+    <h2>More Free Calculators</h2>
+    <ul>
+      <li><a href="index.html">All Calculators</a></li>
+      <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+      <li><a href="salary-to-hourly-calculator.html">Salary to Hourly Calculator</a></li>
+      <li><a href="discount-calculator.html">Discount Calculator</a></li>
+    </ul>
+  </section>
 </main>
 
 <footer>
-<p>© 2026 Daily Money</p>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-<a href="disclaimer.html">Disclaimer</a>
+  <p>Daily Money – Free Online Calculators</p>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
 </footer>
 
 <script>
-document.getElementById("loanForm").addEventListener("submit",function(event){
-  event.preventDefault();
+function calculateLoan() {
+  const amount = Number(document.getElementById("amount").value);
+  const annualRate = Number(document.getElementById("rate").value);
+  const years = Number(document.getElementById("years").value);
+  const currency = document.getElementById("currency").value;
+  const result = document.getElementById("result");
 
-  const principal=Number(document.getElementById("loanAmount").value);
-  const annualRate=Number(document.getElementById("interestRate").value);
-  const years=Number(document.getElementById("loanTerm").value);
-  const error=document.getElementById("error");
-  const results=document.getElementById("results");
-
-  error.textContent="";
-  results.style.display="none";
-
-  if(!Number.isFinite(principal)||principal<=0||
-     !Number.isFinite(annualRate)||annualRate<0||annualRate>100||
-     !Number.isInteger(years)||years<1||years>100){
-    error.textContent="Please enter a valid loan amount, interest rate, and loan term.";
+  if (
+    !Number.isFinite(amount) || amount <= 0 ||
+    !Number.isFinite(annualRate) || annualRate < 0 ||
+    !Number.isFinite(years) || years <= 0 || years > 100
+  ) {
+    result.textContent = "Please enter a loan amount above zero, an interest rate of zero or more, and a term between 0 and 100 years.";
     return;
   }
 
-  const numberOfPayments=years*12;
-  const monthlyRate=annualRate/100/12;
-
-  let payment;
-
-  if(monthlyRate===0){
-    payment=principal/numberOfPayments;
-  }else{
-    const factor=Math.pow(1+monthlyRate,numberOfPayments);
-    payment=principal*(monthlyRate*factor)/(factor-1);
+  const months = Math.round(years * 12);
+  if (months < 1 || months > 1200) {
+    result.textContent = "Please enter a loan term that results in 1 to 1,200 monthly payments.";
+    return;
   }
 
-  const total=payment*numberOfPayments;
-  const interest=total-principal;
+  const monthlyRate = annualRate / 100 / 12;
+  let monthlyPayment;
 
-  const money=value=>value.toLocaleString("en-US",{
-    style:"currency",currency:"USD"
-  });
+  if (monthlyRate === 0) {
+    monthlyPayment = amount / months;
+  } else {
+    const factor = Math.pow(1 + monthlyRate, months);
+    monthlyPayment = amount * monthlyRate * factor / (factor - 1);
+  }
 
-  document.getElementById("monthlyPayment").textContent=money(payment);
-  document.getElementById("totalPayments").textContent=money(total);
-  document.getElementById("totalInterest").textContent=money(interest);
-  document.getElementById("principalResult").textContent=money(principal);
+  const totalPayment = monthlyPayment * months;
+  const totalInterest = totalPayment - amount;
 
-  results.style.display="block";
-});
+  result.innerHTML =
+    "<strong>Estimated Monthly Payment:</strong> " + currency + monthlyPayment.toFixed(2) +
+    "<br><strong>Number of Payments:</strong> " + months +
+    "<br><strong>Total Repayment:</strong> " + currency + totalPayment.toFixed(2) +
+    "<br><strong>Total Interest:</strong> " + currency + Math.max(0, totalInterest).toFixed(2);
+}
+calculateLoan();
 </script>
 </body>
 </html>
