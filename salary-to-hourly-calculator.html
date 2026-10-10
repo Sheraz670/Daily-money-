@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Salary to Hourly Calculator - Convert Annual Pay to Hourly</title>
+  <meta name="description" content="Convert your annual salary into estimated hourly, weekly and monthly pay using this free salary to hourly calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/salary-to-hourly-calculator.html">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      color: #202938;
+      line-height: 1.6;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      text-align: center;
+      padding: 24px 15px;
+    }
+    main {
+      max-width: 720px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px #0000000c;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 14px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input { border: 1px solid #cbd5e1; }
+    button {
+      border: 0;
+      background: #1762ad;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .result {
+      background: #edf7ff;
+      padding: 15px;
+      border-radius: 9px;
+      margin-top: 18px;
+      overflow-wrap: anywhere;
+    }
+    nav, footer { text-align: center; padding: 16px; }
+    footer { background: #123b70; color: white; }
+    footer a { color: white; margin: 5px; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Salary to Hourly Calculator</h1>
+    <p>Convert your salary into estimated hourly pay</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+
+  <main>
+    <section class="card">
+      <h2>Calculate Your Hourly Wage</h2>
+      <p>Enter your annual salary, working hours and working weeks.</p>
+
+      <label for="salary">Annual Salary</label>
+      <input id="salary" type="number" min="0" step="0.01" placeholder="e.g. 52000">
+
+      <label for="hours">Hours Worked per Week</label>
+      <input id="hours" type="number" min="0.1" max="168" step="0.1" value="40">
+
+      <label for="weeks">Working Weeks per Year</label>
+      <input id="weeks" type="number" min="0.1" max="52" step="0.1" value="52">
+
+      <button type="button" onclick="calculateHourly()">Calculate Hourly Pay</button>
+
+      <div id="result" class="result" aria-live="polite">
+        Your estimated hourly wage will appear here.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>How It Works</h2>
+      <p>
+        This calculator divides annual gross salary by the total number of
+        working hours in a year. The result is an estimate before taxes
+        and other deductions.
+      </p>
+
+      <h3>Formula</h3>
+      <p>Total Annual Hours = Hours per Week × Working Weeks per Year</p>
+      <p>Hourly Wage = Annual Salary ÷ Total Annual Hours</p>
+
+      <h3>Example</h3>
+      <p>
+        An annual salary of $52,000, working 40 hours per week for 52 weeks,
+        equals an estimated gross hourly wage of $25.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Is this my take-home hourly pay?</h3>
+      <p>
+        No. The result is gross hourly pay before taxes, insurance and other
+        deductions.
+      </p>
+
+      <h3>Can my hourly rate change?</h3>
+      <p>
+        Yes. The estimate changes when your annual salary, weekly hours
+        or working weeks change.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Daily Money Tools</p>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </footer>
+
+  <script>
+    function calculateHourly() {
+      const salaryText = document.getElementById("salary").value.trim();
+      const hoursText = document.getElementById("hours").value.trim();
+      const weeksText = document.getElementById("weeks").value.trim();
+
+      const salary = Number(salaryText);
+      const hours = Number(hoursText);
+      const weeks = Number(weeksText);
+      const result = document.getElementById("result");
+
+      if (
+        salaryText === "" || hoursText === "" || weeksText === "" ||
+        !Number.isFinite(salary) || !Number.isFinite(hours) ||
+        !Number.isFinite(weeks) ||
+        salary < 0 || hours <= 0 || hours > 168 ||
+        weeks <= 0 || weeks > 52
+      ) {
+        result.textContent =
+          "Enter a valid salary, hours greater than 0 (up to 168), and weeks greater than 0 (up to 52).";
+        return;
+      }
+
+      const annualHours = hours * weeks;
+      const hourly = salary / annualHours;
+      const weekly = salary / weeks;
+      const monthly = salary / 12;
+
+      result.innerHTML = `
+        <p><strong>Estimated Hourly Pay:</strong> ${hourly.toFixed(2)}</p>
+        <p><strong>Estimated Weekly Pay:</strong> ${weekly.toFixed(2)}</p>
+        <p><strong>Estimated Monthly Pay:</strong> ${monthly.toFixed(2)}</p>
+        <p><strong>Annual Gross Salary:</strong> ${salary.toFixed(2)}</p>
+        <p>Estimates are before taxes and other deductions.</p>
+      `;
+    }
+  </script>
+</body>
+</html>
