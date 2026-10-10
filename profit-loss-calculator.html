@@ -1,151 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Profit and Loss Calculator — Daily Money</title>
-<meta name="description" content="Calculate profit, loss, profit margin, and percentage return using this free online profit and loss calculator.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/profit-loss-calculator.html">
+  <title>Profit and Loss Calculator – Calculate Profit, Loss and Margin | Daily Money</title>
+  <meta name="description" content="Calculate profit, loss, profit margin, and percentage return using your cost price and selling price with this free online calculator.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/profit-loss-calculator.html">
 
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
-header{background:#123b70;color:white;text-align:center;padding:22px 15px}
-header h1{margin:0;font-size:28px}
-nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
-nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
-h2{font-size:21px;margin-top:0}
-label{display:block;font-weight:bold;margin:14px 0 5px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
-button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#10539c}
-.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
-.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
-.result-row:last-child{border:0}
-.note{font-size:14px;color:#596579}
-footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
-footer a{color:#174d8c;margin:5px;text-decoration:none}
-</style>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f7fb; color: #263244; line-height: 1.7; }
+    header { background: #123b70; color: white; text-align: center; padding: 28px 16px; }
+    main { max-width: 850px; margin: 24px auto; padding: 0 15px; }
+    section { background: white; padding: 22px; margin-bottom: 20px; border: 1px solid #e0e6ef; border-radius: 12px; }
+    h2 { color: #123b70; margin-top: 0; }
+    label { display: block; font-weight: bold; margin: 12px 0 5px; }
+    input, select, button { width: 100%; padding: 12px; min-height: 44px; border: 1px solid #bdc9d8; border-radius: 7px; font-size: 16px; }
+    button { background: #1769c2; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 16px; }
+    button:hover { background: #10549d; }
+    #result { margin-top: 18px; padding: 16px; background: #eaf4ff; border-radius: 8px; overflow-wrap: anywhere; }
+    .note { color: #536174; font-size: 14px; }
+    a { color: #1769c2; }
+    footer { text-align: center; padding: 24px 15px; background: #e8edf4; }
+    footer a { display: inline-block; margin: 4px 7px; }
+  </style>
 </head>
-
 <body>
 <header>
-<h1>Profit and Loss Calculator</h1>
-<p>Calculate profit, loss, and profit margin</p>
+  <h1>Profit and Loss Calculator</h1>
+  <p>Calculate profit, loss, and profit margin for a sale.</p>
 </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="discount-calculator.html">Discount Calculator</a>
-<a href="percentage-calculator.html">Percentage</a>
-<a href="about.html">About</a>
-</nav>
-
 <main>
-<section class="card">
-<h2>Calculate Profit or Loss</h2>
-<p>Enter your cost price and selling price to estimate your profit or loss.</p>
+  <section>
+    <h2>Calculate Profit or Loss</h2>
 
-<form id="profitForm">
-<label for="costPrice">Total Cost Price ($)</label>
-<input id="costPrice" type="number" min="0" step="any" placeholder="Example: 100" required>
+    <label for="cost">Cost Price</label>
+    <input id="cost" type="number" min="0" step="any" value="80">
 
-<label for="sellingPrice">Total Selling Price ($)</label>
-<input id="sellingPrice" type="number" min="0" step="any" placeholder="Example: 150" required>
+    <label for="selling">Selling Price</label>
+    <input id="selling" type="number" min="0" step="any" value="100">
 
-<label for="extraCosts">Additional Costs ($)</label>
-<input id="extraCosts" type="number" min="0" step="any" value="0" required>
+    <label for="currency">Currency Symbol</label>
+    <select id="currency">
+      <option value="$">US Dollar ($)</option>
+      <option value="£">British Pound (£)</option>
+      <option value="€">Euro (€)</option>
+      <option value="Rs ">Pakistani Rupee (Rs)</option>
+      <option value="₹">Indian Rupee (₹)</option>
+      <option value="C$">Canadian Dollar (C$)</option>
+      <option value="A$">Australian Dollar (A$)</option>
+    </select>
 
-<button type="submit">Calculate Profit or Loss</button>
-</form>
+    <button type="button" onclick="calculateProfitLoss()">Calculate Result</button>
+    <div id="result" aria-live="polite">Your profit or loss result will appear here.</div>
+    <p class="note">This calculator compares the entered cost and selling prices. Extra expenses, fees, and taxes are not included unless you add them to the cost price.</p>
+  </section>
 
-<div id="results" class="results" aria-live="polite">
-<h2>Your Result</h2>
-<div class="result-row"><span>Net cost</span><strong id="netCost">$0.00</strong></div>
-<div class="result-row"><span>Profit / Loss</span><strong id="profitLoss">$0.00</strong></div>
-<div class="result-row"><span>Profit / Loss Percentage</span><strong id="profitPercent">0%</strong></div>
-<div class="result-row"><span>Profit Margin</span><strong id="margin">0%</strong></div>
-<div class="result-row"><span>Result</span><strong id="status">—</strong></div>
-</div>
+  <section>
+    <h2>Profit and Loss Formulas</h2>
+    <p><strong>Profit = Selling Price − Cost Price</strong></p>
+    <p><strong>Loss = Cost Price − Selling Price</strong></p>
+    <p><strong>Profit Margin = (Profit ÷ Selling Price) × 100</strong></p>
+    <p><strong>Profit or Loss Percentage = (Profit or Loss ÷ Cost Price) × 100</strong></p>
+    <p>Profit occurs when the selling price is greater than the cost price. Loss occurs when the selling price is lower than the cost price.</p>
+  </section>
 
-<p id="error" class="note" role="alert"></p>
-</section>
+  <section>
+    <h2>Example</h2>
+    <p>If a product costs $80 and sells for $100, the profit is $20. The profit percentage based on cost is 25%, while the profit margin based on the selling price is 20%.</p>
+  </section>
 
-<section class="card">
-<h2>What Is Profit and Loss?</h2>
-<p>Profit occurs when the selling price is higher than the total cost. A loss occurs when the selling price is lower than the total cost.</p>
+  <section>
+    <h2>How to Use This Calculator</h2>
+    <ol>
+      <li>Enter the total cost of the item.</li>
+      <li>Enter the selling price.</li>
+      <li>Choose a currency symbol.</li>
+      <li>Click Calculate Result to view the profit or loss and percentages.</li>
+    </ol>
+  </section>
 
-<h2>Formulas Used</h2>
-<ul>
-<li><strong>Total cost:</strong> Cost price + additional costs.</li>
-<li><strong>Profit or loss:</strong> Selling price − total cost.</li>
-<li><strong>Profit or loss percentage:</strong> (Profit or loss ÷ total cost) × 100.</li>
-<li><strong>Profit margin:</strong> (Profit ÷ selling price) × 100.</li>
-</ul>
+  <section>
+    <h2>Frequently Asked Questions</h2>
 
-<h2>Example</h2>
-<p>If an item costs $80 and you sell it for $100 with no additional costs, your profit is $20. Your profit percentage based on cost is 25%, while your profit margin based on sales is 20%.</p>
+    <h3>What is the difference between profit margin and profit percentage?</h3>
+    <p>Profit margin uses the selling price as its base. Profit percentage, often called return on cost, uses the cost price as its base. They are different calculations.</p>
 
-<h2>Important Information</h2>
-<p>This calculator provides a simple estimate. For a business, actual profit may also depend on taxes, returns, fees, inventory costs, and other operating expenses.</p>
-</section>
+    <h3>What if the selling price equals the cost price?</h3>
+    <p>The result is break-even: there is no profit or loss before any additional expenses.</p>
+
+    <h3>Can the calculator handle a zero cost price?</h3>
+    <p>Yes. It can show the difference between the selling price and cost, but profit or loss percentage cannot be calculated when the cost price is zero.</p>
+
+    <h3>Does this calculate net profit?</h3>
+    <p>Not automatically. To estimate profit after expenses, include relevant expenses in the cost price before calculating. Tax and accounting rules may require additional calculations.</p>
+  </section>
+
+  <section>
+    <h2>More Free Calculators</h2>
+    <ul>
+      <li><a href="index.html">All Calculators</a></li>
+      <li><a href="sales-tax-calculator.html">Sales Tax Calculator</a></li>
+      <li><a href="discount-calculator.html">Discount Calculator</a></li>
+      <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+      <li><a href="loan-payment-calculator.html">Loan Payment Calculator</a></li>
+    </ul>
+  </section>
 </main>
 
 <footer>
-<p>© 2026 Daily Money</p>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-<a href="disclaimer.html">Disclaimer</a>
+  <p>Daily Money – Free Online Calculators</p>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
 </footer>
 
 <script>
-document.getElementById("profitForm").addEventListener("submit",function(event){
-  event.preventDefault();
+function calculateProfitLoss() {
+  const costInput = document.getElementById("cost");
+  const sellingInput = document.getElementById("selling");
+  const result = document.getElementById("result");
+  const cost = Number(costInput.value);
+  const selling = Number(sellingInput.value);
+  const currency = document.getElementById("currency").value;
 
-  const cost=Number(document.getElementById("costPrice").value);
-  const selling=Number(document.getElementById("sellingPrice").value);
-  const extra=Number(document.getElementById("extraCosts").value);
-
-  const error=document.getElementById("error");
-  const results=document.getElementById("results");
-
-  error.textContent="";
-  results.style.display="none";
-
-  if(!Number.isFinite(cost)||cost<0||
-     !Number.isFinite(selling)||selling<0||
-     !Number.isFinite(extra)||extra<0){
-    error.textContent="Please enter valid amounts greater than or equal to zero.";
+  if (
+    costInput.value.trim() === "" ||
+    sellingInput.value.trim() === "" ||
+    !Number.isFinite(cost) ||
+    !Number.isFinite(selling) ||
+    cost < 0 ||
+    selling < 0
+  ) {
+    result.textContent = "Please enter valid cost and selling prices of zero or more.";
     return;
   }
 
-  const totalCost=cost+extra;
-  const difference=selling-totalCost;
+  const difference = selling - cost;
+  let status;
 
-  const money=value=>value.toLocaleString("en-US",{
-    style:"currency",currency:"USD"
-  });
+  if (difference > 0) {
+    status = "Profit";
+  } else if (difference < 0) {
+    status = "Loss";
+  } else {
+    status = "Break-even";
+  }
 
-  const percent=totalCost>0?(difference/totalCost)*100:null;
-  const margin=selling>0?(difference/selling)*100:null;
+  const absoluteAmount = Math.abs(difference);
+  const percentage = cost > 0 ? (difference / cost) * 100 : null;
+  const margin = selling > 0 ? (difference / selling) * 100 : null;
 
-  document.getElementById("netCost").textContent=money(totalCost);
-  document.getElementById("profitLoss").textContent=
-    (difference>0?"+":difference<0?"−":"")+money(Math.abs(difference));
-  document.getElementById("profitPercent").textContent=
-    percent===null?"Not available (zero cost)":percent.toFixed(2)+"%";
-  document.getElementById("margin").textContent=
-    margin===null?"Not available (zero sales)":margin.toFixed(2)+"%";
-  document.getElementById("status").textContent=
-    difference>0?"Profit":difference<0?"Loss":"Break-even";
+  let html =
+    "<strong>Result:</strong> " + status +
+    "<br><strong>" + (difference >= 0 ? "Profit" : "Loss") +
+    " Amount:</strong> " + currency + absoluteAmount.toFixed(2);
 
-  results.style.display="block";
-});
+  html += percentage === null
+    ? "<br><strong>Profit/Loss Percentage:</strong> Not available when cost is zero"
+    : "<br><strong>Profit/Loss Percentage:</strong> " + percentage.toFixed(2) + "%";
+
+  html += margin === null
+    ? "<br><strong>Profit Margin:</strong> Not available when selling price is zero"
+    : "<br><strong>Profit Margin:</strong> " + margin.toFixed(2) + "%";
+
+  result.innerHTML = html;
+}
+calculateProfitLoss();
 </script>
 </body>
 </html>
