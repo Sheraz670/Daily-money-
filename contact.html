@@ -1,148 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Contact Us — Daily Money</title>
-<meta name="description" content="Contact Daily Money with questions, calculator feedback, website issues, or suggestions for improving our free online tools.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/contact.html">
+  <title>Contact Us | Daily Money</title>
+  <meta name="description" content="Contact Daily Money with questions, feedback, calculator errors, and suggestions for improving our free online calculators.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/contact.html">
 
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.7}
-header{background:#123b70;color:white;text-align:center;padding:25px 15px}
-header h1{margin:0;font-size:30px}
-nav,footer{background:white;text-align:center;padding:14px}
-nav a,footer a{display:inline-block;margin:5px 8px;color:#1769c2;text-decoration:none}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:24px;border-radius:12px;box-shadow:0 3px 12px #0000000d;margin-bottom:20px}
-h2{color:#123b70;font-size:22px}
-label{display:block;font-weight:bold;margin:14px 0 6px}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ccd4df;border-radius:7px;font-size:16px;font-family:Arial,sans-serif}
-textarea{min-height:130px;resize:vertical}
-button{background:#1769c2;color:white;padding:13px 18px;border:0;border-radius:7px;font-size:16px;font-weight:bold;margin-top:16px;cursor:pointer}
-.note{background:#eaf3ff;padding:14px;border-radius:8px}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #263244;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #123b70;
+      color: white;
+      text-align: center;
+      padding: 28px 16px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 24px auto;
+      padding: 0 15px;
+    }
+
+    section {
+      background: white;
+      padding: 22px;
+      margin-bottom: 20px;
+      border: 1px solid #e0e6ef;
+      border-radius: 12px;
+    }
+
+    h2 {
+      color: #123b70;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 12px 0 5px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #bdc9d8;
+      border-radius: 7px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 16px;
+      background: #1769c2;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      min-height: 46px;
+    }
+
+    button:hover {
+      background: #10549d;
+    }
+
+    .note {
+      color: #536174;
+      font-size: 14px;
+    }
+
+    a {
+      color: #1769c2;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 15px;
+      background: #e8edf4;
+    }
+
+    footer a {
+      display: inline-block;
+      margin: 4px 7px;
+    }
+  </style>
 </head>
 
 <body>
-<header>
-<h1>Contact Us</h1>
-<p>We welcome your questions and feedback</p>
-</header>
+  <header>
+    <h1>Contact Us</h1>
+    <p>Questions, feedback, and suggestions are welcome.</p>
+  </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About Us</a>
-<a href="tip-calculator.html">Tip Calculator</a>
-<a href="percentage-calculator.html">Percentage Calculator</a>
-</nav>
+  <main>
+    <section>
+      <h2>Get in Touch</h2>
 
-<main>
-<section class="card">
-<h2>Get in Touch</h2>
-<p>Thank you for visiting Daily Money. If you have a question about our calculators, notice an error, or want to suggest a new feature, we welcome your feedback.</p>
+      <p>
+        Thank you for visiting Daily Money. We welcome your feedback
+        about our calculators, reports of calculation errors, suggestions
+        for new tools, and questions about our website.
+      </p>
 
-<p>You can contact us about:</p>
-<ul>
-<li>Calculator errors or incorrect results.</li>
-<li>Website problems or broken links.</li>
-<li>Suggestions for new calculators.</li>
-<li>General questions and feedback.</li>
-<li>Privacy or website content concerns.</li>
-</ul>
-</section>
+      <p>
+        If you find an issue with a calculator, please explain which
+        calculator you used, the values you entered, and the result you expected.
+      </p>
+    </section>
 
-<section class="card">
-<h2>Send Us a Message</h2>
-<p class="note">This form requires a working email or form-processing service to deliver messages. Until you connect one, you can use the instructions below to publish a real contact method.</p>
+    <section>
+      <h2>Send Us a Message</h2>
 
-<form id="contactForm">
-<label for="name">Your Name</label>
-<input id="name" name="name" type="text" maxlength="100" autocomplete="name" required>
+      <p>
+        Complete the form below to prepare an email using your device's
+        email application.
+      </p>
 
-<label for="email">Your Email Address</label>
-<input id="email" name="email" type="email" maxlength="150" autocomplete="email" required>
+      <form id="contactForm">
+        <label for="name">Your Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          maxlength="100"
+          autocomplete="name"
+          required
+        >
 
-<label for="subject">Subject</label>
-<select id="subject" name="subject" required>
-<option value="">Choose a subject</option>
-<option>Calculator Issue</option>
-<option>Website Feedback</option>
-<option>Feature Suggestion</option>
-<option>Privacy Question</option>
-<option>Other</option>
-</select>
+        <label for="email">Your Email Address</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          maxlength="254"
+          autocomplete="email"
+          required
+        >
 
-<label for="message">Your Message</label>
-<textarea id="message" name="message" maxlength="3000" required></textarea>
+        <label for="subject">Subject</label>
+        <input
+          id="subject"
+          name="subject"
+          type="text"
+          maxlength="150"
+          required
+        >
 
-<button type="submit">Prepare Email</button>
-<p id="formStatus" aria-live="polite"></p>
-</form>
-</section>
+        <label for="message">Your Message</label>
+        <textarea
+          id="message"
+          name="message"
+          maxlength="5000"
+          required
+        ></textarea>
 
-<section class="card">
-<h2>How to Contact Us</h2>
-<p>To receive messages from this form, the website owner must connect a form-processing service or replace the placeholder email address in the script with a real, monitored email address.</p>
-<p>When a real contact method is available, visitors can use it to report problems and ask questions.</p>
-</section>
+        <button type="submit">Open Email App</button>
+      </form>
 
-<section class="card">
-<h2>Other Information</h2>
-<p>Learn more about our website on the <a href="about.html">About Us</a> page.</p>
-<p>Please also read our <a href="privacy-policy.html">Privacy Policy</a>, <a href="terms.html">Terms of Use</a>, and <a href="disclaimer.html">Disclaimer</a>.</p>
-</section>
-</main>
+      <p id="formStatus" class="note" aria-live="polite"></p>
 
-<footer>
-<p>© 2026 Daily Money</p>
-<a href="index.html">Home</a>
-<a href="about.html">About Us</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms of Use</a>
-<a href="disclaimer.html">Disclaimer</a>
-</footer>
+      <p class="note">
+        This form does not send or store messages on this website.
+        It attempts to open an email application on your device.
+        You will need to send the email yourself.
+      </p>
+    </section>
 
-<script>
-document.getElementById("contactForm").addEventListener("submit",function(event){
-  event.preventDefault();
+    <section>
+      <h2>How We Can Help</h2>
 
-  const name=document.getElementById("name").value.trim();
-  const email=document.getElementById("email").value.trim();
-  const subject=document.getElementById("subject").value;
-  const message=document.getElementById("message").value.trim();
-  const status=document.getElementById("formStatus");
+      <ul>
+        <li>Report a calculator error.</li>
+        <li>Suggest a new calculator or feature.</li>
+        <li>Ask a question about website content.</li>
+        <li>Share feedback about usability and accessibility.</li>
+      </ul>
 
-  if(!name||!email||!subject||!message){
-    status.textContent="Please complete all fields.";
-    return;
-  }
+      <p>
+        Please do not include passwords, bank account details, or other
+        sensitive personal information in your message.
+      </p>
+    </section>
 
-  /*
-  Replace YOUR-REAL-EMAIL@example.com below with your
-  actual monitored email address before using this form.
-  */
-  const contactEmail="YOUR-REAL-EMAIL@example.com";
+    <section>
+      <h2>Explore Daily Money</h2>
 
-  if(contactEmail==="YOUR-REAL-EMAIL@example.com"){
-    status.textContent="The contact form is not connected yet. The website owner must add a real email address or connect a form service.";
-    return;
-  }
+      <ul>
+        <li><a href="index.html">Calculator Homepage</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms and Conditions</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </section>
+  </main>
 
-  const body=
-    "Name: "+name+"\n"+
-    "Email: "+email+"\n\n"+
-    "Message:\n"+message;
+  <footer>
+    <p>Daily Money – Free Online Calculators</p>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </footer>
 
-  const mailto="mailto:"+contactEmail+
-    "?subject="+encodeURIComponent(subject)+
-    "&body="+encodeURIComponent(body);
+  <script>
+    document
+      .getElementById("contactForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
 
-  window.location.href=mailto;
-});
-</script>
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const status = document.getElementById("formStatus");
+
+        if (!name || !email || !subject || !message) {
+          status.textContent = "Please complete all fields.";
+          return;
+        }
+
+        const emailBody =
+          "Name: " + name + "\n" +
+          "Reply email: " + email + "\n\n" +
+          "Message:\n" + message;
+
+        const mailto =
+          "mailto:?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(emailBody);
+
+        status.textContent =
+          "Trying to open your email application. If it does not open, use your regular email service.";
+
+        window.location.href = mailto;
+      });
+  </script>
 </body>
-  </html>
+</html>
