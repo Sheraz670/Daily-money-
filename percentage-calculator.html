@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Percentage Calculator — Find Percentages and Changes | Daily Money Tools</title>
+<meta name="description" content="Calculate a percentage of a number, find what percentage one value is of another, and calculate percentage increases or decreases with examples.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/percentage-calculator.html">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263244;line-height:1.7}
+header{background:#123b70;color:#fff;padding:22px 16px}
+header div,main,footer{max-width:850px;margin:auto}
+header h1{margin:0;font-size:28px}
+nav{background:#fff;padding:12px 16px;border-bottom:1px solid #ddd}
+nav div{max-width:850px;margin:auto}
+nav a,footer a{margin-right:14px}
+main{padding:20px 14px}
+section{background:#fff;border:1px solid #e0e6ee;border-radius:12px;padding:20px;margin-bottom:18px}
+h2{color:#123b70;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;font-size:16px}
+button{background:#1769c2;color:#fff;border:0;border-radius:7px;padding:12px 18px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px}
+.result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px}
+.error{color:#b42318;font-weight:bold}
+footer{text-align:center;padding:20px 14px 32px}
+.small{font-size:14px;color:#596579}
+</style>
+</head>
+<body>
+<header><div><h1>Percentage Calculator</h1><p>Calculate percentages, proportions and percentage changes.</p></div></header>
+<nav><div><a href="./">Home</a><a href="discount-calculator.html">Discount Calculator</a><a href="sales-tax-calculator.html">Sales Tax Calculator</a></div></nav><main>
+<section>
+<h2>Calculate a Percentage</h2>
+<p>Choose the type of calculation you need. Enter your values to calculate a percentage, find a proportion, or compare an original value with a new value.</p><form id="percentForm">
+<label for="mode">Calculation type</label>
+<select id="mode">
+<option value="of">What is X% of a number?</option>
+<option value="is">X is what percentage of Y?</option>
+<option value="change">Percentage increase or decrease</option>
+</select><div id="field1Wrap">
+<label id="label1" for="value1">Percentage (%)</label>
+<input id="value1" type="number" step="any" placeholder="e.g. 20" required>
+</div><div id="field2Wrap">
+<label id="label2" for="value2">Number</label>
+<input id="value2" type="number" step="any" placeholder="e.g. 150" required>
+</div><div id="field3Wrap" hidden>
+<label for="value3">New value</label>
+<input id="value3" type="number" step="any" placeholder="e.g. 125">
+</div><button type="submit">Calculate</button>
+<button type="reset" style="background:#596579;margin-left:6px">Reset</button>
+
+<div id="result" class="result" role="status" aria-live="polite" hidden></div>
+</form>
+</section><section>
+<h2>How to Use the Percentage Calculator</h2>
+<ol>
+<li>Select the type of calculation from the menu.</li>
+<li>Enter the requested percentage or numbers.</li>
+<li>Press Calculate to display the result.</li>
+<li>Check the formula and example below if you want to understand the method.</li>
+</ol>
+</section><section>
+<h2>Percentage Formulas</h2>
+<h3>1. Find a percentage of a number</h3>
+<p><strong>Result = (Percentage ÷ 100) × Number</strong></p>
+<p>Example: 20% of 150 = 0.20 × 150 = 30.</p><h3>2. Find what percentage one number is of another</h3>
+<p><strong>Percentage = (Part ÷ Whole) × 100</strong></p>
+<p>Example: 30 is what percentage of 150? The answer is (30 ÷ 150) × 100 = 20%.</p><h3>3. Calculate percentage change</h3>
+<p><strong>Percentage change = ((New value − Original value) ÷ |Original value|) × 100</strong></p>
+<p>Example: A price rises from 100 to 125. The change is (125 − 100) ÷ 100 × 100 = 25% increase.</p>
+<p>If the new value is lower than the original value, the result is a decrease. Percentage change cannot be calculated when the original value is zero.</p>
+</section><section>
+<h2>Where Are Percentages Used?</h2>
+<p>Percentages are used in shopping discounts, sales tax, interest rates, test scores, business reports and budgeting. They help express a proportion relative to 100, making it easier to compare values of different sizes.</p>
+<h3>Percentages and percentage points</h3>
+<p>A change from 10% to 15% is an increase of 5 percentage points. Relative to the original 10%, it is a 50% increase. These describe different comparisons, so it is important to use the right term.</p>
+<h3>Why does the original value matter?</h3>
+<p>A percentage increase or decrease is measured against the original value. An increase of $20 on a $100 item is 20%, but an increase of $20 on a $200 item is 10%.</p>
+</section><section>
+<h2>Frequently Asked Questions</h2>
+<h3>How do I calculate 15% of a number?</h3>
+<p>Multiply the number by 0.15. For example, 15% of 80 is 12.</p><h3>How do I find the percentage between two numbers?</h3>
+<p>To find what percentage one number represents of another, divide the part by the whole and multiply by 100. Make sure the whole is not zero.</p><h3>How do I calculate a percentage increase?</h3>
+<p>Subtract the original value from the new value, divide the difference by the original value, then multiply by 100. A positive result indicates an increase.</p><h3>Can the percentage be more than 100%?</h3>
+<p>Yes. For example, 150% of 40 is 60. A proportion can exceed 100% when the part is larger than the comparison value.</p><h3>Does this calculator round the answer?</h3>
+<p>Results are displayed to up to four decimal places when needed. Small differences may occur when a result is rounded for display.</p>
+</section><section>
+<h2>About This Tool</h2>
+<p>This calculator performs common percentage calculations directly in your browser. It does not require an account or send the values you enter to a server.</p>
+<p>For related calculations, visit the <a href="discount-calculator.html">Discount Calculator</a>, <a href="sales-tax-calculator.html">Sales Tax Calculator</a> or <a href="profit-loss-calculator.html">Profit and Loss Calculator</a>.</p>
+</section>
+</main><footer>
+<p><a href="./">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></p>
+<p class="small">© 2026 Daily Money Tools. For general informational use.</p>
+</footer><script>
+const mode = document.getElementById("mode");
+const label1 = document.getElementById("label1");
+const label2 = document.getElementById("label2");
+const value1 = document.getElementById("value1");
+const value2 = document.getElementById("value2");
+const value3 = document.getElementById("value3");
+const label3 = document.getElementById("field3Wrap");
+const result = document.getElementById("result");
+const form = document.getElementById("percentForm");
+
+function updateFields() {
+  result.hidden = true;
+  label3.hidden = mode.value !== "change";
+  value3.required = mode.value === "change";
+
+  if (mode.value === "of") {
+    label1.textContent = "Percentage (%)";
+    label2.textContent = "Number";
+    value1.placeholder = "e.g. 20";
+    value2.placeholder = "e.g. 150";
+  } else if (mode.value === "is") {
+    label1.textContent = "Part (X)";
+    label2.textContent = "Whole (Y)";
+    value1.placeholder = "e.g. 30";
+    value2.placeholder = "e.g. 150";
+  } else {
+    label1.textContent = "Original value";
+    label2.textContent = "New value";
+    value1.placeholder = "e.g. 100";
+    value2.placeholder = "e.g. 125";
+  }
+}
+
+mode.addEventListener("change", updateFields);
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const a = Number(value1.value);
+  const b = Number(value2.value);
+  const c = Number(value3.value);
+  result.hidden = false;
+  result.classList.remove("error");
+
+  if (!Number.isFinite(a) || !Number.isFinite(b) ||
+      value1.value.trim() === "" || value2.value.trim() === "" ||
+      (mode.value === "change" &&
+       (!Number.isFinite(c) || value3.value.trim() === ""))) {
+    result.classList.add("error");
+    result.textContent = "Please enter valid numbers in all required fields.";
+    return;
+  }
+
+  let heading = "";
+  let answer;
+
+  if (mode.value === "of") {
+    answer = a / 100 * b;
+    heading = a + "% of " + b + " = ";
+  } else if (mode.value === "is") {
+    if (b === 0) {
+      result.classList.add("error");
+      result.textContent = "The whole value cannot be zero for this calculation.";
+      return;
+    }
+    answer = a / b * 100;
+    heading = a + " is ";
+  } else {
+    const original = a;
+    const newer = b;
+    if (original === 0) {
+      result.classList.add("error");
+      result.textContent = "Percentage change cannot be calculated when the original value is zero.";
+      return;
+    }
+    answer = (newer - original) / Math.abs(original) * 100;
+    heading = "Percentage change from " + original + " to " + newer + ": ";
+  }
+
+  if (!Number.isFinite(answer)) {
+    result.classList.add("error");
+    result.textContent = "These values are too large to calculate. Please enter smaller numbers.";
+    return;
+  }
+
+  const output = mode.value === "is"
+    ? answer.toLocaleString("en-US", {maximumFractionDigits:4}) + "%"
+    : mode.value === "change"
+      ? Math.abs(answer).toLocaleString("en-US", {maximumFractionDigits:4}) +
+        "% " + (answer > 0 ? "increase" : answer < 0 ? "decrease" : "change")
+      : answer.toLocaleString("en-US", {maximumFractionDigits:4});
+
+  result.replaceChildren();
+  const h = document.createElement("h3");
+  h.textContent = "Your Result";
+  result.appendChild(h);
+  const p = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = heading;
+  p.append(strong, document.createTextNode(output));
+  result.appendChild(p);
+});
+
+form.addEventListener("reset", () => {
+  result.hidden = true;
+  result.replaceChildren();
+  result.classList.remove("error");
+  setTimeout(updateFields, 0);
+});
+
+updateFields();
+</script></body>
+</html>
