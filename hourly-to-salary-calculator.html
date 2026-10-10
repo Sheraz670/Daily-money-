@@ -1,108 +1,201 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hourly to Salary Calculator — Annual and Monthly Pay | Daily Money Tools</title>
-<meta name="description" content="Convert an hourly wage into estimated weekly, monthly and annual gross pay. Adjust work hours and working weeks and learn how the salary calculation works.">
+
+<title>Hourly to Salary Calculator | Daily Money Tools</title>
+<meta name="description" content="Convert hourly wages into weekly, biweekly, monthly and annual gross pay. Use this free hourly to salary calculator with practical examples.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://daily-money-taupe.vercel.app/hourly-to-salary-calculator.html">
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263244;line-height:1.7}
-header{background:#123b70;color:#fff;padding:22px 16px}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#263244;line-height:1.7}
+header{background:#123b70;color:#fff;padding:24px 16px}
 header div,main,footer{max-width:850px;margin:auto}
-header h1{margin:0;font-size:28px}
-nav{background:#fff;padding:12px 16px;border-bottom:1px solid #ddd}
-nav div{max-width:850px;margin:auto}
-nav a,footer a{margin-right:14px}
+header h1{margin:0;font-size:28px;line-height:1.35}
+nav{background:#fff;border-bottom:1px solid #ddd;padding:12px 16px}
+nav div{max-width:850px;margin:auto;display:flex;gap:15px;flex-wrap:wrap}
+nav a,footer a{color:#145eb5}
+nav a{font-weight:bold}
 main{padding:20px 14px}
 section{background:#fff;border:1px solid #e0e6ee;border-radius:12px;padding:20px;margin-bottom:18px}
-h2{color:#123b70;margin-top:0}
+h2{color:#123b70;margin-top:0;line-height:1.4}
 label{display:block;font-weight:bold;margin:14px 0 5px}
-input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;font-size:16px}
+input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;font-size:16px;background:#fff;color:#263244}
 button{background:#1769c2;color:#fff;border:0;border-radius:7px;padding:12px 18px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px}
-.result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px}
-.error{color:#b42318;font-weight:bold}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+.reset{background:#596579;margin-left:6px}
+.result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px;overflow-wrap:anywhere}
+.error{color:#b42318;font-weight:bold;background:#fff0f0;border-left-color:#b42318}
+.result h3{margin-top:0}
+.result p{margin:8px 0}
+.notice{background:#eef5ff;padding:12px;border-radius:6px}
 footer{text-align:center;padding:20px 14px 32px}
+footer a{display:inline-block;margin:5px 8px}
 .small{font-size:14px;color:#596579}
+@media(max-width:500px){
+header h1{font-size:25px}
+section{padding:16px}
+button{width:100%;margin-left:0}
+.reset{margin-left:0}
+}
 </style>
 </head>
+
 <body>
-<header><div><h1>Hourly to Salary Calculator</h1><p>Estimate annual, monthly and weekly gross earnings from hourly pay.</p></div></header>
-<nav><div><a href="./">Home</a><a href="salary-to-hourly-calculator.html">Salary to Hourly</a><a href="overtime-calculator.html">Overtime Calculator</a></div></nav><main>
+<header>
+<div>
+<h1>Hourly to Salary Calculator</h1>
+<p>Estimate your weekly, monthly and annual gross earnings.</p>
+</div>
+</header>
+
+<nav aria-label="Main navigation">
+<div>
+<a href="./">Home</a>
+<a href="salary-to-hourly-calculator.html">Salary to Hourly</a>
+<a href="overtime-calculator.html">Overtime Calculator</a>
+</div>
+</nav>
+
+<main>
 <section>
 <h2>Convert Hourly Pay to Salary</h2>
-<p>Enter your hourly wage and typical work schedule to estimate gross earnings over different periods. You can adjust weekly hours and the number of working weeks to match your schedule.</p><form id="salaryForm">
+<p>Enter your hourly wage, weekly working hours and working weeks per year to estimate gross earnings before taxes and deductions.</p>
+
+<form id="salaryForm">
 <label for="wage">Hourly wage</label>
-<input id="wage" type="number" min="0.01" max="1000000000" step="0.01" placeholder="e.g. 25" required><label for="hours">Hours worked per week</label>
-<input id="hours" type="number" min="0.01" max="168" step="0.25" value="40" required>
+<input id="wage" type="number" min="0.01" max="1000000000" step="any" placeholder="For example, 25" required>
+
+<label for="hours">Hours worked per week</label>
+<input id="hours" type="number" min="0.01" max="168" step="any" value="40" required>
 
 <label for="weeks">Working weeks per year</label>
 <input id="weeks" type="number" min="1" max="52" step="1" value="52" required>
 
 <label for="currency">Currency</label>
 <select id="currency">
-
 <option value="$">$ — US Dollar</option>
 <option value="£">£ — British Pound</option>
 <option value="€">€ — Euro</option>
 <option value="Rs ">Rs — Rupee</option>
 <option value="C$">C$ — Canadian Dollar</option>
 <option value="A$">A$ — Australian Dollar</option>
-</select><button type="submit">Calculate Salary</button>
-<button type="reset" style="background:#596579;margin-left:6px">Reset</button>
+</select>
+
+<button type="submit">Calculate Salary</button>
+<button type="reset" class="reset">Reset</button>
 
 <div id="result" class="result" role="status" aria-live="polite" hidden></div>
 </form>
-</section><section>
+</section>
+
+<section>
 <h2>How to Use This Calculator</h2>
 <ol>
-<li>Enter your hourly wage before taxes or deductions.</li>
-<li>Enter the number of hours you usually work each week.</li>
-<li>Enter how many weeks you expect to work during the year.</li>
-<li>Select a currency symbol and calculate your estimated pay.</li>
+<li>Enter your hourly wage before deductions.</li>
+<li>Enter your usual working hours per week.</li>
+<li>Enter the number of weeks you expect to work per year.</li>
+<li>Select a currency and press Calculate Salary.</li>
 </ol>
-<p>Use 52 weeks for a full year without unpaid time off. Reduce the number of weeks if you expect unpaid leave or seasonal work. This estimate does not automatically include overtime, bonuses, commissions or paid leave adjustments.</p>
-</section><section>
-<h2>Hourly to Salary Formula</h2>
-<p><strong>Weekly gross pay = Hourly wage × Hours per week</strong></p>
-<p><strong>Annual gross pay = Hourly wage × Hours per week × Working weeks per year</strong></p>
-<p><strong>Average monthly gross pay = Annual gross pay ÷ 12</strong></p><h3>Example: $25 per hour</h3>
-<p>If you earn $25 per hour, work 40 hours per week and work 52 weeks per year:</p>
-<ul>
-<li>Weekly gross pay: $25 × 40 = $1,000</li>
-<li>Annual gross pay: $1,000 × 52 = $52,000</li>
-<li>Average monthly gross pay: $52,000 ÷ 12 = $4,333.33</li>
-</ul>
-<p>These figures are gross earnings before taxes, insurance, retirement contributions and other deductions. Monthly pay is an annual average; an actual paycheck may follow a different schedule.</p>
-</section><section>
-<h2>What Can Change Your Annual Earnings?</h2>
-<h3>Unpaid time off</h3>
-<p>If you do not get paid during holidays or leave, your annual earnings may be lower than an estimate based on 52 paid working weeks. Adjust the working-weeks field to estimate a shorter work year.</p><h3>Part-time schedules</h3>
-<p>Part-time workers can use their usual weekly hours. For example, working 20 hours a week at $18 per hour for 50 weeks gives estimated annual gross earnings of $18,000.</p><h3>Overtime and additional pay</h3>
-<p>This calculator assumes a single hourly rate. Overtime premiums, bonuses, tips and commissions are not included. Use the <a href="overtime-calculator.html">Overtime Calculator</a> to estimate regular and overtime pay separately.</p><h3>Gross pay versus take-home pay</h3>
-<p>Gross pay is earnings before deductions. Take-home pay is what remains after applicable taxes and other deductions. The actual amount depends on your location, tax situation, benefits and employer payroll rules.</p>
-</section><section>
-<h2>Frequently Asked Questions</h2>
-<h3>How much is $20 an hour per year?</h3>
-<p>At 40 hours per week for 52 weeks, $20 per hour equals $41,600 in annual gross pay before deductions, unpaid leave or other adjustments.</p><h3>How do I calculate monthly salary from hourly pay?</h3>
-<p>Multiply the hourly wage by weekly hours and working weeks per year, then divide the annual amount by 12. This gives average monthly gross earnings.</p><h3>Does this calculator calculate take-home pay?</h3>
-<p>No. It estimates gross pay. Tax and payroll deductions vary, so the result should not be treated as an exact paycheck amount.</p><h3>Can I use this for part-time work?</h3>
-<p>Yes. Enter your actual weekly hours and expected working weeks. The estimate will adjust to those values.</p><h3>Are overtime earnings included?</h3>
-<p>No. The calculation uses one hourly rate for all entered hours. Overtime rules vary by jurisdiction and employment agreement.</p>
-</section><section>
-<h2>About This Tool</h2>
-<p>This calculator performs a basic wage conversion in your browser. It does not connect to your employer's payroll system or determine your legal wage entitlement.</p>
-<p>For related calculations, use the <a href="salary-to-hourly-calculator.html">Salary to Hourly Calculator</a>, <a href="paycheck-calculator.html">Paycheck Calculator</a> or <a href="overtime-calculator.html">Overtime Calculator</a>.</p>
+<p>Use 52 weeks for a full year of paid work. Reduce the number if you expect unpaid leave or seasonal work.</p>
 </section>
-</main><footer>
-<p><a href="./">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></p>
+
+<section>
+<h2>Hourly to Salary Formula</h2>
+<p><strong>Weekly pay = Hourly wage × Hours per week</strong></p>
+<p><strong>Annual pay = Hourly wage × Hours per week × Working weeks</strong></p>
+<p><strong>Monthly average = Annual pay ÷ 12</strong></p>
+<p><strong>Biweekly average = Annual pay ÷ 26</strong></p>
+
+<h3>Example: $25 per hour</h3>
+<p>At $25 per hour, 40 hours per week and 52 working weeks:</p>
+<ul>
+<li>Weekly gross pay: $1,000</li>
+<li>Annual gross pay: $52,000</li>
+<li>Average monthly gross pay: $4,333.33</li>
+<li>Average biweekly gross pay: $2,000</li>
+</ul>
+<p>These are estimates before taxes, insurance, retirement contributions and other deductions.</p>
+</section>
+
+<section>
+<h2>What Can Change Your Earnings?</h2>
+<h3>Unpaid leave</h3>
+<p>Unpaid time off can reduce annual earnings. Adjust working weeks to reflect your expected paid working year.</p>
+
+<h3>Part-time work</h3>
+<p>You can enter fewer weekly hours. For example, $18 per hour for 20 hours each week over 50 weeks gives $18,000 in annual gross pay.</p>
+
+<h3>Overtime and bonuses</h3>
+<p>This calculator uses one hourly rate and does not automatically include overtime, bonuses, commissions or tips. Use the <a href="overtime-calculator.html">Overtime Calculator</a> for a separate overtime estimate.</p>
+
+<h3>Gross pay versus take-home pay</h3>
+<p>Gross pay is earnings before deductions. Take-home pay depends on taxes, benefits, contributions and other payroll rules.</p>
+</section>
+
+<section>
+<h2>Frequently Asked Questions</h2>
+
+<h3>How much is $20 an hour per year?</h3>
+<p>At 40 hours per week for 52 weeks, $20 per hour equals $41,600 in annual gross pay before deductions.</p>
+
+<h3>How do I calculate monthly salary?</h3>
+<p>Multiply hourly pay by weekly hours and working weeks, then divide the annual result by 12.</p>
+
+<h3>Does this calculate take-home pay?</h3>
+<p>No. This tool estimates gross pay before taxes and other deductions.</p>
+
+<h3>Can part-time workers use it?</h3>
+<p>Yes. Enter your usual weekly hours and working weeks to estimate your earnings.</p>
+
+<h3>Are overtime earnings included?</h3>
+<p>No. This calculator applies the same hourly rate to all entered hours.</p>
+</section>
+
+<section>
+<h2>About This Calculator</h2>
+<p>This calculator performs a basic wage conversion in your browser. It does not connect to an employer's payroll system or determine legal wage entitlement.</p>
+<p>Related tools: <a href="salary-to-hourly-calculator.html">Salary to Hourly</a>, <a href="paycheck-calculator.html">Paycheck Calculator</a> and <a href="overtime-calculator.html">Overtime Calculator</a>.</p>
+<p class="notice">For general informational use only. Verify important financial figures with official documents or a qualified professional.</p>
+</section>
+</main>
+
+<footer>
+<p>
+<a href="./">Home</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
+</p>
 <p class="small">© 2026 Daily Money Tools. For general informational use.</p>
-</footer><script>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
 const form = document.getElementById("salaryForm");
 const result = document.getElementById("result");
 
-form.addEventListener("submit", event => {
+function showError(message){
+  result.hidden = false;
+  result.classList.add("error");
+  result.textContent = message;
+}
+
+function money(value, currency){
+  return currency + value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+form.addEventListener("submit", function(event){
   event.preventDefault();
 
   const wage = Number(document.getElementById("wage").value);
@@ -112,12 +205,20 @@ form.addEventListener("submit", event => {
 
   result.hidden = false;
   result.classList.remove("error");
+  result.replaceChildren();
 
-  if (!Number.isFinite(wage) || wage <= 0 || wage > 1000000000 ||
-      !Number.isFinite(hours) || hours <= 0 || hours > 168 ||
-      !Number.isInteger(weeks) || weeks < 1 || weeks > 52) {
-    result.classList.add("error");
-    result.textContent = "Enter a valid hourly wage, weekly hours up to 168, and 1–52 working weeks.";
+  if(!Number.isFinite(wage) || wage <= 0 || wage > 1000000000){
+    showError("Please enter a valid hourly wage greater than zero.");
+    return;
+  }
+
+  if(!Number.isFinite(hours) || hours <= 0 || hours > 168){
+    showError("Weekly working hours must be greater than zero and no more than 168.");
+    return;
+  }
+
+  if(!Number.isInteger(weeks) || weeks < 1 || weeks > 52){
+    showError("Working weeks must be a whole number from 1 to 52.");
     return;
   }
 
@@ -126,45 +227,42 @@ form.addEventListener("submit", event => {
   const monthly = annual / 12;
   const biweekly = annual / 26;
 
-  if (![weekly, annual, monthly, biweekly].every(Number.isFinite)) {
-    result.classList.add("error");
-    result.textContent = "These values are too large to calculate. Please enter smaller numbers.";
+  if(![weekly, annual, monthly, biweekly].every(Number.isFinite)){
+    showError("The entered values are too large to calculate. Please use smaller values.");
     return;
   }
 
-  const money = value => currency + value.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  });
-
-  result.replaceChildren();
   const heading = document.createElement("h3");
   heading.textContent = "Estimated Gross Earnings";
   result.appendChild(heading);
 
   [
-    ["Weekly pay", money(weekly)],
-    ["Average monthly pay", money(monthly)],
-    ["Biweekly average", money(biweekly)],
-    ["Annual pay", money(annual)]
-  ].forEach(([label, value]) => {
+    ["Weekly pay", weekly],
+    ["Average monthly pay", monthly],
+    ["Average biweekly pay", biweekly],
+    ["Annual pay", annual]
+  ].forEach(function(item){
     const p = document.createElement("p");
     const strong = document.createElement("strong");
-    strong.textContent = label + ": ";
-    p.append(strong, document.createTextNode(value));
+    strong.textContent = item[0] + ": ";
+    p.appendChild(strong);
+    p.appendChild(document.createTextNode(money(item[1], currency)));
     result.appendChild(p);
   });
 
   const note = document.createElement("p");
   note.className = "small";
-  note.textContent = "Estimate before taxes and deductions. Actual pay may differ.";
+  note.textContent = "Estimate before taxes and deductions. Actual earnings may differ.";
   result.appendChild(note);
 });
 
-form.addEventListener("reset", () => {
+form.addEventListener("reset", function(){
   result.hidden = true;
-  result.replaceChildren();
   result.classList.remove("error");
+  result.replaceChildren();
 });
-</script></body>
+})();
+</script>
+
+</body>
 </html>
