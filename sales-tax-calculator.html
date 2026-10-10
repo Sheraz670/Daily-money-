@@ -4,171 +4,228 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Sales Tax Calculator - Calculate Tax and Total Price</title>
-  <meta name="description" content="Calculate sales tax, tax amount and final purchase price with this free online sales tax calculator.">
-  <meta name="robots" content="index, follow">
+  <title>Sales Tax Calculator – Calculate Tax and Total Price | Daily Money</title>
+  <meta name="description" content="Calculate sales tax, tax amount, and the final price of a purchase with this free sales tax calculator. Enter a price and tax rate for a quick estimate.">
+  <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://daily-money-taupe.vercel.app/sales-tax-calculator.html">
 
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f3f6fb;
-      color: #202938;
-      line-height: 1.6;
+      background: #f4f7fb;
+      color: #263244;
+      line-height: 1.7;
     }
+
     header {
       background: #123b70;
       color: white;
       text-align: center;
-      padding: 24px 15px;
+      padding: 28px 16px;
     }
+
     main {
-      max-width: 720px;
-      margin: 25px auto;
+      max-width: 850px;
+      margin: 24px auto;
       padding: 0 15px;
     }
-    .card {
+
+    section {
       background: white;
       padding: 22px;
-      border-radius: 14px;
       margin-bottom: 20px;
-      box-shadow: 0 3px 15px #0000000c;
+      border: 1px solid #e0e6ef;
+      border-radius: 12px;
     }
+
+    h2 { color: #123b70; margin-top: 0; }
+
     label {
       display: block;
       font-weight: bold;
-      margin-top: 14px;
+      margin: 12px 0 5px;
     }
-    input, button {
+
+    input, select, button {
       width: 100%;
       padding: 12px;
-      margin-top: 6px;
-      border-radius: 8px;
+      min-height: 44px;
+      border: 1px solid #bdc9d8;
+      border-radius: 7px;
       font-size: 16px;
     }
-    input { border: 1px solid #cbd5e1; }
+
     button {
-      border: 0;
-      background: #1762ad;
+      background: #1769c2;
       color: white;
+      border: none;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 16px;
     }
-    .result {
-      background: #edf7ff;
-      padding: 15px;
-      border-radius: 9px;
+
+    button:hover { background: #10549d; }
+
+    #result {
       margin-top: 18px;
+      padding: 16px;
+      background: #eaf4ff;
+      border-radius: 8px;
       overflow-wrap: anywhere;
     }
-    nav, footer { text-align: center; padding: 16px; }
-    footer { background: #123b70; color: white; }
-    footer a { color: white; margin: 5px; }
+
+    .note { color: #536174; font-size: 14px; }
+    a { color: #1769c2; }
+
+    footer {
+      text-align: center;
+      padding: 24px 15px;
+      background: #e8edf4;
+    }
+
+    footer a { display: inline-block; margin: 4px 7px; }
+
+    @media (max-width: 500px) {
+      section { padding: 17px; }
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Sales Tax Calculator</h1>
-    <p>Calculate tax and the final price of a purchase</p>
-  </header>
+<header>
+  <h1>Sales Tax Calculator</h1>
+  <p>Calculate sales tax and the total price of your purchase.</p>
+</header>
 
-  <nav>
-    <a href="index.html">Home</a>
-  </nav>
+<main>
+  <section>
+    <h2>Calculate Sales Tax</h2>
 
-  <main>
-    <section class="card">
-      <h2>Calculate Sales Tax</h2>
-      <p>Enter the price before tax and the applicable tax rate.</p>
+    <label for="price">Original Price</label>
+    <input id="price" type="number" min="0" step="any" value="100">
 
-      <label for="price">Price Before Tax</label>
-      <input id="price" type="number" min="0" step="0.01" placeholder="e.g. 100">
+    <label for="taxRate">Sales Tax Rate (%)</label>
+    <input id="taxRate" type="number" min="0" max="100" step="any" value="8">
 
-      <label for="rate">Sales Tax Rate (%)</label>
-      <input id="rate" type="number" min="0" max="100" step="0.01" placeholder="e.g. 8.25">
+    <label for="currency">Currency Symbol</label>
+    <select id="currency">
+      <option value="$">US Dollar ($)</option>
+      <option value="£">British Pound (£)</option>
+      <option value="€">Euro (€)</option>
+      <option value="Rs ">Pakistani Rupee (Rs)</option>
+      <option value="₹">Indian Rupee (₹)</option>
+      <option value="C$">Canadian Dollar (C$)</option>
+      <option value="A$">Australian Dollar (A$)</option>
+    </select>
 
-      <button type="button" onclick="calculateTax()">Calculate Tax</button>
+    <button type="button" onclick="calculateTax()">Calculate Tax</button>
 
-      <div id="result" class="result" aria-live="polite">
-        Your tax calculation will appear here.
-      </div>
-    </section>
+    <div id="result" aria-live="polite">
+      Your sales tax result will appear here.
+    </div>
 
-    <section class="card">
-      <h2>How to Calculate Sales Tax</h2>
-      <p>
-        Sales tax is a percentage added to the price of certain goods or
-        services. Enter the applicable rate for your location and purchase.
-      </p>
+    <p class="note">
+      Tax rates and rules vary by location and product. Enter the rate applicable to your purchase.
+    </p>
+  </section>
 
-      <h3>Formula</h3>
-      <p>Tax Amount = Price Before Tax × Tax Rate ÷ 100</p>
-      <p>Final Price = Price Before Tax + Tax Amount</p>
+  <section>
+    <h2>How Sales Tax Is Calculated</h2>
+    <p>Sales tax is calculated by multiplying the taxable price by the tax rate expressed as a decimal.</p>
 
-      <h3>Example</h3>
-      <p>
-        If an item costs $100 before tax and the sales tax rate is 8%,
-        the tax is $8 and the final price is $108.
-      </p>
-    </section>
+    <p><strong>Sales Tax = Original Price × (Tax Rate ÷ 100)</strong></p>
+    <p><strong>Total Price = Original Price + Sales Tax</strong></p>
 
-    <section class="card">
-      <h2>Frequently Asked Questions</h2>
+    <h3>Example</h3>
+    <p>If an item costs $100 and the sales tax rate is 8%, the tax is $8 and the final price is $108.</p>
+  </section>
 
-      <h3>Does every purchase have sales tax?</h3>
-      <p>
-        No. Tax rules and exemptions vary by country, state, region,
-        product and service.
-      </p>
+  <section>
+    <h2>How to Use This Calculator</h2>
+    <ol>
+      <li>Enter the price before tax.</li>
+      <li>Enter the applicable sales tax percentage.</li>
+      <li>Select your preferred currency symbol.</li>
+      <li>Press Calculate Tax to see the tax amount and total cost.</li>
+    </ol>
+  </section>
 
-      <h3>Does this find my local tax rate?</h3>
-      <p>
-        No. Enter the tax rate that applies to your purchase. This calculator
-        does not automatically identify local tax rules.
-      </p>
-    </section>
-  </main>
+  <section>
+    <h2>Frequently Asked Questions</h2>
 
-  <footer>
-    <p>© 2026 Daily Money Tools</p>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="disclaimer.html">Disclaimer</a>
-  </footer>
+    <h3>Is sales tax included in the original price?</h3>
+    <p>This calculator assumes the original price is before tax. It adds the calculated tax to show the estimated final price.</p>
 
-  <script>
-    function calculateTax() {
-      const priceText = document.getElementById("price").value.trim();
-      const rateText = document.getElementById("rate").value.trim();
-      const price = Number(priceText);
-      const rate = Number(rateText);
-      const result = document.getElementById("result");
+    <h3>Can I use a different tax rate?</h3>
+    <p>Yes. Enter any rate from 0% to 100%. Make sure you use the correct rate for your location and purchase.</p>
 
-      if (
-        priceText === "" || rateText === "" ||
-        !Number.isFinite(price) || !Number.isFinite(rate) ||
-        price < 0 || rate < 0 || rate > 100
-      ) {
-        result.textContent =
-          "Please enter a valid price and a tax rate between 0% and 100%.";
-        return;
-      }
+    <h3>Does every product have the same sales tax?</h3>
+    <p>No. Some jurisdictions exempt certain goods or apply different rates. Local rules determine the applicable tax.</p>
 
-      const tax = price * rate / 100;
-      const total = price + tax;
+    <h3>Is this an official tax calculation?</h3>
+    <p>No. This tool provides a general estimate. It does not determine legal tax obligations or account for every local tax rule.</p>
+  </section>
 
-      result.innerHTML = `
-        <p><strong>Price Before Tax:</strong> ${price.toFixed(2)}</p>
-        <p><strong>Tax Rate:</strong> ${rate.toFixed(2)}%</p>
-        <p><strong>Sales Tax Amount:</strong> ${tax.toFixed(2)}</p>
-        <p><strong>Final Price Including Tax:</strong> ${total.toFixed(2)}</p>
-      `;
-    }
-  </script>
+  <section>
+    <h2>More Free Calculators</h2>
+    <ul>
+      <li><a href="index.html">All Calculators</a></li>
+      <li><a href="discount-calculator.html">Discount Calculator</a></li>
+      <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+      <li><a href="profit-loss-calculator.html">Profit and Loss Calculator</a></li>
+      <li><a href="loan-payment-calculator.html">Loan Payment Calculator</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Daily Money – Free Online Calculators</p>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+<script>
+function calculateTax() {
+  const priceInput = document.getElementById("price");
+  const rateInput = document.getElementById("taxRate");
+  const result = document.getElementById("result");
+
+  const price = Number(priceInput.value);
+  const rate = Number(rateInput.value);
+  const currency = document.getElementById("currency").value;
+
+  if (
+    priceInput.value.trim() === "" ||
+    rateInput.value.trim() === "" ||
+    !Number.isFinite(price) ||
+    !Number.isFinite(rate) ||
+    price < 0 ||
+    rate < 0 ||
+    rate > 100
+  ) {
+    result.textContent =
+      "Please enter a price of zero or more and a tax rate between 0% and 100%.";
+    return;
+  }
+
+  const tax = price * rate / 100;
+  const total = price + tax;
+
+  result.innerHTML =
+    "<strong>Original Price:</strong> " + currency + price.toFixed(2) +
+    "<br><strong>Sales Tax (" + rate.toFixed(2) + "%):</strong> " +
+    currency + tax.toFixed(2) +
+    "<br><strong>Total Price:</strong> " + currency + total.toFixed(2);
+}
+
+calculateTax();
+</script>
 </body>
 </html>
