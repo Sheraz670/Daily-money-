@@ -1,178 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Discount Calculator - Calculate Sale Prices and Savings</title>
-  <meta name="description" content="Calculate discounts, sale prices and savings with this free online discount calculator.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://daily-money-taupe.vercel.app/discount-calculator.html">
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f6fb;
-      color: #202938;
-      line-height: 1.6;
-    }
-    header {
-      background: #123b70;
-      color: white;
-      text-align: center;
-      padding: 24px 15px;
-    }
-    main {
-      max-width: 720px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      box-shadow: 0 3px 15px #0000000c;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-top: 14px;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    input { border: 1px solid #cbd5e1; }
-    button {
-      border: 0;
-      background: #1762ad;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .result {
-      background: #edf7ff;
-      padding: 15px;
-      border-radius: 9px;
-      margin-top: 18px;
-      overflow-wrap: anywhere;
-    }
-    nav, footer { text-align: center; padding: 16px; }
-    a { color: #14579b; }
-    footer { background: #123b70; color: white; }
-    footer a { color: white; margin: 5px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discount Calculator — Sale Price and Savings | Daily Money Tools</title>
+<meta name="description" content="Calculate sale prices, percentage discounts and total savings with this free discount calculator. Learn the formula with practical shopping examples.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/discount-calculator.html">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263244;line-height:1.7}
+header{background:#123b70;color:#fff;padding:22px 16px}
+header div,main,footer{max-width:850px;margin:auto}
+header h1{margin:0;font-size:28px}
+nav{background:#fff;padding:12px 16px;border-bottom:1px solid #ddd}
+nav div{max-width:850px;margin:auto}
+nav a,footer a{margin-right:14px}
+main{padding:20px 14px}
+section{background:#fff;border:1px solid #e0e6ee;border-radius:12px;padding:20px;margin-bottom:18px}
+h2{color:#123b70;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;font-size:16px}
+button{background:#1769c2;color:#fff;border:0;border-radius:7px;padding:12px 18px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px}
+.result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px}
+.error{color:#b42318;font-weight:bold}
+footer{text-align:center;padding:20px 14px 32px}
+.small{font-size:14px;color:#596579}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Discount Calculator</h1>
-    <p>Find your sale price and savings in seconds</p>
-  </header>
+<header><div><h1>Discount Calculator</h1><p>Find your sale price and how much money you save.</p></div></header>
+<nav><div><a href="./">Home</a><a href="tip-calculator.html">Tip Calculator</a><a href="percentage-calculator.html">Percentage Calculator</a></div></nav><main>
+<section>
+<h2>Calculate Your Discount</h2>
+<p>Shopping discounts can be confusing when prices and percentages vary. Use this calculator to estimate the amount saved and the price after a discount.</p><form id="discountForm">
+<label for="price">Original price</label>
+<input id="price" type="number" min="0.01" max="1000000000000" step="0.01" placeholder="e.g. 120" required><label for="discount">Discount percentage (%)</label>
+<input id="discount" type="number" min="0" max="100" step="0.01" placeholder="e.g. 25" required>
 
-  <nav>
-    <a href="index.html">Home</a>
-  </nav>
+<label for="currency">Currency</label>
+<select id="currency">
 
-  <main>
-    <section class="card">
-      <h2>Calculate Your Discount</h2>
-      <p>Enter the original price and discount percentage.</p>
+<option value="$">$ — US Dollar</option>
+<option value="£">£ — British Pound</option>
+<option value="€">€ — Euro</option>
+<option value="Rs ">Rs — Rupee</option>
+<option value="C$">C$ — Canadian Dollar</option>
+<option value="A$">A$ — Australian Dollar</option>
+</select><button type="submit">Calculate Savings</button>
+<button type="reset" style="background:#596579;margin-left:6px">Reset</button>
 
-      <label for="price">Original Price</label>
-      <input id="price" type="number" min="0" step="0.01" placeholder="e.g. 100">
+<div id="result" class="result" role="status" aria-live="polite" hidden></div>
+</form>
+</section><section>
+<h2>How to Use This Calculator</h2>
+<ol>
+<li>Enter the item's original price before the discount.</li>
+<li>Enter the discount percentage shown by the retailer.</li>
+<li>Choose the currency symbol for your display.</li>
+<li>Select Calculate Savings to see the discount amount and final price.</li>
+</ol>
+<p>This calculator applies one percentage discount to the original price. It does not automatically include sales tax, shipping, coupons or additional discounts.</p>
+</section><section>
+<h2>Discount Formula</h2>
+<p><strong>Discount amount = Original price × (Discount percentage ÷ 100)</strong></p>
+<p><strong>Sale price = Original price − Discount amount</strong></p><h3>Example: 25% off a $120 item</h3>
+<ul>
+<li>Original price: $120</li>
+<li>Discount: $120 × 0.25 = $30</li>
+<li>Price after discount: $120 − $30 = $90</li>
+<li>You save $30 before any applicable taxes or extra charges.</li>
+</ul>
+<p>The percentage is applied to the original price, not to a price that has already been reduced.</p>
+</section><section>
+<h2>Understanding Shopping Discounts</h2>
+<h3>What does 10% off mean?</h3>
+<p>A 10% discount reduces the original price by one tenth. For example, a $40 product receives a $4 discount and costs $36 before taxes or other charges.</p><h3>How do two successive discounts work?</h3>
+<p>Successive discounts are usually applied one after another. For example, 20% off followed by another 10% off a $100 item gives a first price of $80 and a second price of $72. The total reduction is $28, or 28% of the original price, rather than 30%.</p><h3>Does the lowest sale price always mean the best deal?</h3>
+<p>Not necessarily. Compare the final price, product quantity, quality, shipping fees, return policy and any conditions attached to the promotion. A large advertised percentage does not guarantee that an item is good value.</p>
+</section><section>
+<h2>Frequently Asked Questions</h2>
+<h3>How do I calculate 20% off a price?</h3>
+<p>Multiply the original price by 0.20 to find the saving, then subtract that amount from the original price. For a $50 item, the saving is $10 and the discounted price is $40.</p><h3>Can a discount be 100%?</h3>
+<p>Yes. A 100% discount reduces the calculated sale price to zero, before any separate fees or charges.</p><h3>Does the result include sales tax?</h3>
+<p>No. This tool calculates the price after the discount only. Use the <a href="sales-tax-calculator.html">Sales Tax Calculator</a> separately if you need a tax estimate.</p><h3>Can I use this calculator for any currency?</h3>
+<p>You can calculate with any currency as long as you enter the price in that currency. The symbol is a display choice; the tool does not convert exchange rates.</p><h3>Is the displayed saving guaranteed at checkout?</h3>
+<p>No. Retailer terms, exclusions, rounding, taxes and other charges may change the final checkout amount. Confirm the final price with the seller.</p>
+</section><section>
+<h2>About This Tool</h2>
+<p>This free discount calculator performs a basic percentage calculation directly in your browser. It does not verify a retailer's promotion or store the price you enter on a server.</p>
+<p>For related calculations, visit the <a href="percentage-calculator.html">Percentage Calculator</a>, <a href="tip-calculator.html">Tip Calculator</a> or <a href="sales-tax-calculator.html">Sales Tax Calculator</a>.</p>
+</section>
+</main><footer>
+<p><a href="./">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></p>
+<p class="small">© 2026 Daily Money Tools. For general informational use.</p>
+</footer><script>
+const form = document.getElementById("discountForm");
+const result = document.getElementById("result");
 
-      <label for="discount">Discount Percentage (%)</label>
-      <input id="discount" type="number" min="0" max="100" step="0.1" placeholder="e.g. 20">
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-      <button type="button" onclick="calculateDiscount()">Calculate Discount</button>
+  const price = Number(document.getElementById("price").value);
+  const rate = Number(document.getElementById("discount").value);
+  const currency = document.getElementById("currency").value;
 
-      <div id="result" class="result" aria-live="polite">
-        Your discount result will appear here.
-      </div>
-    </section>
+  result.hidden = false;
+  result.classList.remove("error");
 
-    <section class="card">
-      <h2>How to Calculate a Discount</h2>
-      <p>
-        A discount reduces the original price by a percentage. This calculator
-        shows the amount saved and the price after the discount.
-      </p>
+  if (!Number.isFinite(price) || price <= 0 ||
+      price > 1000000000000 ||
+      !Number.isFinite(rate) || rate < 0 || rate > 100) {
+    result.classList.add("error");
+    result.textContent = "Enter an original price greater than zero and a discount between 0% and 100%.";
+    return;
+  }
 
-      <h3>Discount Formula</h3>
-      <p>Money Saved = Original Price × Discount Percentage ÷ 100</p>
-      <p>Sale Price = Original Price − Money Saved</p>
+  const saved = price * rate / 100;
+  const finalPrice = price - saved;
+  const money = value => currency + value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 
-      <h3>Example</h3>
-      <p>
-        If an item costs $100 and has a 20% discount, you save $20.
-        The sale price is $80 before any additional taxes or fees.
-      </p>
-    </section>
+  result.replaceChildren();
 
-    <section class="card">
-      <h2>Frequently Asked Questions</h2>
+  const heading = document.createElement("h3");
+  heading.textContent = "Your Results";
+  result.appendChild(heading);
 
-      <h3>What does a 20% discount mean?</h3>
-      <p>
-        It means the price is reduced by 20% of the original price.
-      </p>
+  [
+    ["Original price", money(price)],
+    ["Discount percentage", rate + "%"],
+    ["You save", money(saved)],
+    ["Price after discount", money(finalPrice)]
+  ].forEach(([label, value]) => {
+    const p = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = label + ": ";
+    p.append(strong, document.createTextNode(value));
+    result.appendChild(p);
+  });
+});
 
-      <h3>Does this include sales tax?</h3>
-      <p>
-        No. This calculator calculates the discount only. Any applicable
-        taxes or additional fees are not included.
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2026 Daily Money Tools</p>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="disclaimer.html">Disclaimer</a>
-  </footer>
-
-  <script>
-    function calculateDiscount() {
-      const priceInput = document.getElementById("price").value.trim();
-      const discountInput = document.getElementById("discount").value.trim();
-      const price = Number(priceInput);
-      const discount = Number(discountInput);
-      const result = document.getElementById("result");
-
-      if (
-        priceInput === "" ||
-        discountInput === "" ||
-        !Number.isFinite(price) ||
-        !Number.isFinite(discount) ||
-        price < 0 ||
-        discount < 0 ||
-        discount > 100
-      ) {
-        result.textContent =
-          "Please enter a valid price and a discount between 0% and 100%.";
-        return;
-      }
-
-      const saved = price * discount / 100;
-      const salePrice = price - saved;
-
-      result.innerHTML = `
-        <p><strong>Original Price:</strong> ${price.toFixed(2)}</p>
-        <p><strong>Discount:</strong> ${discount.toFixed(2)}%</p>
-        <p><strong>You Save:</strong> ${saved.toFixed(2)}</p>
-        <p><strong>Final Sale Price:</strong> ${salePrice.toFixed(2)}</p>
-      `;
-    }
-  </script>
-</body>
+form.addEventListener("reset", function() {
+  result.hidden = true;
+  result.replaceChildren();
+  result.classList.remove("error");
+});
+</script></body>
 </html>
