@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Paycheck Calculator — Daily Money</title>
+<meta name="description" content="Estimate your take-home paycheck after taxes and other deductions using this free paycheck calculator.">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/paycheck-calculator.html">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
+header{background:#123b70;color:white;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:27px}
+nav{background:white;padding:12px;text-align:center;border-bottom:1px solid #ddd}
+nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
+main{max-width:760px;margin:25px auto;padding:0 15px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
+h2{font-size:21px;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
+button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
+button:hover{background:#10539c}
+.results{display:none;margin-top:20px;background:#edf7ee;padding:16px;border-radius:8px}
+.result-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #d5e5d6}
+.result-row:last-child{border:0}
+.note{font-size:14px;color:#596579}
+footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
+footer a{color:#174d8c;margin:5px;text-decoration:none}
+</style>
+</head>
+
+<body>
+<header>
+<h1>Paycheck Calculator</h1>
+<p>Estimate your take-home pay after deductions</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="hourly-to-salary-calculator.html">Salary Calculator</a>
+<a href="overtime-calculator.html">Overtime</a>
+<a href="about.html">About</a>
+</nav>
+
+<main>
+<section class="card">
+<h2>Calculate Your Paycheck</h2>
+<p>Enter your gross pay, estimated tax rates, and other deductions.</p>
+
+<form id="paycheckForm">
+<label for="grossPay">Gross Pay for Each Paycheck ($)</label>
+<input id="grossPay" type="number" min="0" step="0.01" placeholder="Example: 2000" required>
+
+<label for="frequency">Pay Frequency</label>
+<select id="frequency">
+<option value="52">Weekly</option>
+<option value="26" selected>Every two weeks</option>
+<option value="24">Twice a month</option>
+<option value="12">Monthly</option>
+</select>
+
+<label for="federalTax">Estimated Federal Tax (%)</label>
+<input id="federalTax" type="number" min="0" max="100" step="0.01" value="10" required>
+
+<label for="stateTax">Estimated State / Local Tax (%)</label>
+<input id="stateTax" type="number" min="0" max="100" step="0.01" value="3" required>
+
+<label for="otherDeductions">Other Deductions per Paycheck ($)</label>
+<input id="otherDeductions" type="number" min="0" step="0.01" value="0" required>
+
+<button type="submit">Calculate My Paycheck</button>
+</form>
+
+<div id="results" class="results" aria-live="polite">
+<h2>Your Estimated Pay</h2>
+<div class="result-row"><span>Gross paycheck</span><strong id="grossResult">$0.00</strong></div>
+<div class="result-row"><span>Estimated taxes</span><strong id="taxResult">$0.00</strong></div>
+<div class="result-row"><span>Other deductions</span><strong id="deductionResult">$0.00</strong></div>
+<div class="result-row"><span>Net paycheck</span><strong id="netResult">$0.00</strong></div>
+<div class="result-row"><span>Estimated annual net pay</span><strong id="annualResult">$0.00</strong></div>
+</div>
+
+<p class="note">This is an estimate, not an official payroll calculation. Actual deductions depend on your location, tax rules, benefits, and personal circumstances.</p>
+</section>
+
+<section class="card">
+<h2>How Does a Paycheck Calculator Work?</h2>
+<p>A paycheck calculator estimates how much money remains after taxes and other deductions are taken from your gross pay.</p>
+<p>Enter the gross amount you receive each payday, select how often you are paid, and enter your estimated tax rates. The calculator subtracts estimated taxes and other deductions to show your take-home pay.</p>
+<h2>Important Information</h2>
+<p>Tax rates vary by country, state, income, and individual circumstances. This calculator uses the percentages you enter and does not determine your actual tax liability.</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Daily Money</p>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+<script>
+document.getElementById("paycheckForm").addEventListener("submit",function(event){
+  event.preventDefault();
+
+  const gross=Number(document.getElementById("grossPay").value);
+  const frequency=Number(document.getElementById("frequency").value);
+  const federal=Number(document.getElementById("federalTax").value);
+  const state=Number(document.getElementById("stateTax").value);
+  const other=Number(document.getElementById("otherDeductions").value);
+
+  if(!Number.isFinite(gross)||gross<0||!Number.isFinite(other)||other<0||
+     !Number.isFinite(federal)||federal<0||federal>100||
+     !Number.isFinite(state)||state<0||state>100){
+    alert("Please enter valid amounts and tax rates between 0 and 100.");
+    return;
+  }
+
+  const taxes=gross*(federal+state)/100;
+  const net=gross-taxes-other;
+
+  const money=value=>value.toLocaleString("en-US",{
+    style:"currency",currency:"USD"
+  });
+
+  document.getElementById("grossResult").textContent=money(gross);
+  document.getElementById("taxResult").textContent=money(taxes);
+  document.getElementById("deductionResult").textContent=money(other);
+  document.getElementById("netResult").textContent=money(net);
+  document.getElementById("annualResult").textContent=money(net*frequency);
+  document.getElementById("results").style.display="block";
+});
+</script>
+</body>
+</html>
