@@ -1,200 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Date Calculator — Daily Money</title>
-<meta name="description" content="Calculate the number of days between two dates or add and subtract days from a date with this free date calculator.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/date-calculator.html">
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
-header{background:#123b70;color:white;text-align:center;padding:22px 15px}
-header h1{margin:0;font-size:28px}
-nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
-nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
-h2{font-size:21px;margin-top:0}
-label{display:block;font-weight:bold;margin:14px 0 5px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
-button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#10539c}
-.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
-.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
-.result-row:last-child{border:0}
-.note{font-size:14px;color:#596579}
-footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
-footer a{color:#174d8c;margin:5px;text-decoration:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Date Calculator – Add or Subtract Days Between Dates</title>
+  <meta name="description" content="Calculate the number of days between two dates or add and subtract days, weeks, and months from a start date with this free date calculator.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/date-calculator.html">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f7fb; color: #263244; line-height: 1.7; }
+    header { background: #123b70; color: white; text-align: center; padding: 28px 16px; }
+    header h1 { margin: 0 0 8px; line-height: 1.3; }
+    header p { margin: 0; }
+    main { max-width: 850px; margin: 24px auto; padding: 0 15px; }
+    .calculator, section { background: white; border: 1px solid #e0e7ef; border-radius: 12px; padding: 22px; margin-bottom: 20px; }
+    h2 { color: #123b70; line-height: 1.35; }
+    label { display: block; font-weight: bold; margin: 14px 0 5px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #b9c6d5; border-radius: 7px; font: inherit; background: white; }
+    button { width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 7px; background: #1769c2; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+    button:hover { background: #10549e; }
+    #result { margin-top: 18px; padding: 15px; background: #eef6ff; border-radius: 8px; overflow-wrap: anywhere; }
+    .muted { color: #586779; font-size: 14px; }
+    a { color: #1769c2; }
+    footer { text-align: center; padding: 22px 15px; background: #e8eef6; }
+    footer a { margin: 0 7px; }
+    @media (max-width: 480px) { header h1 { font-size: 25px; } .calculator, section { padding: 17px; } }
+  </style>
 </head>
-
 <body>
-<header>
-<h1>Date Calculator</h1>
-<p>Find days between dates or calculate a future date</p>
-</header>
+  <header>
+    <h1>Date Calculator</h1>
+    <p>Find the days between dates or move forward and backward on the calendar.</p>
+  </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="age-calculator.html">Age Calculator</a>
-<a href="percentage-calculator.html">Percentage</a>
-<a href="about.html">About</a>
-</nav>
+  <main>
+    <div class="calculator">
+      <h2>Choose a Calculation</h2>
+      <label for="mode">Calculation type</label>
+      <select id="mode">
+        <option value="difference">Days between two dates</option>
+        <option value="add">Add time to a date</option>
+        <option value="subtract">Subtract time from a date</option>
+      </select>
 
-<main>
-<section class="card">
-<h2>Calculate Days Between Two Dates</h2>
-<form id="differenceForm">
-<label for="startDate">Start Date</label>
-<input type="date" id="startDate" required>
+      <div id="differenceFields">
+        <label for="startDate">Start date</label>
+        <input type="date" id="startDate">
+        <label for="endDate">End date</label>
+        <input type="date" id="endDate">
+        <p class="muted">The difference counts elapsed days and does not include both endpoints as separate days.</p>
+      </div>
 
-<label for="endDate">End Date</label>
-<input type="date" id="endDate" required>
+      <div id="offsetFields" hidden>
+        <label for="baseDate">Starting date</label>
+        <input type="date" id="baseDate" disabled>
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" min="0" step="1" value="30" disabled>
+        <label for="unit">Unit</label>
+        <select id="unit" disabled>
+          <option value="days">Days</option>
+          <option value="weeks">Weeks</option>
+          <option value="months">Calendar months</option>
+          <option value="years">Calendar years</option>
+        </select>
+      </div>
 
-<label for="includeEnd">Count the end date as well?</label>
-<select id="includeEnd">
-<option value="no">No — standard date difference</option>
-<option value="yes">Yes — include both dates</option>
-</select>
+      <button type="button" id="calculateButton">Calculate</button>
+      <div id="result" role="status" aria-live="polite">Your date calculation will appear here.</div>
+    </div>
 
-<button type="submit">Calculate Date Difference</button>
-</form>
+    <section>
+      <h2>What Is a Date Calculator?</h2>
+      <p>A date calculator helps you measure time between calendar dates or find a future or past date by adding or subtracting a period. It can be useful for project planning, travel preparation, study schedules, personal milestones, and general date calculations.</p>
+      <p>Different tasks use different counting rules. For example, the elapsed time between Monday and Tuesday is one day, while counting both calendar dates inclusively gives two dates.</p>
+    </section>
 
-<div id="differenceResults" class="results" aria-live="polite">
-<h2>Result</h2>
-<div class="result-row"><span>Total days</span><strong id="totalDays">0</strong></div>
-<div class="result-row"><span>Complete weeks</span><strong id="weeks">0</strong></div>
-<div class="result-row"><span>Remaining days</span><strong id="remainingDays">0</strong></div>
-</div>
-<p id="differenceError" class="note" role="alert"></p>
-</section>
+    <section>
+      <h2>How to Use the Date Calculator</h2>
+      <ol>
+        <li>Select whether you want the difference between dates or want to add or subtract time.</li>
+        <li>Enter the required starting and ending dates.</li>
+        <li>For adding or subtracting, enter the amount and choose days, weeks, months, or years.</li>
+        <li>Tap “Calculate” to see the result.</li>
+      </ol>
+    </section>
 
-<section class="card">
-<h2>Add or Subtract Days</h2>
-<form id="addForm">
-<label for="baseDate">Starting Date</label>
-<input type="date" id="baseDate" required>
+    <section>
+      <h2>How Date Calculations Work</h2>
+      <p><strong>Days between dates:</strong> The calculator subtracts the earlier date from the later date and reports the elapsed calendar days.</p>
+      <p><strong>Adding or subtracting days:</strong> The chosen number of days is moved forward or backward on the calendar.</p>
+      <p><strong>Weeks:</strong> One week is treated as seven calendar days.</p>
+      <p><strong>Months and years:</strong> These are calendar-based calculations. When the target month does not contain the original day number, the result uses the last valid day of that month. For example, adding one month to January 31 gives the last day of February.</p>
+    </section>
 
-<label for="dayCount">Number of Days</label>
-<input type="number" id="dayCount" min="0" max="1000000" step="1" value="30" required>
+    <section>
+      <h2>Practical Examples</h2>
+      <ul>
+        <li><strong>Days between dates:</strong> From 1 April to 11 April is 10 elapsed days.</li>
+        <li><strong>Add 14 days:</strong> Adding two weeks to 1 April gives 15 April.</li>
+        <li><strong>Subtract 7 days:</strong> Subtracting one week from 15 April gives 8 April.</li>
+        <li><strong>Add one calendar month:</strong> Adding one month to 31 January gives the final valid day of February.</li>
+      </ul>
+      <p>These examples illustrate calendar arithmetic. If a deadline has a special legal, business, or inclusive-counting rule, use that rule rather than relying only on elapsed days.</p>
+    </section>
 
-<label for="operation">Operation</label>
-<select id="operation">
-<option value="add">Add days</option>
-<option value="subtract">Subtract days</option>
-</select>
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <h3>Does the calculator include the start date?</h3>
+      <p>The days-between-dates mode reports elapsed days. It does not count the start and end dates as two separate full days.</p>
 
-<button type="submit">Calculate New Date</button>
-</form>
+      <h3>How many days are in a week?</h3>
+      <p>For this calculator, one week is seven calendar days.</p>
 
-<div id="addResults" class="results" aria-live="polite">
-<h2>Calculated Date</h2>
-<p id="newDate"></p>
-</div>
-<p id="addError" class="note" role="alert"></p>
-</section>
+      <h3>Why can adding one month produce different numbers of days?</h3>
+      <p>Calendar months vary in length. Adding one month preserves the calendar-month intent rather than always adding 30 days.</p>
 
-<section class="card">
-<h2>How to Use This Date Calculator</h2>
-<p>To find the difference between two dates, enter a start date and an end date. The calculator shows the number of days, complete weeks, and remaining days.</p>
-<p>You can also enter a starting date and a number of days to find a future or past date. Choose Add days or Subtract days to get your result.</p>
+      <h3>Does this calculator account for leap years?</h3>
+      <p>Yes. Date arithmetic uses calendar dates, including February 29 in leap years.</p>
 
-<h2>Frequently Asked Questions</h2>
-<p><strong>Does the calculator handle leap years?</strong><br>Yes. It uses calendar dates, including leap days.</p>
-<p><strong>Can I calculate dates in the past?</strong><br>Yes. Use the Subtract days option to calculate an earlier date.</p>
-<p><strong>Are the results official deadlines?</strong><br>No. For legal, financial, or official deadlines, check the applicable rules about weekends and holidays.</p>
-</section>
-</main>
+      <h3>Can I calculate a date in the past?</h3>
+      <p>Yes. Choose the subtract-time mode to calculate a date before your starting date.</p>
+    </section>
 
-<footer>
-<p>© 2026 Daily Money</p>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-<a href="disclaimer.html">Disclaimer</a>
-</footer>
+    <section>
+      <h2>Related Calculators</h2>
+      <ul>
+        <li><a href="age-calculator.html">Age Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="index.html">All Calculators</a></li>
+      </ul>
+    </section>
 
-<script>
-function parseDate(value){
-  if(!value)return null;
-  const parts=value.split("-").map(Number);
-  if(parts.length!==3)return null;
-  const [y,m,d]=parts;
-  const date=new Date(0);
-  date.setUTCHours(0,0,0,0);
-  date.setUTCFullYear(y,m-1,d);
-  if(date.getUTCFullYear()!==y||date.getUTCMonth()!==m-1||date.getUTCDate()!==d)return null;
-  return date;
-}
+    <section>
+      <h2>Disclaimer</h2>
+      <p>This tool is intended for general date calculations. It does not determine official deadlines, business days, public holidays, or legal time limits. Confirm special counting rules with the relevant authority when needed.</p>
+    </section>
+  </main>
 
-function formatDate(date){
-  return date.toLocaleDateString("en-US",{
-    year:"numeric",month:"long",day:"numeric",timeZone:"UTC"
-  });
-}
+  <footer>
+    <p><a href="index.html">Home</a></p>
+    <p>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </p>
+    <p class="muted">Calculate dates using clear calendar rules.</p>
+  </footer>
 
-document.getElementById("differenceForm").addEventListener("submit",function(event){
-  event.preventDefault();
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const mode = $("mode");
+      const differenceFields = $("differenceFields");
+      const offsetFields = $("offsetFields");
+      const result = $("result");
 
-  const start=parseDate(document.getElementById("startDate").value);
-  const end=parseDate(document.getElementById("endDate").value);
-  const error=document.getElementById("differenceError");
-  const results=document.getElementById("differenceResults");
+      function dateString(date) {
+        const y = date.getUTCFullYear();
+        const m = String(date.getUTCMonth() + 1).padStart(2, "0");
+        const d = String(date.getUTCDate()).padStart(2, "0");
+        return y + "-" + m + "-" + d;
+      }
 
-  error.textContent="";
-  results.style.display="none";
+      function parseDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+        const [y, m, d] = value.split("-").map(Number);
+        const date = new Date(Date.UTC(y, m - 1, d));
+        if (date.getUTCFullYear() !== y ||
+            date.getUTCMonth() !== m - 1 ||
+            date.getUTCDate() !== d) return null;
+        return date;
+      }
 
-  if(!start||!end){
-    error.textContent="Please enter two valid dates.";
-    return;
-  }
+      function daysInMonth(year, monthIndex) {
+        return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+      }
 
-  if(end<start){
-    error.textContent="The end date must be on or after the start date.";
-    return;
-  }
+      function addMonthsClamped(date, amount) {
+        const originalDay = date.getUTCDate();
+        const targetFirst = new Date(Date.UTC(
+          date.getUTCFullYear(),
+          date.getUTCMonth() + amount,
+          1
+        ));
+        const targetDay = Math.min(
+          originalDay,
+          daysInMonth(targetFirst.getUTCFullYear(), targetFirst.getUTCMonth())
+        );
+        return new Date(Date.UTC(
+          targetFirst.getUTCFullYear(),
+          targetFirst.getUTCMonth(),
+          targetDay
+        ));
+      }
 
-  let days=Math.round((end-start)/86400000);
-  if(document.getElementById("includeEnd").value==="yes")days++;
+      function updateMode() {
+        const isDifference = mode.value === "difference";
+        differenceFields.hidden = !isDifference;
+        offsetFields.hidden = isDifference;
 
-  document.getElementById("totalDays").textContent=days.toLocaleString("en-US");
-  document.getElementById("weeks").textContent=Math.floor(days/7).toLocaleString("en-US");
-  document.getElementById("remainingDays").textContent=days%7;
-  results.style.display="block";
-});
+        $("startDate").disabled = !isDifference;
+        $("endDate").disabled = !isDifference;
+        $("baseDate").disabled = isDifference;
+        $("amount").disabled = isDifference;
+        $("unit").disabled = isDifference;
 
-document.getElementById("addForm").addEventListener("submit",function(event){
-  event.preventDefault();
+        $("startDate").required = isDifference;
+        $("endDate").required = isDifference;
+        $("baseDate").required = !isDifference;
+        $("amount").required = !isDifference;
+      }
 
-  const base=parseDate(document.getElementById("baseDate").value);
-  const count=Number(document.getElementById("dayCount").value);
-  const operation=document.getElementById("operation").value;
-  const error=document.getElementById("addError");
-  const results=document.getElementById("addResults");
+      const today = new Date();
+      const todayValue = dateString(new Date(Date.UTC(
+        today.getFullYear(), today.getMonth(), today.getDate()
+      )));
+      $("startDate").value = todayValue;
+      $("endDate").value = todayValue;
+      $("baseDate").value = todayValue;
 
-  error.textContent="";
-  results.style.display="none";
+      mode.addEventListener("change", updateMode);
+      updateMode();
 
-  if(!base||!Number.isSafeInteger(count)||count<0||count>1000000){
-    error.textContent="Please enter a valid date and a whole number of days from 0 to 1,000,000.";
-    return;
-  }
+      $("calculateButton").addEventListener("click", function () {
+        if (mode.value === "difference") {
+          const start = parseDate($("startDate").value);
+          const end = parseDate($("endDate").value);
 
-  const change=operation==="add"?count:-count;
-  base.setUTCDate(base.getUTCDate()+change);
+          if (!start || !end) {
+            result.textContent = "Please enter valid start and end dates.";
+            return;
+          }
 
-  if(!Number.isFinite(base.getTime())){
-    error.textContent="That date is outside the supported range.";
-    return;
-  }
+          const diff = Math.abs(end.getTime() - start.getTime());
+          const days = Math.round(diff / 86400000);
+          const weeks = Math.floor(days / 7);
+          const remainingDays = days % 7;
 
-  document.getElementById("newDate").textContent=formatDate(base);
-  results.style.display="block";
-});
-</script>
+          result.innerHTML =
+            "<h3>Date Difference</h3>" +
+            "<p><strong>Elapsed days:</strong> " + days.toLocaleString("en-US") + "</p>" +
+            "<p><strong>Complete weeks:</strong> " + weeks.toLocaleString("en-US") + "</p>" +
+            "<p><strong>Remaining days:</strong> " + remainingDays + "</p>" +
+            "<p><strong>Start date:</strong> " + dateString(start) + "</p>" +
+            "<p><strong>End date:</strong> " + dateString(end) + "</p>" +
+            "<p class='muted'>Elapsed days are shown; both endpoints are not counted as separate full days.</p>";
+          return;
+        }
+
+        const base = parseDate($("baseDate").value);
+        const amountText = $("amount").value.trim();
+        const amount = Number(amountText);
+        const unit = $("unit").value;
+
+        if (!base || amountText === "" || !Number.isFinite(amount) ||
+            amount < 0 || !Number.isInteger(amount) || amount > 100000) {
+          result.textContent = "Enter a valid starting date and a whole number from 0 to 100,000.";
+          return;
+        }
+
+        const direction = mode.value === "add" ? 1 : -1;
+        let target;
+
+        if (unit === "days") {
+          target = new Date(base.getTime() + direction * amount * 86400000);
+        } else if (unit === "weeks") {
+          target = new Date(base.getTime() + direction * amount * 7 * 86400000);
+        } else if (unit === "months") {
+          target = addMonthsClamped(base, direction * amount);
+        } else {
+          const targetYear = base.getUTCFullYear() + direction * amount;
+          const targetMonth = base.getUTCMonth();
+          const targetDay = Math.min(
+            base.getUTCDate(),
+            daysInMonth(targetYear, targetMonth)
+          );
+          target = new Date(Date.UTC(targetYear, targetMonth, targetDay));
+        }
+
+        if (!Number.isFinite(target.getTime())) {
+          result.textContent = "The calculated date is outside the supported range. Please use a smaller amount.";
+          return;
+        }
+
+        result.innerHTML =
+          "<h3>Calculated Date</h3>" +
+          "<p><strong>Starting date:</strong> " + dateString(base) + "</p>" +
+          "<p><strong>Operation:</strong> " +
+          (mode.value === "add" ? "Add " : "Subtract ") +
+          amount + " " + unit + "</p>" +
+          "<p><strong>Result:</strong> " + dateString(target) + "</p>" +
+          "<p class='muted'>Months and years use calendar arithmetic and adjust to the last valid day when needed.</p>";
+      });
+    })();
+  </script>
 </body>
 </html>
