@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>GPA Calculator — Daily Money</title>
+<meta name="description" content="Calculate your Grade Point Average (GPA) using course grades and credit hours with this free GPA calculator.">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/gpa-calculator.html">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
+header{background:#123b70;color:white;text-align:center;padding:22px 15px}
+header h1{margin:0;font-size:28px}
+nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
+nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
+main{max-width:760px;margin:25px auto;padding:0 15px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
+h2{font-size:21px;margin-top:0}
+label{display:block;font-weight:bold;margin:12px 0 5px}
+input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
+.course{border:1px solid #dbe3ee;border-radius:8px;padding:14px;margin:12px 0;background:#fbfdff}
+.course-title{font-weight:bold;margin-bottom:5px}
+button{padding:12px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+button:hover{background:#10539c}
+.full{width:100%;margin-top:16px}
+.remove{background:#a83232;margin-top:10px;width:100%}
+.secondary{background:#52657b;width:100%;margin-top:10px}
+.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
+.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
+.result-row:last-child{border:0}
+.note{font-size:14px;color:#596579}
+footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
+footer a{color:#174d8c;margin:5px;text-decoration:none}
+</style>
+</head>
+
+<body>
+<header>
+<h1>GPA Calculator</h1>
+<p>Calculate your grade point average</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="percentage-calculator.html">Percentage</a>
+<a href="age-calculator.html">Age Calculator</a>
+<a href="about.html">About</a>
+</nav>
+
+<main>
+<section class="card">
+<h2>Calculate Your GPA</h2>
+<p>Add your courses, select each grade, and enter its credit hours. This calculator uses a standard 4.0 GPA scale.</p>
+
+<form id="gpaForm">
+<div id="courses"></div>
+
+<button type="button" class="secondary" id="addCourse">+ Add Another Course</button>
+<button type="submit" class="full">Calculate GPA</button>
+<button type="button" class="remove" id="resetButton">Reset Courses</button>
+</form>
+
+<div id="results" class="results" aria-live="polite">
+<h2>Your GPA Result</h2>
+<div class="result-row"><span>GPA</span><strong id="gpaValue">0.00 / 4.00</strong></div>
+<div class="result-row"><span>Total credit hours</span><strong id="creditTotal">0</strong></div>
+<div class="result-row"><span>Courses included</span><strong id="courseTotal">0</strong></div>
+<p class="note">This result is an estimate based on the grade-point values shown below.</p>
+</div>
+
+<p id="error" class="note" role="alert"></p>
+</section>
+
+<section class="card">
+<h2>How Is GPA Calculated?</h2>
+<p>Grade Point Average (GPA) is commonly calculated by multiplying each course's grade points by its credit hours, adding those results, and dividing by the total credit hours.</p>
+<p><strong>Formula:</strong> GPA = Total (Grade Points × Credit Hours) ÷ Total Credit Hours.</p>
+
+<h2>Standard 4.0 Grade Scale</h2>
+<ul>
+<li>A: 4.0 points</li>
+<li>A−: 3.7 points</li>
+<li>B+: 3.3 points</li>
+<li>B: 3.0 points</li>
+<li>B−: 2.7 points</li>
+<li>C+: 2.3 points</li>
+<li>C: 2.0 points</li>
+<li>C−: 1.7 points</li>
+<li>D+: 1.3 points</li>
+<li>D: 1.0 point</li>
+<li>F: 0 points</li>
+</ul>
+
+<h2>Important Information</h2>
+<p>Grading scales differ between schools, colleges, and countries. Some institutions treat plus/minus grades, repeated courses, withdrawals, and pass/fail classes differently. Check your institution's official policy for an official GPA.</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Daily Money</p>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+<script>
+const coursesElement=document.getElementById("courses");
+const results=document.getElementById("results");
+const error=document.getElementById("error");
+
+let courseCounter=0;
+
+const gradeOptions=[
+  ["A",4.0],["A-",3.7],["B+",3.3],["B",3.0],
+  ["B-",2.7],["C+",2.3],["C",2.0],["C-",1.7],
+  ["D+",1.3],["D",1.0],["F",0.0]
+];
+
+function addCourse(){
+  courseCounter++;
+
+  const course=document.createElement("div");
+  course.className="course";
+  course.dataset.courseId=String(courseCounter);
+
+  const title=document.createElement("div");
+  title.className="course-title";
+  title.textContent="Course "+courseCounter;
+
+  const nameLabel=document.createElement("label");
+  nameLabel.textContent="Course Name";
+  const name=document.createElement("input");
+  name.type="text";
+  name.className="course-name";
+  name.placeholder="Example: Mathematics";
+  name.maxLength=100;
+  name.setAttribute("aria-label","Course name");
+
+  const gradeLabel=document.createElement("label");
+  gradeLabel.textContent="Grade";
+  const grade=document.createElement("select");
+  grade.className="course-grade";
+  grade.setAttribute("aria-label","Course grade");
+
+  gradeOptions.forEach(function(item){
+    const option=document.createElement("option");
+    option.value=String(item[1]);
+    option.textContent=item[0]+" ("+item[1].toFixed(1)+")";
+    grade.appendChild(option);
+  });
+
+  const creditLabel=document.createElement("label");
+  creditLabel.textContent="Credit Hours";
+  const credit=document.createElement("input");
+  credit.type="number";
+  credit.className="course-credit";
+  credit.min="0.5";
+  credit.max="100";
+  credit.step="0.5";
+  credit.value="3";
+  credit.required=true;
+  credit.setAttribute("aria-label","Course credit hours");
+
+  const remove=document.createElement("button");
+  remove.type="button";
+  remove.className="remove";
+  remove.textContent="Remove Course";
+  remove.addEventListener("click",function(){
+    course.remove();
+    renumberCourses();
+    results.style.display="none";
+    error.textContent="";
+  });
+
+  course.append(title,nameLabel,name,gradeLabel,grade,creditLabel,credit,remove);
+  coursesElement.appendChild(course);
+  renumberCourses();
+}
+
+function renumberCourses(){
+  const all=coursesElement.querySelectorAll(".course");
+  all.forEach(function(course,index){
+    course.querySelector(".course-title").textContent="Course "+(index+1);
+  });
+}
+
+document.getElementById("addCourse").addEventListener("click",function(){
+  if(coursesElement.querySelectorAll(".course").length>=30){
+    error.textContent="You can add up to 30 courses.";
+    return;
+  }
+  addCourse();
+  results.style.display="none";
+  error.textContent="";
+});
+
+document.getElementById("resetButton").addEventListener("click",function(){
+  coursesElement.innerHTML="";
+  courseCounter=0;
+  addCourse();
+  addCourse();
+  addCourse();
+  results.style.display="none";
+  error.textContent="";
+});
+
+document.getElementById("gpaForm").addEventListener("submit",function(event){
+  event.preventDefault();
+
+  error.textContent="";
+  results.style.display="none";
+
+  const courses=Array.from(coursesElement.querySelectorAll(".course"));
+
+  if(courses.length===0){
+    error.textContent="Please add at least one course.";
+    return;
+  }
+
+  let weightedPoints=0;
+  let totalCredits=0;
+
+  for(const course of courses){
+    const creditInput=course.querySelector(".course-credit");
+    const credits=Number(creditInput.value);
+    const gradePoints=Number(course.querySelector(".course-grade").value);
+
+    if(!Number.isFinite(credits)||credits<0.5||credits>100||
+       !Number.isFinite(gradePoints)||gradePoints<0||gradePoints>4){
+      error.textContent="Please enter valid credit hours for every course.";
+      return;
+    }
+
+    weightedPoints+=gradePoints*credits;
+    totalCredits+=credits;
+  }
+
+  if(totalCredits<=0){
+    error.textContent="Total credit hours must be greater than zero.";
+    return;
+  }
+
+  const gpa=weightedPoints/totalCredits;
+
+  document.getElementById("gpaValue").textContent=gpa.toFixed(2)+" / 4.00";
+  document.getElementById("creditTotal").textContent=totalCredits.toFixed(1);
+  document.getElementById("courseTotal").textContent=String(courses.length);
+
+  results.style.display="block";
+});
+
+addCourse();
+addCourse();
+addCourse();
+</script>
+</body>
+</html>
