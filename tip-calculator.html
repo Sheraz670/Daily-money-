@@ -1,183 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Tip Calculator - Calculate Tips and Split Bills</title>
-  <meta name="description" content="Use this free tip calculator to calculate restaurant tips, total bills, and the amount each person pays.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://daily-money-taupe.vercel.app/tip-calculator.html">
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f6fb;
-      color: #202938;
-      line-height: 1.6;
-    }
-    header {
-      background: #123b70;
-      color: white;
-      text-align: center;
-      padding: 22px 15px;
-    }
-    main {
-      max-width: 700px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 3px 15px #0000000c;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-top: 14px;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    input { border: 1px solid #cbd5e1; }
-    button {
-      border: 0;
-      background: #1762ad;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .result {
-      background: #edf7ff;
-      padding: 15px;
-      border-radius: 9px;
-      margin-top: 18px;
-    }
-    .result p { margin: 8px 0; }
-    nav, footer { text-align: center; padding: 16px; }
-    a { color: #14579b; }
-    footer { background: #123b70; color: white; }
-    footer a { color: white; margin: 5px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tip Calculator — Calculate Tips and Split Bills | Daily Money Tools</title>
+<meta name="description" content="Calculate restaurant tips, total bills and per-person costs with this free tip calculator. Learn the tip formula with practical examples.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/tip-calculator.html">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263244;line-height:1.7}
+header{background:#123b70;color:white;padding:22px 16px}
+header div,main,footer{max-width:850px;margin:auto}
+header h1{margin:0;font-size:28px}
+nav{background:white;padding:12px 16px;border-bottom:1px solid #ddd}
+nav div{max-width:850px;margin:auto}
+nav a,footer a{margin-right:14px}
+main{padding:20px 14px}
+section{background:white;border:1px solid #e0e6ee;border-radius:12px;padding:20px;margin-bottom:18px}
+h2{color:#123b70;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;font-size:16px}
+button{background:#1769c2;color:white;border:0;border-radius:7px;padding:12px 18px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px}
+button:hover{background:#104f94}
+.result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px}
+.error{color:#b42318;font-weight:bold}
+footer{text-align:center;padding:20px 14px 32px}
+.small{font-size:14px;color:#596579}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Tip Calculator</h1>
-    <p>Calculate your tip and split the bill easily</p>
-  </header>
+<header><div><h1>Tip Calculator</h1><p>Calculate a tip and divide a restaurant bill fairly.</p></div></header>
+<nav><div><a href="./">Home</a><a href="discount-calculator.html">Discount Calculator</a><a href="percentage-calculator.html">Percentage Calculator</a></div></nav><main>
+<section>
+<h2>Calculate Your Tip</h2>
+<p>Enter your bill amount, choose a tip percentage and specify how many people will share the bill. The calculator shows the tip, total bill and estimated amount per person.</p><form id="tipForm">
+<label for="bill">Bill amount</label>
+<input id="bill" type="number" min="0" step="0.01" placeholder="e.g. 48.50" required><label for="tipRate">Tip percentage</label>
+<select id="tipRate">
 
-  <nav>
-    <a href="index.html">Home</a>
-  </nav>
+<option value="10">10% — Basic</option>
+<option value="15" selected>15% — Moderate</option>
+<option value="18">18%</option>
+<option value="20">20% — Generous</option>
+<option value="25">25%</option>
+<option value="custom">Enter a custom percentage</option>
+</select><div id="customTipWrap" hidden>
+<label for="customTip">Custom tip percentage</label>
+<input id="customTip" type="number" min="0" max="1000" step="0.1" placeholder="e.g. 17.5">
+</div><label for="people">Number of people splitting the bill</label>
+<input id="people" type="number" min="1" max="1000" step="1" value="1" required>
 
-  <main>
-    <section class="card">
-      <h2>Calculate Your Tip</h2>
-      <p>Enter your bill amount, tip percentage and number of people.</p>
+<label for="currency">Currency symbol</label>
+<select id="currency">
 
-      <label for="bill">Bill Amount</label>
-      <input id="bill" type="number" min="0" step="0.01" placeholder="e.g. 50">
+<option value="$">$ — US Dollar</option>
+<option value="£">£ — British Pound</option>
+<option value="€">€ — Euro</option>
+<option value="Rs ">Rs — Rupee</option>
+<option value="C$">C$ — Canadian Dollar</option>
+<option value="A$">A$ — Australian Dollar</option>
+<option value="¥">¥ — Yen</option>
+</select><button type="submit">Calculate Tip</button>
+<button type="reset" style="background:#596579;margin-left:6px">Reset</button>
 
-      <label for="tip">Tip Percentage (%)</label>
-      <input id="tip" type="number" min="0" step="0.1" value="15">
+<div id="result" class="result" role="status" aria-live="polite" hidden></div>
+</form>
+</section><section>
+<h2>How to Use the Tip Calculator</h2>
+<ol>
+<li>Enter the restaurant bill before adding the tip.</li>
+<li>Select a suggested tip rate or enter your own percentage.</li>
+<li>Enter the number of people sharing the bill.</li>
+<li>Choose a currency symbol and select Calculate Tip.</li>
+<li>Review the tip amount, total and per-person estimate.</li>
+</ol>
+<p>The calculator assumes the tip is calculated on the full bill amount you enter. If your restaurant calculates tips before tax, enter the appropriate pre-tax amount.</p>
+</section><section>
+<h2>Tip Calculator Formula</h2>
+<p><strong>Tip amount = Bill amount × (Tip percentage ÷ 100)</strong></p>
+<p><strong>Total bill = Bill amount + Tip amount</strong></p>
+<p><strong>Cost per person = Total bill ÷ Number of people</strong></p>
+<h3>Example: A $50 restaurant bill</h3>
+<p>If the bill is $50 and you choose a 20% tip:</p>
+<ul>
+<li>Tip: $50 × 0.20 = $10</li>
+<li>Total: $50 + $10 = $60</li>
+<li>If three people share it equally: $60 ÷ 3 = $20 per person</li>
+</ul>
+<p>This is an estimate. Local tipping customs and restaurant policies differ, and some bills already include a service charge.</p>
+</section><section>
+<h2>Frequently Asked Questions</h2>
+<h3>How much should I tip at a restaurant?</h3>
+<p>Tip expectations vary by country, service type and local custom. In some places, 15–20% is common for table service, while other countries have different practices. Check local guidance when travelling.</p><h3>Can I split the bill between several people?</h3>
+<p>Yes. Enter the number of people, and the calculator divides the bill plus tip equally. It does not account for people ordering different amounts.</p><h3>Can I calculate a custom tip percentage?</h3>
+<p>Yes. Choose the custom percentage option and enter the rate you want to use.</p><h3>Does this calculator include sales tax?</h3>
+<p>It calculates the tip on the bill amount you enter. Whether that amount includes sales tax depends on what you enter.</p><h3>What if the bill already includes a service charge?</h3>
+<p>Check your receipt before adding another tip. The appropriate amount depends on the restaurant's policy and local customs.</p>
+</section><section>
+<h2>About This Tool</h2>
+<p>This free calculator is designed for everyday bill planning. It performs a straightforward percentage calculation and equal split; it does not process payments or store your bill information on a server.</p>
+<p>For related calculations, try the <a href="discount-calculator.html">Discount Calculator</a>, <a href="percentage-calculator.html">Percentage Calculator</a> or <a href="sales-tax-calculator.html">Sales Tax Calculator</a>.</p>
+</section>
+</main><footer>
+<p><a href="./">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></p>
+<p class="small">© 2026 Daily Money Tools. For general informational use.</p>
+</footer><script>
+const tipRate = document.getElementById("tipRate");
+const customTipWrap = document.getElementById("customTipWrap");
+const customTip = document.getElementById("customTip");
+const form = document.getElementById("tipForm");
+const result = document.getElementById("result");
 
-      <label for="people">Number of People</label>
-      <input id="people" type="number" min="1" step="1" value="1">
+tipRate.addEventListener("change", () => {
+  const custom = tipRate.value === "custom";
+  customTipWrap.hidden = !custom;
+  customTip.required = custom;
+});
 
-      <button type="button" onclick="calculateTip()">Calculate Tip</button>
+form.addEventListener("submit", event => {
+  event.preventDefault();
 
-      <div class="result" id="result" aria-live="polite">
-        Enter your values and calculate the result.
-      </div>
-    </section>
+  const bill = Number(document.getElementById("bill").value);
+  const people = Number(document.getElementById("people").value);
+  const rate = tipRate.value === "custom"
+    ? Number(customTip.value)
+    : Number(tipRate.value);
+  const currency = document.getElementById("currency").value;
 
-    <section class="card">
-      <h2>How Does a Tip Calculator Work?</h2>
-      <p>
-        A tip calculator estimates the tip based on your bill and selected
-        percentage. It adds the tip to the original bill and divides the
-        total by the number of people.
-      </p>
+  result.hidden = false;
+  result.classList.remove("error");
 
-      <h3>Tip Calculation Formula</h3>
-      <p>Tip = Bill Amount × Tip Percentage ÷ 100</p>
-      <p>Total Bill = Bill Amount + Tip</p>
-      <p>Each Person Pays = Total Bill ÷ Number of People</p>
+  if (!Number.isFinite(bill) || bill <= 0 ||
+      !Number.isInteger(people) || people < 1 ||
+      !Number.isFinite(rate) || rate < 0 || rate > 1000) {
+    result.classList.add("error");
+    result.textContent = "Please enter a bill greater than zero, a valid tip percentage, and a whole number of people.";
+    return;
+  }
 
-      <h3>Example</h3>
-      <p>
-        If your bill is $50 and you choose a 15% tip, your tip is $7.50
-        and the total bill is $57.50. One person would pay $57.50.
-      </p>
-    </section>
+  const tip = bill * rate / 100;
+  const total = bill + tip;
+  const perPerson = total / people;
+  const money = value => currency + value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 
-    <section class="card">
-      <h2>Frequently Asked Questions</h2>
-      <h3>How much should I tip?</h3>
-      <p>
-        The appropriate tip varies by country, service and local customs.
-        Choose the percentage that suits your situation.
-      </p>
+  result.innerHTML = "";
+  const heading = document.createElement("h3");
+  heading.textContent = "Your Results";
+  result.appendChild(heading);
 
-      <h3>Can I split the bill?</h3>
-      <p>
-        Yes. Enter the number of people to estimate each person's equal share.
-      </p>
-    </section>
-  </main>
+  [
+    ["Bill amount", money(bill)],
+    ["Tip rate", rate + "%"],
+    ["Tip amount", money(tip)],
+    ["Total including tip", money(total)],
+    ["Amount per person", money(perPerson)]
+  ].forEach(([label, value]) => {
+    const row = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = label + ": ";
+    row.append(strong, document.createTextNode(value));
+    result.appendChild(row);
+  });
+});
 
-  <footer>
-    <p>© 2026 Daily Money Tools</p>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="contact.html">Contact</a>
-    <a href="disclaimer.html">Disclaimer</a>
-  </footer>
-
-  <script>
-    function calculateTip() {
-      const bill = Number(document.getElementById("bill").value);
-      const tipPercent = Number(document.getElementById("tip").value);
-      const people = Number(document.getElementById("people").value);
-      const result = document.getElementById("result");
-
-      if (
-        document.getElementById("bill").value.trim() === "" ||
-        document.getElementById("tip").value.trim() === "" ||
-        document.getElementById("people").value.trim() === "" ||
-        !Number.isFinite(bill) ||
-        !Number.isFinite(tipPercent) ||
-        !Number.isFinite(people) ||
-        bill < 0 ||
-        tipPercent < 0 ||
-        people < 1 ||
-        !Number.isInteger(people)
-      ) {
-        result.textContent =
-          "Please enter a valid bill, tip percentage and whole number of people.";
-        return;
-      }
-
-      const tipAmount = bill * tipPercent / 100;
-      const total = bill + tipAmount;
-      const eachPerson = total / people;
-
-      result.innerHTML = `
-        <p><strong>Tip Amount:</strong> ${tipAmount.toFixed(2)}</p>
-        <p><strong>Total Bill:</strong> ${total.toFixed(2)}</p>
-        <p><strong>Each Person Pays:</strong> ${eachPerson.toFixed(2)}</p>
-      `;
-    }
-  </script>
-</body>
-</html>
+form.addEventListener("reset", () => {
+  result.hidden = true;
+  result.textContent = "";
+  result.classList.remove("error");
+  customTipWrap.hidden = true;
+  customTip.required = false;
+});
+</script></body>
+  </html>
