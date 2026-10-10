@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Loan Payment Calculator — Daily Money</title>
+<meta name="description" content="Estimate monthly loan payments, total interest, and total repayment with this free loan payment calculator.">
+<link rel="canonical" href="https://daily-money-taupe.vercel.app/loan-payment-calculator.html">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
+header{background:#123b70;color:white;text-align:center;padding:22px 15px}
+header h1{margin:0;font-size:28px}
+nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
+nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
+main{max-width:760px;margin:25px auto;padding:0 15px}
+.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
+h2{font-size:21px;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
+button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
+button:hover{background:#10539c}
+.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
+.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
+.result-row:last-child{border:0}
+.note{font-size:14px;color:#596579}
+footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
+footer a{color:#174d8c;margin:5px;text-decoration:none}
+</style>
+</head>
+
+<body>
+<header>
+<h1>Loan Payment Calculator</h1>
+<p>Estimate monthly payments and total loan costs</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="percentage-calculator.html">Percentage</a>
+<a href="profit-loss-calculator.html">Profit &amp; Loss</a>
+<a href="about.html">About</a>
+</nav>
+
+<main>
+<section class="card">
+<h2>Calculate Your Loan Payment</h2>
+
+<form id="loanForm">
+<label for="loanAmount">Loan Amount ($)</label>
+<input id="loanAmount" type="number" min="0.01" step="any" placeholder="Example: 20000" required>
+
+<label for="interestRate">Annual Interest Rate (%)</label>
+<input id="interestRate" type="number" min="0" max="100" step="any" value="6.5" required>
+
+<label for="loanTerm">Loan Term (Years)</label>
+<input id="loanTerm" type="number" min="1" max="100" step="1" value="5" required>
+
+<button type="submit">Calculate Loan Payment</button>
+</form>
+
+<div id="results" class="results" aria-live="polite">
+<h2>Your Loan Estimate</h2>
+<div class="result-row"><span>Monthly payment</span><strong id="monthlyPayment">$0.00</strong></div>
+<div class="result-row"><span>Total payments</span><strong id="totalPayments">$0.00</strong></div>
+<div class="result-row"><span>Total interest</span><strong id="totalInterest">$0.00</strong></div>
+<div class="result-row"><span>Loan amount</span><strong id="principalResult">$0.00</strong></div>
+</div>
+
+<p id="error" class="note" role="alert"></p>
+</section>
+
+<section class="card">
+<h2>How Is a Loan Payment Calculated?</h2>
+<p>For a standard fixed-rate loan with monthly payments, the monthly payment depends on the amount borrowed, the monthly interest rate, and the number of payments.</p>
+<p>When the interest rate is greater than zero, the calculator uses the standard amortizing-loan payment formula. When the interest rate is zero, it divides the loan amount equally across all monthly payments.</p>
+
+<h2>Example</h2>
+<p>For a $20,000 loan over five years at a fixed annual interest rate of 6.5%, the calculator estimates the monthly payment and the total interest paid over 60 payments.</p>
+
+<h2>What Is Not Included?</h2>
+<p>This estimate does not include lender fees, insurance, taxes, variable interest rates, or extra payments. Your lender's actual repayment schedule may differ.</p>
+
+<h2>Frequently Asked Question</h2>
+<p><strong>Does a longer loan term reduce the monthly payment?</strong><br>Usually, yes. However, a longer term can increase the total interest paid over the life of the loan.</p>
+</section>
+</main>
+
+<footer>
+<p>© 2026 Daily Money</p>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+<script>
+document.getElementById("loanForm").addEventListener("submit",function(event){
+  event.preventDefault();
+
+  const principal=Number(document.getElementById("loanAmount").value);
+  const annualRate=Number(document.getElementById("interestRate").value);
+  const years=Number(document.getElementById("loanTerm").value);
+  const error=document.getElementById("error");
+  const results=document.getElementById("results");
+
+  error.textContent="";
+  results.style.display="none";
+
+  if(!Number.isFinite(principal)||principal<=0||
+     !Number.isFinite(annualRate)||annualRate<0||annualRate>100||
+     !Number.isInteger(years)||years<1||years>100){
+    error.textContent="Please enter a valid loan amount, interest rate, and loan term.";
+    return;
+  }
+
+  const numberOfPayments=years*12;
+  const monthlyRate=annualRate/100/12;
+
+  let payment;
+
+  if(monthlyRate===0){
+    payment=principal/numberOfPayments;
+  }else{
+    const factor=Math.pow(1+monthlyRate,numberOfPayments);
+    payment=principal*(monthlyRate*factor)/(factor-1);
+  }
+
+  const total=payment*numberOfPayments;
+  const interest=total-principal;
+
+  const money=value=>value.toLocaleString("en-US",{
+    style:"currency",currency:"USD"
+  });
+
+  document.getElementById("monthlyPayment").textContent=money(payment);
+  document.getElementById("totalPayments").textContent=money(total);
+  document.getElementById("totalInterest").textContent=money(interest);
+  document.getElementById("principalResult").textContent=money(principal);
+
+  results.style.display="block";
+});
+</script>
+</body>
+</html>
