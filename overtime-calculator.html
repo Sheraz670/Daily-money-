@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Overtime Calculator - Estimate Overtime Pay</title>
+  <meta name="description" content="Estimate overtime pay, regular earnings and total gross weekly pay with this free overtime calculator.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/overtime-calculator.html">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      color: #202938;
+      line-height: 1.6;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      text-align: center;
+      padding: 24px 15px;
+    }
+    main {
+      max-width: 720px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 15px #0000000c;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 14px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input { border: 1px solid #cbd5e1; }
+    button {
+      border: 0;
+      background: #1762ad;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .result {
+      background: #edf7ff;
+      padding: 15px;
+      border-radius: 9px;
+      margin-top: 18px;
+      overflow-wrap: anywhere;
+    }
+    nav, footer { text-align: center; padding: 16px; }
+    footer { background: #123b70; color: white; }
+    footer a { color: white; margin: 5px; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Overtime Calculator</h1>
+    <p>Estimate regular pay and overtime earnings</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+  </nav>
+
+  <main>
+    <section class="card">
+      <h2>Calculate Your Overtime Pay</h2>
+      <p>Enter your hourly wage and hours worked for the week.</p>
+
+      <label for="wage">Regular Hourly Wage</label>
+      <input id="wage" type="number" min="0" step="0.01" placeholder="e.g. 20">
+
+      <label for="regularHours">Regular Hours</label>
+      <input id="regularHours" type="number" min="0" max="168" step="0.1" value="40">
+
+      <label for="overtimeHours">Overtime Hours</label>
+      <input id="overtimeHours" type="number" min="0" max="168" step="0.1" value="5">
+
+      <label for="multiplier">Overtime Pay Multiplier</label>
+      <input id="multiplier" type="number" min="0" max="10" step="0.1" value="1.5">
+
+      <button type="button" onclick="calculateOvertime()">Calculate Pay</button>
+
+      <div id="result" class="result" aria-live="polite">
+        Your estimated pay will appear here.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>How Overtime Pay Is Calculated</h2>
+      <p>
+        Overtime pay depends on your hourly wage, overtime hours and the
+        multiplier used by your employer or required by applicable law.
+      </p>
+
+      <h3>Formula</h3>
+      <p>Regular Pay = Hourly Wage × Regular Hours</p>
+      <p>Overtime Rate = Hourly Wage × Overtime Multiplier</p>
+      <p>Overtime Pay = Overtime Rate × Overtime Hours</p>
+      <p>Total Gross Pay = Regular Pay + Overtime Pay</p>
+
+      <h3>Example</h3>
+      <p>
+        If your hourly wage is $20 and your overtime multiplier is 1.5,
+        your estimated overtime rate is $30 per hour. Five overtime hours
+        would equal $150 in overtime pay.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What does a 1.5 multiplier mean?</h3>
+      <p>
+        It means the overtime rate is one and a half times the regular hourly wage.
+      </p>
+
+      <h3>Is this calculator a legal pay determination?</h3>
+      <p>
+        No. Overtime rules vary by location, job and employment arrangement.
+        Check the laws that apply to your situation and your employer's pay policy.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Daily Money Tools</p>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="disclaimer.html">Disclaimer</a>
+  </footer>
+
+  <script>
+    function calculateOvertime() {
+      const wageText = document.getElementById("wage").value.trim();
+      const regularText = document.getElementById("regularHours").value.trim();
+      const overtimeText = document.getElementById("overtimeHours").value.trim();
+      const multiplierText = document.getElementById("multiplier").value.trim();
+
+      const wage = Number(wageText);
+      const regularHours = Number(regularText);
+      const overtimeHours = Number(overtimeText);
+      const multiplier = Number(multiplierText);
+      const result = document.getElementById("result");
+
+      if (
+        wageText === "" || regularText === "" ||
+        overtimeText === "" || multiplierText === "" ||
+        !Number.isFinite(wage) ||
+        !Number.isFinite(regularHours) ||
+        !Number.isFinite(overtimeHours) ||
+        !Number.isFinite(multiplier) ||
+        wage < 0 ||
+        regularHours < 0 || regularHours > 168 ||
+        overtimeHours < 0 || overtimeHours > 168 ||
+        multiplier < 0 || multiplier > 10
+      ) {
+        result.textContent =
+          "Please enter valid values. Hours must be 0–168 and multiplier 0–10.";
+        return;
+      }
+
+      const regularPay = wage * regularHours;
+      const overtimeRate = wage * multiplier;
+      const overtimePay = overtimeRate * overtimeHours;
+      const totalPay = regularPay + overtimePay;
+
+      result.innerHTML = `
+        <p><strong>Regular Pay:</strong> ${regularPay.toFixed(2)}</p>
+        <p><strong>Overtime Hourly Rate:</strong> ${overtimeRate.toFixed(2)}</p>
+        <p><strong>Overtime Pay:</strong> ${overtimePay.toFixed(2)}</p>
+        <p><strong>Total Estimated Gross Pay:</strong> ${totalPay.toFixed(2)}</p>
+        <p>This is an estimate before taxes and deductions.</p>
+      `;
+    }
+  </script>
+</body>
+  </html>
