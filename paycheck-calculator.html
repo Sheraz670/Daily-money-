@@ -1,139 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Paycheck Calculator — Daily Money</title>
-<meta name="description" content="Estimate your take-home paycheck after taxes and other deductions using this free paycheck calculator.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/paycheck-calculator.html">
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
-header{background:#123b70;color:white;padding:22px 16px;text-align:center}
-header h1{margin:0;font-size:27px}
-nav{background:white;padding:12px;text-align:center;border-bottom:1px solid #ddd}
-nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
-h2{font-size:21px;margin-top:0}
-label{display:block;font-weight:bold;margin:14px 0 5px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px;background:white}
-button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#10539c}
-.results{display:none;margin-top:20px;background:#edf7ee;padding:16px;border-radius:8px}
-.result-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #d5e5d6}
-.result-row:last-child{border:0}
-.note{font-size:14px;color:#596579}
-footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
-footer a{color:#174d8c;margin:5px;text-decoration:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paycheck Calculator – Estimate Gross and Take-Home Pay</title>
+  <meta name="description" content="Estimate paycheck earnings before and after deductions. Calculate weekly, biweekly, twice-monthly, and monthly pay with this free paycheck calculator.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/paycheck-calculator.html">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #263244;
+      line-height: 1.7;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      text-align: center;
+      padding: 28px 16px;
+    }
+    header h1 { margin: 0 0 8px; line-height: 1.3; }
+    header p { margin: 0; }
+    main { max-width: 850px; margin: 24px auto; padding: 0 15px; }
+    .calculator, section {
+      background: white;
+      border: 1px solid #e0e7ef;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    h2 { color: #123b70; line-height: 1.35; }
+    label { display: block; font-weight: bold; margin: 14px 0 5px; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #b9c6d5;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #1769c2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #10549e; }
+    #result {
+      margin-top: 18px;
+      padding: 15px;
+      background: #eef6ff;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+    }
+    .muted { color: #586779; font-size: 14px; }
+    .formula {
+      background: #f4f7fb;
+      padding: 12px;
+      border-radius: 7px;
+      overflow-wrap: anywhere;
+    }
+    a { color: #1769c2; }
+    footer {
+      text-align: center;
+      padding: 22px 15px;
+      background: #e8eef6;
+    }
+    footer a { margin: 0 7px; }
+    @media (max-width: 480px) {
+      header h1 { font-size: 25px; }
+      .calculator, section { padding: 17px; }
+    }
+  </style>
 </head>
-
 <body>
-<header>
-<h1>Paycheck Calculator</h1>
-<p>Estimate your take-home pay after deductions</p>
-</header>
+  <header>
+    <h1>Paycheck Calculator</h1>
+    <p>Estimate your gross earnings, deductions, and take-home pay.</p>
+  </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="hourly-to-salary-calculator.html">Salary Calculator</a>
-<a href="overtime-calculator.html">Overtime</a>
-<a href="about.html">About</a>
-</nav>
+  <main>
+    <div class="calculator">
+      <h2>Calculate Your Paycheck</h2>
+      <p>Enter your pay details below. The deduction percentage is an estimate you choose; it is not an automatic tax calculation.</p>
 
-<main>
-<section class="card">
-<h2>Calculate Your Paycheck</h2>
-<p>Enter your gross pay, estimated tax rates, and other deductions.</p>
+      <label for="currency">Currency</label>
+      <select id="currency">
+        <option value="$">USD ($)</option>
+        <option value="£">GBP (£)</option>
+        <option value="€">EUR (€)</option>
+        <option value="Rs ">PKR (Rs)</option>
+        <option value="C$">CAD (C$)</option>
+        <option value="A$">AUD (A$)</option>
+        <option value="₹">INR (₹)</option>
+      </select>
 
-<form id="paycheckForm">
-<label for="grossPay">Gross Pay for Each Paycheck ($)</label>
-<input id="grossPay" type="number" min="0" step="0.01" placeholder="Example: 2000" required>
+      <label for="payType">How are you paid?</label>
+      <select id="payType">
+        <option value="hourly">Hourly</option>
+        <option value="annual">Annual salary</option>
+      </select>
 
-<label for="frequency">Pay Frequency</label>
-<select id="frequency">
-<option value="52">Weekly</option>
-<option value="26" selected>Every two weeks</option>
-<option value="24">Twice a month</option>
-<option value="12">Monthly</option>
-</select>
+      <div id="hourlyFields">
+        <label for="hourlyRate">Hourly wage</label>
+        <input id="hourlyRate" type="number" min="0.01" step="0.01" value="20" placeholder="e.g. 20">
 
-<label for="federalTax">Estimated Federal Tax (%)</label>
-<input id="federalTax" type="number" min="0" max="100" step="0.01" value="10" required>
+        <label for="hoursPerWeek">Hours worked per week</label>
+        <input id="hoursPerWeek" type="number" min="0" max="168" step="0.25" value="40" placeholder="e.g. 40">
+      </div>
 
-<label for="stateTax">Estimated State / Local Tax (%)</label>
-<input id="stateTax" type="number" min="0" max="100" step="0.01" value="3" required>
+      <div id="salaryFields" hidden>
+        <label for="annualSalary">Annual salary before deductions</label>
+        <input id="annualSalary" type="number" min="0.01" step="0.01" placeholder="e.g. 52000" disabled>
+      </div>
 
-<label for="otherDeductions">Other Deductions per Paycheck ($)</label>
-<input id="otherDeductions" type="number" min="0" step="0.01" value="0" required>
+      <label for="payFrequency">Pay frequency</label>
+      <select id="payFrequency">
+        <option value="52">Weekly (52 paychecks/year)</option>
+        <option value="26" selected>Biweekly (26 paychecks/year)</option>
+        <option value="24">Twice monthly (24 paychecks/year)</option>
+        <option value="12">Monthly (12 paychecks/year)</option>
+      </select>
 
-<button type="submit">Calculate My Paycheck</button>
-</form>
+      <label for="deductionRate">Estimated total deductions (%)</label>
+      <input id="deductionRate" type="number" min="0" max="100" step="0.1" value="20" placeholder="e.g. 20">
 
-<div id="results" class="results" aria-live="polite">
-<h2>Your Estimated Pay</h2>
-<div class="result-row"><span>Gross paycheck</span><strong id="grossResult">$0.00</strong></div>
-<div class="result-row"><span>Estimated taxes</span><strong id="taxResult">$0.00</strong></div>
-<div class="result-row"><span>Other deductions</span><strong id="deductionResult">$0.00</strong></div>
-<div class="result-row"><span>Net paycheck</span><strong id="netResult">$0.00</strong></div>
-<div class="result-row"><span>Estimated annual net pay</span><strong id="annualResult">$0.00</strong></div>
-</div>
+      <button type="button" id="calculateButton">Calculate Paycheck</button>
 
-<p class="note">This is an estimate, not an official payroll calculation. Actual deductions depend on your location, tax rules, benefits, and personal circumstances.</p>
-</section>
+      <div id="result" role="status" aria-live="polite">
+        Your estimated paycheck breakdown will appear here.
+      </div>
 
-<section class="card">
-<h2>How Does a Paycheck Calculator Work?</h2>
-<p>A paycheck calculator estimates how much money remains after taxes and other deductions are taken from your gross pay.</p>
-<p>Enter the gross amount you receive each payday, select how often you are paid, and enter your estimated tax rates. The calculator subtracts estimated taxes and other deductions to show your take-home pay.</p>
-<h2>Important Information</h2>
-<p>Tax rates vary by country, state, income, and individual circumstances. This calculator uses the percentages you enter and does not determine your actual tax liability.</p>
-</section>
-</main>
+      <p class="muted">This tool does not know your tax jurisdiction, filing status, benefits, or payroll rules. Use a deduction percentage that reflects your own estimate.</p>
+    </div>
 
-<footer>
-<p>© 2026 Daily Money</p>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-<a href="disclaimer.html">Disclaimer</a>
-</footer>
+    <section>
+      <h2>What Is a Paycheck Calculator?</h2>
+      <p>A paycheck calculator estimates how much you may earn during a pay period. It can help you compare gross earnings with an approximate amount remaining after deductions such as taxes, insurance, retirement contributions, or other payroll deductions.</p>
+      <p>Gross pay is earnings before deductions. Take-home pay, also called net pay, is the amount left after deductions. Actual payroll calculations can be more complex than a single percentage.</p>
+    </section>
 
-<script>
-document.getElementById("paycheckForm").addEventListener("submit",function(event){
-  event.preventDefault();
+    <section>
+      <h2>How to Use This Calculator</h2>
+      <ol>
+        <li>Select the currency you want to use.</li>
+        <li>Choose hourly pay or annual salary.</li>
+        <li>Enter your wage and working hours, or enter your annual salary.</li>
+        <li>Select how often you receive a paycheck.</li>
+        <li>Enter an estimated deduction percentage.</li>
+        <li>Tap “Calculate Paycheck” to view your estimated results.</li>
+      </ol>
+    </section>
 
-  const gross=Number(document.getElementById("grossPay").value);
-  const frequency=Number(document.getElementById("frequency").value);
-  const federal=Number(document.getElementById("federalTax").value);
-  const state=Number(document.getElementById("stateTax").value);
-  const other=Number(document.getElementById("otherDeductions").value);
+    <section>
+      <h2>Paycheck Calculation Formula</h2>
+      <p class="formula"><strong>Annual gross pay for hourly workers</strong> = Hourly wage × Weekly hours × 52</p>
+      <p class="formula"><strong>Gross pay per paycheck</strong> = Annual gross pay ÷ Paychecks per year</p>
+      <p class="formula"><strong>Estimated deductions</strong> = Gross pay per paycheck × Deduction percentage</p>
+      <p class="formula"><strong>Estimated take-home pay</strong> = Gross pay per paycheck − Estimated deductions</p>
+      <p>The hourly method assumes the same hours and wage throughout 52 weeks. Unpaid leave, overtime, bonuses, and irregular hours may change actual annual earnings.</p>
+    </section>
 
-  if(!Number.isFinite(gross)||gross<0||!Number.isFinite(other)||other<0||
-     !Number.isFinite(federal)||federal<0||federal>100||
-     !Number.isFinite(state)||state<0||state>100){
-    alert("Please enter valid amounts and tax rates between 0 and 100.");
-    return;
-  }
+    <section>
+      <h2>Example: Biweekly Paycheck</h2>
+      <p>Suppose you earn $20 per hour, work 40 hours each week, receive 26 paychecks per year, and estimate deductions at 20%.</p>
+      <ul>
+        <li>Annual gross pay: $20 × 40 × 52 = $41,600</li>
+        <li>Biweekly gross pay: $41,600 ÷ 26 = $1,600</li>
+        <li>Estimated deductions: $1,600 × 20% = $320</li>
+        <li>Estimated take-home pay: $1,600 − $320 = $1,280</li>
+      </ul>
+      <p>This example is illustrative. Your actual deductions may be higher or lower.</p>
+    </section>
 
-  const taxes=gross*(federal+state)/100;
-  const net=gross-taxes-other;
+    <section>
+      <h2>Pay Frequency Explained</h2>
+      <ul>
+        <li><strong>Weekly:</strong> usually 52 pay periods per year.</li>
+        <li><strong>Biweekly:</strong> usually 26 pay periods per year, paid every two weeks.</li>
+        <li><strong>Twice monthly:</strong> 24 pay periods per year, commonly paid on two set dates each month.</li>
+        <li><strong>Monthly:</strong> 12 pay periods per year.</li>
+      </ul>
+      <p>Biweekly and twice-monthly pay are different. Some months have three biweekly paydays, while twice-monthly schedules generally have two.</p>
+    </section>
 
-  const money=value=>value.toLocaleString("en-US",{
-    style:"currency",currency:"USD"
-  });
+    <section>
+      <h2>Frequently Asked Questions</h2>
 
-  document.getElementById("grossResult").textContent=money(gross);
-  document.getElementById("taxResult").textContent=money(taxes);
-  document.getElementById("deductionResult").textContent=money(other);
-  document.getElementById("netResult").textContent=money(net);
-  document.getElementById("annualResult").textContent=money(net*frequency);
-  document.getElementById("results").style.display="block";
-});
-</script>
+      <h3>What is the difference between gross pay and net pay?</h3>
+      <p>Gross pay is the amount earned before deductions. Net pay is the amount remaining after taxes and other applicable deductions are taken out.</p>
+
+      <h3>Does this calculator calculate exact taxes?</h3>
+      <p>No. It applies the deduction percentage you enter. It does not calculate local or federal taxes, tax credits, filing status, or individual payroll contributions.</p>
+
+      <h3>How many biweekly paychecks are there in a year?</h3>
+      <p>A standard biweekly schedule has 26 pay periods in a year. Depending on the calendar and payday schedule, some years may have an additional payday for certain employees.</p>
+
+      <h3>Can I use this calculator with an annual salary?</h3>
+      <p>Yes. Select “Annual salary,” enter your yearly gross salary, choose your pay frequency, and enter an estimated deduction percentage.</p>
+
+      <h3>Why might my actual paycheck be different?</h3>
+      <p>Your actual paycheck can differ because of taxes, benefit premiums, retirement contributions, overtime, bonuses, unpaid leave, and employer payroll adjustments.</p>
+    </section>
+
+    <section>
+      <h2>Related Calculators</h2>
+      <ul>
+        <li><a href="hourly-to-salary-calculator.html">Hourly to Salary Calculator</a></li>
+        <li><a href="salary-to-hourly-calculator.html">Salary to Hourly Calculator</a></li>
+        <li><a href="overtime-calculator.html">Overtime Pay Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Disclaimer</h2>
+      <p>This calculator provides general estimates for educational and budgeting purposes. It is not a tax, legal, payroll, or financial service. Verify your pay and deductions with your employer, official tax resources, or a qualified professional.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Home</a></p>
+    <p>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </p>
+    <p class="muted">Plan your budget using estimates and verify your actual payroll figures.</p>
+  </footer>
+
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+
+      function money(value, symbol) {
+        return symbol + value.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      function updatePayType() {
+        const isHourly = $("payType").value === "hourly";
+
+        $("hourlyFields").hidden = !isHourly;
+        $("salaryFields").hidden = isHourly;
+
+        $("hourlyRate").disabled = !isHourly;
+        $("hoursPerWeek").disabled = !isHourly;
+        $("annualSalary").disabled = isHourly;
+
+        $("hourlyRate").required = isHourly;
+        $("hoursPerWeek").required = isHourly;
+        $("annualSalary").required = !isHourly;
+      }
+
+      $("payType").addEventListener("change", updatePayType);
+      updatePayType();
+
+      $("calculateButton").addEventListener("click", function () {
+        const type = $("payType").value;
+        const frequency = Number($("payFrequency").value);
+        const deductionRate = Number($("deductionRate").value);
+        const symbol = $("currency").value;
+        const result = $("result");
+
+        let annualGross;
+
+        if (type === "hourly") {
+          const wage = Number($("hourlyRate").value);
+          const hours = Number($("hoursPerWeek").value);
+
+          if (
+            $("hourlyRate").value.trim() === "" ||
+            $("hoursPerWeek").value.trim() === "" ||
+            !Number.isFinite(wage) ||
+            !Number.isFinite(hours) ||
+            wage <= 0 ||
+            hours < 0 ||
+            hours > 168
+          ) {
+            result.textContent = "Please enter a positive hourly wage and valid weekly hours between 0 and 168.";
+            return;
+          }
+
+          annualGross = wage * hours * 52;
+        } else {
+          const salary = Number($("annualSalary").value);
+
+          if (
+            $("annualSalary").value.trim() === "" ||
+            !Number.isFinite(salary) ||
+            salary <= 0
+          ) {
+            result.textContent = "Please enter a valid annual salary greater than zero.";
+            return;
+          }
+
+          annualGross = salary;
+        }
+
+        if (
+          !Number.isFinite(deductionRate) ||
+          $("deductionRate").value.trim() === "" ||
+          deductionRate < 0 ||
+          deductionRate > 100
+        ) {
+          result.textContent = "Please enter a deduction percentage from 0 to 100.";
+          return;
+        }
+
+        const grossPerPaycheck = annualGross / frequency;
+        const deductions = grossPerPaycheck * deductionRate / 100;
+        const netPerPaycheck = grossPerPaycheck - deductions;
+        const annualDeductions = annualGross * deductionRate / 100;
+        const annualNet = annualGross - annualDeductions;
+
+        const frequencyName = {
+          52: "Weekly",
+          26: "Biweekly",
+          24: "Twice monthly",
+          12: "Monthly"
+        }[frequency];
+
+        result.innerHTML =
+          "<h3>Your Estimated Paycheck</h3>" +
+          "<p><strong>Pay frequency:</strong> " + frequencyName + "</p>" +
+          "<p><strong>Annual gross pay:</strong> " + money(annualGross, symbol) + "</p>" +
+          "<p><strong>Gross pay per paycheck:</strong> " + money(grossPerPaycheck, symbol) + "</p>" +
+          "<p><strong>Estimated deductions per paycheck:</strong> " + money(deductions, symbol) + "</p>" +
+          "<p><strong>Estimated take-home per paycheck:</strong> " + money(netPerPaycheck, symbol) + "</p>" +
+          "<p><strong>Estimated annual deductions:</strong> " + money(annualDeductions, symbol) + "</p>" +
+          "<p><strong>Estimated annual take-home pay:</strong> " + money(annualNet, symbol) + "</p>" +
+          "<p class='muted'>Estimate only. Actual payroll amounts and deductions may differ.</p>";
+      });
+    })();
+  </script>
 </body>
 </html>
