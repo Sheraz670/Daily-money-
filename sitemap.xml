@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
     <loc>https://daily-money-taupe.vercel.app/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/tip-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/discount-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/percentage-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/loan-payment-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/sales-tax-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/profit-loss-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/hourly-to-salary-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/salary-to-hourly-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/overtime-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/paycheck-calculator.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/age-calculator.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/date-calculator.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/bmi-calculator.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/gpa-calculator.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/about.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/contact.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/privacy-policy.html</loc>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/terms.html</loc>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://daily-money-taupe.vercel.app/disclaimer.html</loc>
+    <priority>0.4</priority>
   </url>
 
 </urlset>
