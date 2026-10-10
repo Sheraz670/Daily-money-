@@ -1,213 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Age Calculator — Daily Money</title>
-<meta name="description" content="Calculate your exact age in years, months, and days with this free online age calculator.">
-<link rel="canonical" href="https://daily-money-taupe.vercel.app/age-calculator.html">
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#202938;line-height:1.6}
-header{background:#123b70;color:white;text-align:center;padding:22px 15px}
-header h1{margin:0;font-size:28px}
-nav{background:white;text-align:center;padding:12px;border-bottom:1px solid #ddd}
-nav a{display:inline-block;margin:4px 9px;color:#174d8c;text-decoration:none;font-weight:bold}
-main{max-width:760px;margin:25px auto;padding:0 15px}
-.card{background:white;padding:22px;border-radius:12px;box-shadow:0 3px 14px #0000000d;margin-bottom:20px}
-h2{font-size:21px;margin-top:0}
-label{display:block;font-weight:bold;margin:14px 0 5px}
-input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
-button{width:100%;padding:13px;margin-top:20px;border:0;border-radius:7px;background:#1769c2;color:white;font-size:17px;font-weight:bold;cursor:pointer}
-button:hover{background:#10539c}
-.results{display:none;margin-top:20px;padding:16px;background:#edf7ee;border-radius:8px}
-.result-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #d5e5d6}
-.result-row:last-child{border:0}
-.note{font-size:14px;color:#596579}
-footer{text-align:center;padding:22px 12px;background:white;margin-top:30px}
-footer a{color:#174d8c;margin:5px;text-decoration:none}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Age Calculator – Calculate Your Exact Age</title>
+  <meta name="description" content="Calculate your age in years, months, and days using your date of birth. Find your next birthday and total days lived with this free age calculator.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://daily-money-taupe.vercel.app/age-calculator.html">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f4f7fb; color: #263244; line-height: 1.7; }
+    header { background: #123b70; color: white; text-align: center; padding: 28px 16px; }
+    header h1 { margin: 0 0 8px; line-height: 1.3; }
+    header p { margin: 0; }
+    main { max-width: 850px; margin: 24px auto; padding: 0 15px; }
+    .calculator, section { background: white; border: 1px solid #e0e7ef; border-radius: 12px; padding: 22px; margin-bottom: 20px; }
+    h2 { color: #123b70; line-height: 1.35; }
+    label { display: block; font-weight: bold; margin: 14px 0 5px; }
+    input { width: 100%; padding: 12px; border: 1px solid #b9c6d5; border-radius: 7px; font: inherit; background: white; }
+    button { width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 7px; background: #1769c2; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+    button:hover { background: #10549e; }
+    #result { margin-top: 18px; padding: 15px; background: #eef6ff; border-radius: 8px; overflow-wrap: anywhere; }
+    .muted { color: #586779; font-size: 14px; }
+    a { color: #1769c2; }
+    footer { text-align: center; padding: 22px 15px; background: #e8eef6; }
+    footer a { margin: 0 7px; }
+    @media (max-width: 480px) { header h1 { font-size: 25px; } .calculator, section { padding: 17px; } }
+  </style>
 </head>
-
 <body>
-<header>
-<h1>Age Calculator</h1>
-<p>Calculate your age in years, months, and days</p>
-</header>
+  <header>
+    <h1>Age Calculator</h1>
+    <p>Calculate your age in years, months, and days.</p>
+  </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="date-calculator.html">Date Calculator</a>
-<a href="percentage-calculator.html">Percentage</a>
-<a href="about.html">About</a>
-</nav>
+  <main>
+    <div class="calculator">
+      <h2>Calculate Your Exact Age</h2>
+      <p>Enter your date of birth and the date you want to calculate your age on.</p>
 
-<main>
-<section class="card">
-<h2>Calculate Your Exact Age</h2>
-<p>Enter your date of birth and the date you want to calculate your age up to.</p>
+      <label for="birthDate">Date of birth</label>
+      <input type="date" id="birthDate" required>
 
-<form id="ageForm">
-<label for="birthDate">Date of Birth</label>
-<input type="date" id="birthDate" required>
+      <label for="asOfDate">Calculate age as of</label>
+      <input type="date" id="asOfDate" required>
 
-<label for="asOfDate">Calculate Age On</label>
-<input type="date" id="asOfDate" required>
+      <button type="button" id="calculateButton">Calculate Age</button>
+      <div id="result" role="status" aria-live="polite">Your age calculation will appear here.</div>
+      <p class="muted">Your age is calculated from the dates you enter. This tool does not verify identity or official records.</p>
+    </div>
 
-<button type="submit">Calculate Age</button>
-</form>
+    <section>
+      <h2>What Is an Age Calculator?</h2>
+      <p>An age calculator determines the time between a date of birth and another selected date. It can express the result in completed years, months, and days. This is useful for personal planning, school activities, forms, and checking how long it has been since a particular date.</p>
+      <p>The result depends on the dates entered. If you select a future date of birth or an end date before your birth date, the calculator will ask you to correct the dates.</p>
+    </section>
 
-<div id="results" class="results" aria-live="polite">
-<h2>Your Age Result</h2>
-<div class="result-row"><span>Years</span><strong id="years">0</strong></div>
-<div class="result-row"><span>Months</span><strong id="months">0</strong></div>
-<div class="result-row"><span>Days</span><strong id="days">0</strong></div>
-<div class="result-row"><span>Total days lived</span><strong id="totalDays">0</strong></div>
-<div class="result-row"><span>Next birthday</span><strong id="nextBirthday">—</strong></div>
-</div>
-<p id="error" class="note" role="alert"></p>
-</section>
+    <section>
+      <h2>How to Use This Calculator</h2>
+      <ol>
+        <li>Select your date of birth.</li>
+        <li>Select the date on which you want to know your age.</li>
+        <li>Tap “Calculate Age”.</li>
+        <li>Read your completed age in years, months, and days, plus your next birthday information.</li>
+      </ol>
+    </section>
 
-<section class="card">
-<h2>How to Use the Age Calculator</h2>
-<p>Select your date of birth, then select the date on which you want to know your age. Press Calculate Age to see your age in years, months, and days, along with the total number of days between the two dates.</p>
+    <section>
+      <h2>How Age Is Calculated</h2>
+      <p>The calculator compares the birth date with the selected end date. It counts complete years first, then complete months after the last birthday, and finally the remaining days.</p>
+      <p>For example, someone born on 15 March 2000 is 26 years old on 15 March 2026. On 14 March 2026, they are still 25 years old.</p>
+      <p>Calendar months have different lengths, so a precise age in months and days is not always equivalent to a fixed number of days.</p>
+    </section>
 
-<h2>How Is Age Calculated?</h2>
-<p>Age is calculated by comparing the birth date with the selected date. The result accounts for the different lengths of calendar months and leap years.</p>
+    <section>
+      <h2>Understanding Your Result</h2>
+      <ul>
+        <li><strong>Years:</strong> completed years since your birth date.</li>
+        <li><strong>Months:</strong> additional complete calendar months after the last completed year.</li>
+        <li><strong>Days:</strong> remaining days after counting complete years and months.</li>
+        <li><strong>Days lived:</strong> total calendar-day difference between the two dates.</li>
+        <li><strong>Next birthday:</strong> the next birthday date after the selected calculation date.</li>
+      </ul>
+      <p>Leap years and different month lengths can affect the number of days between dates.</p>
+    </section>
 
-<h2>Frequently Asked Questions</h2>
-<p><strong>Can I calculate my age on a past date?</strong><br>Yes. Select any date on or after your date of birth.</p>
-<p><strong>Does this calculator account for leap years?</strong><br>Yes. It uses calendar dates to calculate the age and the number of days between dates.</p>
-</section>
-</main>
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <h3>Can I calculate my age on a past date?</h3>
+      <p>Yes. Enter your birth date and any later date, including a date in the past, to calculate how old you were then.</p>
 
-<footer>
-<p>© 2026 Daily Money</p>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms.html">Terms</a>
-<a href="disclaimer.html">Disclaimer</a>
-</footer>
+      <h3>Does this calculator account for leap years?</h3>
+      <p>Yes. It uses calendar dates, so February 29 and leap years are included in the date calculations.</p>
 
-<script>
-const birthInput=document.getElementById("birthDate");
-const asOfInput=document.getElementById("asOfDate");
+      <h3>Why do months have different day counts?</h3>
+      <p>Calendar months range from 28 to 31 days. The years-months-days result follows calendar boundaries rather than treating every month as an equal number of days.</p>
 
-function localDateString(date){
-  const y=date.getFullYear();
-  const m=String(date.getMonth()+1).padStart(2,"0");
-  const d=String(date.getDate()).padStart(2,"0");
-  return `${y}-${m}-${d}`;
-}
+      <h3>Can I use it to calculate someone else's age?</h3>
+      <p>Yes. Enter that person's date of birth and the date on which you want to calculate their age. Only enter personal information when you have a legitimate reason to use it.</p>
 
-const today=new Date();
-asOfInput.value=localDateString(today);
-birthInput.max=asOfInput.value;
-asOfInput.min="0001-01-01";
+      <h3>Is this result an official age record?</h3>
+      <p>No. It is a date-based estimate. Official forms and eligibility rules may have their own requirements for documenting age.</p>
+    </section>
 
-function parseDate(value){
-  if(!value)return null;
-  const parts=value.split("-").map(Number);
-  if(parts.length!==3)return null;
-  const [y,m,d]=parts;
-  const date=new Date(0);
-  date.setUTCHours(0,0,0,0);
-  date.setUTCFullYear(y,m-1,d);
-  if(date.getUTCFullYear()!==y||date.getUTCMonth()!==m-1||date.getUTCDate()!==d)return null;
-  return date;
-}
+    <section>
+      <h2>Related Calculators</h2>
+      <ul>
+        <li><a href="date-calculator.html">Date Calculator</a></li>
+        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+        <li><a href="index.html">All Calculators</a></li>
+      </ul>
+    </section>
 
-function daysInMonth(year,month){
-  return new Date(Date.UTC(year,month,0)).getUTCDate();
-}
+    <section>
+      <h2>Disclaimer</h2>
+      <p>This tool is for general informational purposes only. It does not provide official verification of age, legal eligibility, or identity. Check the relevant official requirements when accuracy is important for legal or administrative purposes.</p>
+    </section>
+  </main>
 
-function addYearsClamped(date,years){
-  const y=date.getUTCFullYear()+years;
-  const m=date.getUTCMonth();
-  const d=Math.min(date.getUTCDate(),daysInMonth(y,m+1));
-  return new Date(Date.UTC(y,m,d));
-}
+  <footer>
+    <p><a href="index.html">Home</a></p>
+    <p>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </p>
+    <p class="muted">Calculate calendar age using the dates you provide.</p>
+  </footer>
 
-function addMonthsClamped(date,months){
-  const total=date.getUTCFullYear()*12+date.getUTCMonth()+months;
-  const y=Math.floor(total/12);
-  const m=((total%12)+12)%12;
-  const d=Math.min(date.getUTCDate(),daysInMonth(y,m+1));
-  return new Date(Date.UTC(y,m,d));
-}
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const birthInput = $("birthDate");
+      const endInput = $("asOfDate");
+      const result = $("result");
 
-function dateDiff(start,end){
-  let years=end.getUTCFullYear()-start.getUTCFullYear();
-  let cursor=addYearsClamped(start,years);
-  if(cursor>end){
-    years--;
-    cursor=addYearsClamped(start,years);
-  }
+      function localDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return year + "-" + month + "-" + day;
+      }
 
-  let months=0;
-  while(months<11){
-    const next=addMonthsClamped(cursor,1);
-    if(next>end)break;
-    cursor=next;
-    months++;
-  }
+      function parseDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+        const parts = value.split("-").map(Number);
+        const date = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+        if (
+          date.getUTCFullYear() !== parts[0] ||
+          date.getUTCMonth() !== parts[1] - 1 ||
+          date.getUTCDate() !== parts[2]
+        ) return null;
+        return date;
+      }
 
-  const days=Math.round((end-cursor)/86400000);
-  return {years,months,days};
-}
+      function daysInMonth(year, monthIndex) {
+        return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
+      }
 
-document.getElementById("ageForm").addEventListener("submit",function(event){
-  event.preventDefault();
+      function calculateAge(birth, end) {
+        let years = end.getUTCFullYear() - birth.getUTCFullYear();
+        let anniversaryDay = Math.min(
+          birth.getUTCDate(),
+          daysInMonth(end.getUTCFullYear(), birth.getUTCMonth())
+        );
+        const anniversary = Date.UTC(
+          end.getUTCFullYear(),
+          birth.getUTCMonth(),
+          anniversaryDay
+        );
 
-  const birth=parseDate(birthInput.value);
-  const asOf=parseDate(asOfInput.value);
-  const error=document.getElementById("error");
-  const results=document.getElementById("results");
+        if (anniversary > end.getTime()) years--;
 
-  error.textContent="";
-  results.style.display="none";
+        let months = 0;
+        let cursorYear = birth.getUTCFullYear() + years;
+        let cursorMonth = birth.getUTCMonth();
+        let cursorDay = Math.min(
+          birth.getUTCDate(),
+          daysInMonth(cursorYear, cursorMonth)
+        );
 
-  if(!birth||!asOf){
-    error.textContent="Please enter both valid dates.";
-    return;
-  }
+        let cursor = Date.UTC(cursorYear, cursorMonth, cursorDay);
 
-  if(asOf<birth){
-    error.textContent="The calculation date cannot be before your date of birth.";
-    return;
-  }
+        while (true) {
+          let nextMonth = cursorMonth + 1;
+          let nextYear = cursorYear;
+          if (nextMonth > 11) {
+            nextMonth = 0;
+            nextYear++;
+          }
+          const nextDay = Math.min(
+            birth.getUTCDate(),
+            daysInMonth(nextYear, nextMonth)
+          );
+          const nextCursor = Date.UTC(nextYear, nextMonth, nextDay);
 
-  const age=dateDiff(birth,asOf);
-  const totalDays=Math.round((asOf-birth)/86400000);
+          if (nextCursor > end.getTime()) break;
+          cursorYear = nextYear;
+          cursorMonth = nextMonth;
+          cursorDay = nextDay;
+          cursor = nextCursor;
+          months++;
+        }
 
-  let nextYear=asOf.getUTCFullYear();
-  let birthdayThisYear=addYearsClamped(birth,nextYear-birth.getUTCFullYear());
+        const days = Math.floor((end.getTime() - cursor) / 86400000);
+        const totalDays = Math.floor((end.getTime() - birth.getTime()) / 86400000);
 
-  if(birthdayThisYear<asOf){
-    nextYear++;
-    birthdayThisYear=addYearsClamped(birth,nextYear-birth.getUTCFullYear());
-  }
+        return { years, months, days, totalDays };
+      }
 
-  const remainingDays=Math.round((birthdayThisYear-asOf)/86400000);
-  const birthdayText=remainingDays===0
-    ?"Today"
-    :`${remainingDays} day${remainingDays===1?"":"s"} from selected date`;
+      const today = new Date();
+      endInput.value = localDateString(today);
+      birthInput.max = endInput.value;
+      endInput.min = "0001-01-01";
 
-  document.getElementById("years").textContent=age.years;
-  document.getElementById("months").textContent=age.months;
-  document.getElementById("days").textContent=age.days;
-  document.getElementById("totalDays").textContent=totalDays.toLocaleString("en-US");
-  document.getElementById("nextBirthday").textContent=birthdayText;
+      $("calculateButton").addEventListener("click", function () {
+        const birth = parseDate(birthInput.value);
+        const end = parseDate(endInput.value);
 
-  results.style.display="block";
-});
+        if (!birth || !end) {
+          result.textContent = "Please enter valid dates for both fields.";
+          return;
+        }
 
-asOfInput.addEventListener("change",function(){
-  birthInput.max=asOfInput.value;
-});
-</script>
+        if (birth > end) {
+          result.textContent = "Date of birth cannot be later than the calculation date.";
+          return;
+        }
+
+        const age = calculateAge(birth, end);
+
+        let nextYear = end.getUTCFullYear();
+        let nextBirthdayDay = Math.min(
+          birth.getUTCDate(),
+          daysInMonth(nextYear, birth.getUTCMonth())
+        );
+        let nextBirthday = Date.UTC(
+          nextYear,
+          birth.getUTCMonth(),
+          nextBirthdayDay
+        );
+
+        if (nextBirthday <= end.getTime()) {
+          nextYear++;
+          nextBirthdayDay = Math.min(
+            birth.getUTCDate(),
+            daysInMonth(nextYear, birth.getUTCMonth())
+          );
+          nextBirthday = Date.UTC(
+            nextYear,
+            birth.getUTCMonth(),
+            nextBirthdayDay
+          );
+        }
+
+        const birthdayText = new Date(nextBirthday).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          timeZone: "UTC"
+        });
+        const daysUntil = Math.round((nextBirthday - end.getTime()) / 86400000);
+
+        result.innerHTML =
+          "<h3>Your Age Result</h3>" +
+          "<p><strong>Age:</strong> " + age.years + " years, " +
+          age.months + " months, and " + age.days + " days</p>" +
+          "<p><strong>Total days lived between dates:</strong> " +
+          age.totalDays.toLocaleString("en-US") + "</p>" +
+          "<p><strong>Next birthday:</strong> " + birthdayText + "</p>" +
+          "<p><strong>Days until next birthday:</strong> " +
+          daysUntil.toLocaleString("en-US") + "</p>";
+      });
+    })();
+  </script>
 </body>
 </html>
