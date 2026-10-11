@@ -1,4 +1,6 @@
+
 User-agent: *
 Allow: /
 
-Sitemap: https://sheraz670.github.io/Daily-money-/sitemap.xml
+Sitemap: https://sheraz670.github.io/sitemap.xml
+
