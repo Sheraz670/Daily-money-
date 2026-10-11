@@ -1,87 +1,88 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://daily-money-taupe.vercel.app/</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://daily-money-taupe.vercel.app/tip-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/tip-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/discount-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/discount-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/percentage-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/percentage-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/loan-payment-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/loan-payment-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/sales-tax-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/sales-tax-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/profit-loss-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/profit-loss-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/hourly-to-salary-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/hourly-to-salary-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/salary-to-hourly-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/salary-to-hourly-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/overtime-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/overtime-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/paycheck-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/paycheck-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/age-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/age-calculator.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/date-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/date-calculator.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/bmi-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/bmi-calculator.html</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/gpa-calculator.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/gpa-calculator.html</loc>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://daily-money-taupe.vercel.app/about.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/about.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/contact.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/contact.html</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/privacy-policy.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/privacy-policy.html</loc>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/terms.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/terms.html</loc>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://daily-money-taupe.vercel.app/disclaimer.html</loc>
+    <loc>https://sheraz670.github.io/Daily-money-/disclaimer.html</loc>
     <priority>0.4</priority>
   </url>
 
