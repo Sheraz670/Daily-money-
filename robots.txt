@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://daily-money-taupe.vercel.app/sitemap.xml
+Sitemap: https://sheraz670.github.io/Daily-money-/sitemap.xml
