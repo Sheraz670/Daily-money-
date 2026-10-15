@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +57,7 @@ footer{text-align:center;padding:20px 14px 32px}
 <h2>Convert Annual Salary to Hourly Pay</h2>
 <p>Use this free calculator to estimate your hourly equivalent and average gross pay for different pay periods. Enter your annual salary, weekly working hours and paid weeks per year. The calculation happens in your browser.</p>
 
-<form id="salaryForm">
+<form id="salaryForm" novalidate>
 <label for="salary">Annual gross salary</label>
 <input id="salary" name="salary" type="number" min="0.01" max="1000000000000" step="0.01" placeholder="e.g. 52000" required>
 
@@ -76,8 +77,8 @@ footer{text-align:center;padding:20px 14px 32px}
 <option value="A$">A$ — Australian Dollar</option>
 </select>
 
-<button id="calculateButton" type="submit">Calculate Hourly Pay</button>
-<button id="resetButton" type="reset" style="background:#596579;margin-left:6px">Reset</button>
+<button id="calculateButton" type="button">Calculate Hourly Pay</button>
+<button id="resetButton" type="button" style="background:#596579;margin-left:6px">Reset</button>
 
 <div id="result" class="result" role="status" aria-live="polite" hidden></div>
 </form>
@@ -190,119 +191,139 @@ footer{text-align:center;padding:20px 14px 32px}
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("salaryForm");
-  const result = document.getElementById("result");
+(function () {
+  "use strict";
 
-  if (!form || !result) {
-    alert("Calculator form was not found. Please check the page HTML.");
-    return;
-  }
+  function initializeCalculator() {
+    const button = document.getElementById("calculateButton");
+    const resetButton = document.getElementById("resetButton");
+    const form = document.getElementById("salaryForm");
+    const result = document.getElementById("result");
 
-  function showMessage(message, isError) {
-    result.hidden = false;
-    result.classList.toggle("error", Boolean(isError));
-    result.replaceChildren();
+    if (!button || !resetButton || !form || !result) {
+      console.error("Salary calculator: a required HTML element is missing.");
+      return;
+    }
 
-    const p = document.createElement("p");
-    p.textContent = message;
-    result.appendChild(p);
-  }
+    function showMessage(message, isError) {
+      result.replaceChildren();
+      result.hidden = false;
+      result.classList.toggle("error", isError);
 
-  function money(amount, currency) {
-    return currency + amount.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      const p = document.createElement("p");
+      p.textContent = message;
+      result.appendChild(p);
+    }
+
+    function money(amount, currency) {
+      return currency + amount.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
+    button.addEventListener("click", function () {
+      try {
+        const salaryInput = document.getElementById("salary");
+        const hoursInput = document.getElementById("hours");
+        const weeksInput = document.getElementById("weeks");
+        const currencyInput = document.getElementById("currency");
+
+        if (!salaryInput || !hoursInput || !weeksInput || !currencyInput) {
+          showMessage("Calculator fields are missing. Please reload the page.", true);
+          return;
+        }
+
+        const salaryText = salaryInput.value.trim();
+        const hoursText = hoursInput.value.trim();
+        const weeksText = weeksInput.value.trim();
+
+        const salary = Number(salaryText);
+        const hours = Number(hoursText);
+        const weeks = Number(weeksText);
+        const currency = currencyInput.value;
+
+        if (salaryText === "" || !Number.isFinite(salary) ||
+            salary <= 0 || salary > 1000000000000) {
+          showMessage("Enter an annual salary greater than zero and no more than 1 trillion.", true);
+          salaryInput.focus();
+          return;
+        }
+
+        if (hoursText === "" || !Number.isFinite(hours) ||
+            hours <= 0 || hours > 168) {
+          showMessage("Enter weekly working hours greater than zero and no more than 168.", true);
+          hoursInput.focus();
+          return;
+        }
+
+        if (weeksText === "" || !Number.isInteger(weeks) ||
+            weeks < 1 || weeks > 52) {
+          showMessage("Enter a whole number of paid weeks between 1 and 52.", true);
+          weeksInput.focus();
+          return;
+        }
+
+        const annualHours = hours * weeks;
+
+        if (!Number.isFinite(annualHours) || annualHours <= 0) {
+          showMessage("Please check your working hours and paid weeks.", true);
+          return;
+        }
+
+        const rows = [
+          ["Hourly equivalent", money(salary / annualHours, currency)],
+          ["Weekly average", money(salary / weeks, currency)],
+          ["Biweekly average", money(salary / 26, currency)],
+          ["Monthly average", money(salary / 12, currency)],
+          ["Annual salary", money(salary, currency)],
+          ["Annual working hours", annualHours.toLocaleString("en-US")]
+        ];
+
+        result.replaceChildren();
+        result.classList.remove("error");
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Estimated Gross Pay";
+        result.appendChild(heading);
+
+        rows.forEach(function (item) {
+          const p = document.createElement("p");
+          const strong = document.createElement("strong");
+
+          strong.textContent = item[0] + ": ";
+          p.appendChild(strong);
+          p.appendChild(document.createTextNode(item[1]));
+          result.appendChild(p);
+        });
+
+        const note = document.createElement("p");
+        note.className = "small";
+        note.textContent = "Estimates before taxes and deductions. Actual compensation may differ.";
+        result.appendChild(note);
+
+        result.hidden = false;
+        result.scrollIntoView({ behavior: "auto", block: "nearest" });
+      } catch (error) {
+        console.error("Salary calculator error:", error);
+        showMessage("The calculation failed. Please reload the page and try again.", true);
+      }
+    });
+
+    resetButton.addEventListener("click", function () {
+      form.reset();
+      result.replaceChildren();
+      result.hidden = true;
+      result.classList.remove("error");
     });
   }
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    try {
-      const salaryField = document.getElementById("salary");
-      const hoursField = document.getElementById("hours");
-      const weeksField = document.getElementById("weeks");
-      const currencyField = document.getElementById("currency");
-
-      const salary = Number(salaryField.value);
-      const hours = Number(hoursField.value);
-      const weeks = Number(weeksField.value);
-      const currency = currencyField.value;
-
-      if (salaryField.value.trim() === "" ||
-          !Number.isFinite(salary) ||
-          salary <= 0 ||
-          salary > 1000000000000) {
-        showMessage("Enter an annual salary greater than zero and no more than 1 trillion.", true);
-        return;
-      }
-
-      if (hoursField.value.trim() === "" ||
-          !Number.isFinite(hours) ||
-          hours <= 0 ||
-          hours > 168) {
-        showMessage("Enter weekly working hours greater than zero and no more than 168.", true);
-        return;
-      }
-
-      if (weeksField.value.trim() === "" ||
-          !Number.isInteger(weeks) ||
-          weeks < 1 ||
-          weeks > 52) {
-        showMessage("Enter between 1 and 52 paid working weeks.", true);
-        return;
-      }
-
-      const annualHours = hours * weeks;
-      const hourly = salary / annualHours;
-      const weekly = salary / weeks;
-      const biweekly = salary / 26;
-      const monthly = salary / 12;
-
-      result.classList.remove("error");
-      result.replaceChildren();
-
-      const heading = document.createElement("h3");
-      heading.textContent = "Estimated Gross Pay";
-      result.appendChild(heading);
-
-      const rows = [
-        ["Hourly equivalent", money(hourly, currency)],
-        ["Weekly average", money(weekly, currency)],
-        ["Biweekly average", money(biweekly, currency)],
-        ["Monthly average", money(monthly, currency)],
-        ["Annual salary", money(salary, currency)],
-        ["Annual working hours", annualHours.toLocaleString("en-US")]
-      ];
-
-      rows.forEach(function (row) {
-        const p = document.createElement("p");
-        const strong = document.createElement("strong");
-        strong.textContent = row[0] + ": ";
-        p.appendChild(strong);
-        p.appendChild(document.createTextNode(row[1]));
-        result.appendChild(p);
-      });
-
-      const note = document.createElement("p");
-      note.className = "small";
-      note.textContent = "Estimates before taxes and deductions. Actual compensation may differ.";
-      result.appendChild(note);
-
-      result.hidden = false;
-      result.scrollIntoView({ behavior: "auto", block: "nearest" });
-    } catch (error) {
-      showMessage("The calculator encountered an error. Please refresh the page and try again.", true);
-    }
-  });
-
-  form.addEventListener("reset", function () {
-    result.hidden = true;
-    result.classList.remove("error");
-    result.replaceChildren();
-  });
-});
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeCalculator);
+  } else {
+    initializeCalculator();
+  }
+})();
 </script>
 </body>
 </html>
