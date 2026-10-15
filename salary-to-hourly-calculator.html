@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Salary to Hourly Calculator | Daily Money Tools</title>
-<meta name="description" content="Convert annual salary into hourly, weekly, biweekly and monthly gross pay. Use working hours and paid weeks to estimate your hourly equivalent with examples and guidance.">
+<meta name="description" content="Convert annual salary into hourly, weekly, biweekly and monthly gross pay. Calculate your hourly equivalent using working hours and paid weeks.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://sheraz670.github.io/salary-to-hourly-calculator.html">
 
@@ -27,12 +27,11 @@ input,select{width:100%;padding:12px;border:1px solid #aebaca;border-radius:7px;
 button{background:#1769c2;color:#fff;border:0;border-radius:7px;padding:12px 18px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px;min-height:46px}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f0a202;outline-offset:2px}
 button:hover{filter:brightness(.94)}
-button:disabled{opacity:.65;cursor:not-allowed}
 .result{background:#eef5ff;border-left:4px solid #1769c2;padding:15px;margin-top:18px;border-radius:5px;overflow-wrap:anywhere}
 .error{color:#8b1710;background:#fff0ef;border-left-color:#b42318}
 .small{font-size:14px;color:#596579}
 footer{text-align:center;padding:20px 14px 32px}
-@media(max-width:480px){header h1{font-size:24px}section{padding:16px}button{width:100%;margin-left:0!important}}
+@media(max-width:480px){header h1{font-size:24px}section{padding:16px}button{width:100%}}
 </style>
 </head>
 
@@ -55,9 +54,9 @@ footer{text-align:center;padding:20px 14px 32px}
 <main>
 <section>
 <h2>Convert Annual Salary to Hourly Pay</h2>
-<p>Use this free calculator to estimate your hourly equivalent and average gross pay for different pay periods. Enter your annual salary, weekly working hours and paid weeks per year. The calculation happens in your browser.</p>
+<p>Estimate your hourly equivalent and average gross pay for different pay periods. Enter your annual salary, weekly working hours and paid weeks per year. Your calculation runs in your browser.</p>
 
-<form id="salaryForm" novalidate>
+<form id="salaryForm" onsubmit="return false;">
 <label for="salary">Annual gross salary</label>
 <input id="salary" name="salary" type="number" min="0.01" max="1000000000000" step="0.01" placeholder="e.g. 52000" required>
 
@@ -77,8 +76,8 @@ footer{text-align:center;padding:20px 14px 32px}
 <option value="A$">A$ — Australian Dollar</option>
 </select>
 
-<button id="calculateButton" type="button">Calculate Hourly Pay</button>
-<button id="resetButton" type="button" style="background:#596579;margin-left:6px">Reset</button>
+<button id="calculateButton" type="button" onclick="calculateSalary()">Calculate Hourly Pay</button>
+<button id="resetButton" type="button" style="background:#596579">Reset</button>
 
 <div id="result" class="result" role="status" aria-live="polite" hidden></div>
 </form>
@@ -89,11 +88,11 @@ footer{text-align:center;padding:20px 14px 32px}
 <ol>
 <li>Enter your annual gross salary before deductions.</li>
 <li>Enter your usual working hours per week.</li>
-<li>Enter the number of paid working weeks per year.</li>
-<li>Choose the currency used for your salary.</li>
-<li>Press Calculate Hourly Pay to display the estimates.</li>
+<li>Enter your paid working weeks per year.</li>
+<li>Select your currency.</li>
+<li>Press Calculate Hourly Pay to view the estimates.</li>
 </ol>
-<p>For a typical full-year schedule, use 52 paid weeks. If you work seasonally or are paid for fewer weeks, adjust the number to reflect your situation. The result depends on the information you enter.</p>
+<p>Use 52 paid weeks for a typical full-year schedule. If you work seasonally or are paid for fewer weeks, adjust the number to reflect your circumstances.</p>
 </section>
 
 <section>
@@ -104,7 +103,7 @@ footer{text-align:center;padding:20px 14px 32px}
 <p><strong>Monthly average = Annual salary ÷ 12</strong></p>
 
 <h3>Example: $52,000 Annual Salary</h3>
-<p>Suppose you earn $52,000 per year and work 40 hours per week for 52 weeks.</p>
+<p>Suppose you earn $52,000 annually and work 40 hours each week for 52 weeks.</p>
 <ul>
 <li>Annual working hours: 40 × 52 = 2,080</li>
 <li>Hourly equivalent: $52,000 ÷ 2,080 = $25.00</li>
@@ -112,68 +111,57 @@ footer{text-align:center;padding:20px 14px 32px}
 <li>Biweekly average: $52,000 ÷ 26 = $2,000.00</li>
 <li>Monthly average: $52,000 ÷ 12 = $4,333.33</li>
 </ul>
-<p>These figures are gross estimates before taxes, insurance, retirement contributions or other deductions. The biweekly figure is an annual average divided by 26, not a calculation based on your actual payroll calendar.</p>
+<p>These figures are gross estimates before taxes, insurance, retirement contributions or other deductions. Actual paychecks can vary by payroll schedule.</p>
 </section>
 
 <section>
 <h2>Why Working Hours Matter</h2>
 <h3>Full-time and part-time schedules</h3>
-<p>The same annual salary can represent different hourly equivalents depending on working hours. A $52,000 salary spread across 2,080 annual hours equals $25 per hour. Across 1,560 annual hours, it equals about $33.33 per hour.</p>
-
+<p>The same annual salary can represent different hourly equivalents depending on working hours. A $52,000 salary across 2,080 annual hours equals $25 per hour. Across 1,560 annual hours, it equals about $33.33 per hour.</p>
 <h3>Paid leave and unpaid leave</h3>
-<p>Your contractual hourly equivalent may differ from a calculation based on hours physically worked. This tool uses the schedule you enter and does not interpret your employment contract or determine your legal wage entitlement.</p>
-
+<p>Your contractual hourly equivalent may differ from a calculation based on hours physically worked. This tool uses the schedule you enter and does not interpret employment contracts or determine legal wage entitlement.</p>
 <h3>Gross salary versus take-home pay</h3>
 <p>Gross salary is pay before deductions. Take-home pay depends on applicable taxes, insurance, benefits, pension contributions and other payroll arrangements. This calculator does not estimate taxes or deductions.</p>
-
 <h3>Overtime and bonuses</h3>
-<p>Annual salary may exclude overtime or bonuses. When comparing job offers, consider which compensation amounts are included in each offer. Overtime rules depend on your location and employment terms.</p>
+<p>Annual salary may exclude overtime or bonuses. When comparing job offers, check which compensation amounts are included. Overtime rules depend on your location and employment terms.</p>
 </section>
 
 <section>
 <h2>How to Compare Salary and Hourly Job Offers</h2>
-<p>Annual salary and hourly pay are easier to compare when you estimate the working hours and pay period for each job. A higher hourly rate does not necessarily mean higher annual earnings if the job offers fewer paid hours.</p>
-
-<h3>Example: Annual Salary Compared With Hourly Pay</h3>
-<p>Job A pays $52,000 annually and assumes 40 hours per week for 52 weeks. That is 2,080 scheduled hours and an hourly equivalent of $25 before deductions.</p>
-<p>Job B pays $27 per hour for 35 hours per week over 52 paid weeks. Estimated annual gross pay is $49,140, assuming those hours are paid throughout the year and no extra compensation is included.</p>
-<p>In this example, Job A has higher annual gross pay, while Job B has the higher hourly rate. The better choice also depends on paid leave, benefits, commuting costs, schedule flexibility and other conditions.</p>
-
+<p>Compare annual salary and hourly pay using expected working hours and paid weeks. A higher hourly rate does not necessarily mean higher annual earnings if fewer hours are available.</p>
+<h3>Example: Two Job Offers</h3>
+<p>Job A pays $52,000 annually for 40 hours per week over 52 weeks. That equals 2,080 scheduled hours and $25 per hour before deductions.</p>
+<p>Job B pays $27 per hour for 35 hours per week over 52 paid weeks. Estimated annual gross pay is $49,140, assuming those hours are paid throughout the year.</p>
+<p>Job A offers higher annual gross pay, while Job B has the higher hourly rate. Also compare paid leave, benefits, commuting costs and schedule flexibility.</p>
 <h3>Questions to Ask Before Accepting an Offer</h3>
 <ul>
 <li>How many hours are expected each week?</li>
 <li>Are holidays and vacation paid?</li>
-<li>Are bonuses or overtime included in the advertised pay?</li>
-<li>What benefits or employee contributions affect total compensation?</li>
+<li>Are bonuses or overtime included?</li>
+<li>What benefits or contributions affect compensation?</li>
 <li>Is the schedule consistent throughout the year?</li>
 </ul>
 </section>
 
 <section>
 <h2>Frequently Asked Questions</h2>
-
 <h3>How much is $50,000 a year per hour?</h3>
-<p>At 40 hours per week for 52 weeks, $50,000 per year is approximately $24.04 per hour before deductions.</p>
-
+<p>At 40 hours per week for 52 weeks, $50,000 annually is approximately $24.04 per hour before deductions.</p>
 <h3>How do I convert a monthly salary to an hourly rate?</h3>
-<p>Multiply the monthly salary by 12 to estimate annual salary, then divide by annual working hours. At 40 hours per week for 52 weeks, annual working hours equal 2,080.</p>
-
-<h3>Does this show my take-home hourly pay?</h3>
+<p>Multiply monthly salary by 12 to estimate annual salary, then divide by annual working hours. At 40 hours per week for 52 weeks, annual working hours equal 2,080.</p>
+<h3>Does this show take-home hourly pay?</h3>
 <p>No. It estimates gross hourly pay before taxes and other deductions.</p>
-
-<h3>Why might my employer's figure be different?</h3>
+<h3>Why might my employer's figure differ?</h3>
 <p>Your employer may use contractual hours, paid leave rules, payroll periods or additional compensation components that differ from your inputs.</p>
-
 <h3>Can I compare two job offers?</h3>
-<p>Yes, as a starting point. Also compare working hours, paid leave, benefits, bonuses, commuting expenses and other employment conditions.</p>
-
-<h3>Why is the biweekly amount different from two weeks of my usual pay?</h3>
-<p>This calculator divides annual salary by 26 to show an annual average for a two-week period. Actual paychecks can differ because of payroll schedules, unpaid leave, deductions or the way an employer calculates pay.</p>
+<p>Yes, as a starting point. Also compare working hours, paid leave, benefits, bonuses and commuting expenses.</p>
+<h3>Why might my biweekly amount differ from my paycheck?</h3>
+<p>This tool divides annual salary by 26 for an average two-week period. Actual paychecks can differ because of payroll schedules, deductions or unpaid leave.</p>
 </section>
 
 <section>
 <h2>About This Tool</h2>
-<p>This calculator performs a mathematical conversion in your browser. It does not access employer records, store your entered salary on a server or determine legal wage entitlements.</p>
+<p>This calculator performs a mathematical conversion in your browser. It does not access employer records, send your salary to a server or determine legal wage entitlements.</p>
 <p>For related calculations, explore the <a href="hourly-to-salary-calculator.html">Hourly to Salary Calculator</a>, <a href="paycheck-calculator.html">Paycheck Calculator</a> and <a href="overtime-calculator.html">Overtime Calculator</a>.</p>
 </section>
 </main>
@@ -191,125 +179,90 @@ footer{text-align:center;padding:20px 14px 32px}
 </footer>
 
 <script>
-(function () {
-  "use strict";
+function calculateSalary() {
+  const salaryInput = document.getElementById("salary");
+  const hoursInput = document.getElementById("hours");
+  const weeksInput = document.getElementById("weeks");
+  const currencyInput = document.getElementById("currency");
+  const result = document.getElementById("result");
 
-  function initializeCalculator() {
-    const button = document.getElementById("calculateButton");
-    const resetButton = document.getElementById("resetButton");
-    const form = document.getElementById("salaryForm");
-    const result = document.getElementById("result");
+  if (!salaryInput || !hoursInput || !weeksInput || !currencyInput || !result) {
+    alert("Calculator could not load. Please refresh the page.");
+    return;
+  }
 
-    if (!button || !resetButton || !form || !result) {
-      console.error("Salary calculator: a required HTML element is missing.");
-      return;
-    }
+  const salaryText = salaryInput.value.trim();
+  const hoursText = hoursInput.value.trim();
+  const weeksText = weeksInput.value.trim();
+  const salary = Number(salaryText);
+  const hours = Number(hoursText);
+  const weeks = Number(weeksText);
+  const currency = currencyInput.value;
 
-    function showMessage(message, isError) {
-      result.replaceChildren();
-      result.hidden = false;
-      result.classList.toggle("error", isError);
+  result.replaceChildren();
+  result.hidden = false;
+  result.classList.remove("error");
 
-      const p = document.createElement("p");
-      p.textContent = message;
-      result.appendChild(p);
-    }
+  let error = "";
 
-    function money(amount, currency) {
-      return currency + amount.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
+  if (salaryText === "" || !Number.isFinite(salary) || salary <= 0 || salary > 1000000000000) {
+    error = "Enter an annual salary greater than zero and no more than 1 trillion.";
+  } else if (hoursText === "" || !Number.isFinite(hours) || hours <= 0 || hours > 168) {
+    error = "Enter weekly working hours greater than zero and no more than 168.";
+  } else if (weeksText === "" || !Number.isInteger(weeks) || weeks < 1 || weeks > 52) {
+    error = "Enter a whole number of paid weeks between 1 and 52.";
+  }
 
-    button.addEventListener("click", function () {
-      try {
-        const salaryInput = document.getElementById("salary");
-        const hoursInput = document.getElementById("hours");
-        const weeksInput = document.getElementById("weeks");
-        const currencyInput = document.getElementById("currency");
+  if (error) {
+    result.classList.add("error");
+    result.textContent = error;
+    return;
+  }
 
-        if (!salaryInput || !hoursInput || !weeksInput || !currencyInput) {
-          showMessage("Calculator fields are missing. Please reload the page.", true);
-          return;
-        }
-
-        const salaryText = salaryInput.value.trim();
-        const hoursText = hoursInput.value.trim();
-        const weeksText = weeksInput.value.trim();
-
-        const salary = Number(salaryText);
-        const hours = Number(hoursText);
-        const weeks = Number(weeksText);
-        const currency = currencyInput.value;
-
-        if (salaryText === "" || !Number.isFinite(salary) ||
-            salary <= 0 || salary > 1000000000000) {
-          showMessage("Enter an annual salary greater than zero and no more than 1 trillion.", true);
-          salaryInput.focus();
-          return;
-        }
-
-        if (hoursText === "" || !Number.isFinite(hours) ||
-            hours <= 0 || hours > 168) {
-          showMessage("Enter weekly working hours greater than zero and no more than 168.", true);
-          hoursInput.focus();
-          return;
-        }
-
-        if (weeksText === "" || !Number.isInteger(weeks) ||
-            weeks < 1 || weeks > 52) {
-          showMessage("Enter a whole number of paid weeks between 1 and 52.", true);
-          weeksInput.focus();
-          return;
-        }
-
-        const annualHours = hours * weeks;
-
-        if (!Number.isFinite(annualHours) || annualHours <= 0) {
-          showMessage("Please check your working hours and paid weeks.", true);
-          return;
-        }
-
-        const rows = [
-          ["Hourly equivalent", money(salary / annualHours, currency)],
-          ["Weekly average", money(salary / weeks, currency)],
-          ["Biweekly average", money(salary / 26, currency)],
-          ["Monthly average", money(salary / 12, currency)],
-          ["Annual salary", money(salary, currency)],
-          ["Annual working hours", annualHours.toLocaleString("en-US")]
-        ];
-
-        result.replaceChildren();
-        result.classList.remove("error");
-
-        const heading = document.createElement("h3");
-        heading.textContent = "Estimated Gross Pay";
-        result.appendChild(heading);
-
-        rows.forEach(function (item) {
-          const p = document.createElement("p");
-          const strong = document.createElement("strong");
-
-          strong.textContent = item[0] + ": ";
-          p.appendChild(strong);
-          p.appendChild(document.createTextNode(item[1]));
-          result.appendChild(p);
-        });
-
-        const note = document.createElement("p");
-        note.className = "small";
-        note.textContent = "Estimates before taxes and deductions. Actual compensation may differ.";
-        result.appendChild(note);
-
-        result.hidden = false;
-        result.scrollIntoView({ behavior: "auto", block: "nearest" });
-      } catch (error) {
-        console.error("Salary calculator error:", error);
-        showMessage("The calculation failed. Please reload the page and try again.", true);
-      }
+  function money(amount) {
+    return currency + amount.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     });
+  }
 
+  const annualHours = hours * weeks;
+  const rows = [
+    ["Hourly equivalent", money(salary / annualHours)],
+    ["Weekly average", money(salary / weeks)],
+    ["Biweekly average", money(salary / 26)],
+    ["Monthly average", money(salary / 12)],
+    ["Annual salary", money(salary)],
+    ["Annual working hours", annualHours.toLocaleString("en-US")]
+  ];
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Estimated Gross Pay";
+  result.appendChild(heading);
+
+  rows.forEach(function (item) {
+    const p = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = item[0] + ": ";
+    p.appendChild(strong);
+    p.appendChild(document.createTextNode(item[1]));
+    result.appendChild(p);
+  });
+
+  const note = document.createElement("p");
+  note.className = "small";
+  note.textContent = "Estimates before taxes and deductions. Actual compensation may differ.";
+  result.appendChild(note);
+
+  result.scrollIntoView({behavior:"auto", block:"nearest"});
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const resetButton = document.getElementById("resetButton");
+  const form = document.getElementById("salaryForm");
+  const result = document.getElementById("result");
+
+  if (resetButton && form && result) {
     resetButton.addEventListener("click", function () {
       form.reset();
       result.replaceChildren();
@@ -317,13 +270,7 @@ footer{text-align:center;padding:20px 14px 32px}
       result.classList.remove("error");
     });
   }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeCalculator);
-  } else {
-    initializeCalculator();
-  }
-})();
+});
 </script>
 </body>
 </html>
